@@ -40,7 +40,7 @@ export default Menu;
 
 // export const getStaticProps = async () => {
 //   const client = await MongoClient.connect(
-//     "mongodb+srv://MerK_Admin:Lithiumx1!@cluster0.vqzf4.mongodb.net/?retryWrites=true&w=majority"
+//     process.env.MerK_MONGO_URI
 //   );
 //   const db = client.db("food-planner");
 //   const menuCollection = db.collection("full-menu");

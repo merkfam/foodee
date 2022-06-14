@@ -8,8 +8,7 @@ const handler = async (req, res) => {
 
     try {
       //   const uri = process.env.MerK_MONGO_URI;
-      const uri =
-        "mongodb+srv://MerK_Admin:Lithiumx1!@cluster0.vqzf4.mongodb.net/?retryWrites=true&w=majority";
+      const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,

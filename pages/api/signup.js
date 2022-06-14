@@ -6,7 +6,7 @@ const handleSignup = async (req, res) => {
   //   login uses the same methodology except it uses email and password to authenticate the user
   //   with firebase and then information is retrieved from mongo Atlas
   const addDB = async (enteredData) => {
-    const uri = process.env.SORS_MONGO_URI;
+    const uri = process.env.MerK_MONGO_URI;
 
     const client = new MongoClient(uri, {
       useNewUrlParser: true,
