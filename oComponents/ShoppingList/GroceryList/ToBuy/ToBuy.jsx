@@ -8,23 +8,18 @@ const ToBuy = (props) => {
     props.onClick(props.index, props.id);
   };
   return (
-    <tr id={props.id} index={props.index} onClick={deleter}>
-      <th>
-        <Card>{props.line}: </Card>
+    <tr id={props.id} index={props.index} onClick={deleter} className={css.tr}>
+      <th className={`${css.space}`}>{props.line}:</th>
+      <th className={css.th}>
+        <p className={css.p}>{props.ingredient}</p>
       </th>
-      <th>
-        <Card className={css.ingredient}>{props.ingredient}</Card>
-      </th>
-      <th>
-        <Card className={css.ingredient}>
+      <th className={css.th}>
+        <p className={css.p}>
           {busiCtx.cur}: {props.price}
-        </Card>
+        </p>
       </th>
-      <th>
-        <Card>x {props.number}</Card>
-      </th>
-      <th>
-        <Card>{props.price.length > 6 ? 0 : props.number * props.price}</Card>
+      <th className={css.th}>
+        <p className={css.p}>x {props.number}</p>
       </th>
     </tr>
   );

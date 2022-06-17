@@ -1,8 +1,21 @@
-.delete {
-  display: none;
+.space {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-style: none;
 }
 
-.ingredient {
-  display: block;
-  min-width: max-content;
+.p {
+  box-shadow: 8px 2px 8px rgba(0, 0, 0, 0.25);
+  white-space: nowrap !important;
+  background-color: white;
+  margin: 0 !important;
+}
+
+.th {
+  overflow-x: hidden !important;
+  white-space: normal !important;
+}
+
+.p:hover {
+  white-space: normal;
 }

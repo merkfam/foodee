@@ -1,11 +1,68 @@
+/* .table {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.main {
+  display: block !important;
+  width: 10% !important;
+}
+
+ */
+
 .table {
   width: 100%;
+  max-width: 100% !important;
+  overflow-y: auto;
+  overflow-x: hidden;
+  table-layout: fixed;
+  padding: 2px;
+}
+
+.th1 {
+  width: 10%;
+}
+
+.th2 {
+  width: 35%;
+}
+
+.th {
+  width: 18%;
+  overflow-x: hidden !important;
+  white-space: normal !important;
+}
+
+/* .tr {
+  max-width: 95% !important;
+} */
+
+.totals {
+  max-width: 5% !important;
+}
+
+.totalsTr {
+  text-align: center;
+  width: 100% !important;
+}
+
+.totalsH {
+  text-align: center;
+}
+
+.th {
+  /* width: 5% !important;
+  max-width: 17% !important; */
+}
+
+.text {
+  font-size: 12px;
 }
 
 .buttonDiv {
   display: block;
   width: 100%;
-  align-items: flex-end;
   text-align: right;
 }
 

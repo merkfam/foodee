@@ -10,7 +10,7 @@ const ShoppingList = (props) => {
     setIngredients(props.shoppingList);
   }, [props.shoppingList]);
   return (
-    <div>
+    <div className={css.shoppingContainer}>
       <Fragment>
         <h1 className={css.groceryHeader}>Grocery List</h1>
         <GroceryList

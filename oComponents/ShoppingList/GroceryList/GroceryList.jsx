@@ -67,19 +67,30 @@ const GroceryList = (props) => {
   }, [ingredients]);
 
   return (
-    <div>
+    <div className={css.main}>
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
         ingredients.length > 0 && (
           <Fragment>
-            <table className={css.table}>
+            <table className={css.table} border="1">
               <tbody className={css.tbody}>
-                <tr key="Grocery List Table Index">
-                  <th className={css.th}></th>
-                  <th className={css.th}>Ingredients</th>
-                  <th className={css.th}>Prices</th>
-                  <th className={css.th}>~Amount</th>
+                <tr key="Grocery List Table Index" className={css.tr}>
+                  <th className={css.th1}>
+                    <p class={css.text}>#</p>
+                  </th>
+                  <th className={css.th2}>
+                    <p>Ingredients</p>
+                  </th>
+                  <th className={css.th}>
+                    <p>Prices</p>
+                  </th>
+                  <th className={css.th}>
+                    <p>Amount</p>
+                  </th>
+                  {/* <th className={css.th}>
+                    <p class={css.text}>Total</p>
+                  </th> */}
                 </tr>
 
                 {ingredients.map((ingredient, index) => {
@@ -95,36 +106,28 @@ const GroceryList = (props) => {
                         number={ingredient.number}
                         ingredient={ingredient.ingredient}
                       />
-                      {index === ingredients.length - 1 && (
-                        <tr
-                          id={`totals`}
-                          index={props.index}
-                          key={`totalIngredientsRow: ${index}`}
-                        >
-                          <th key={`totalItems: ${index}`}>
-                            <Card>Totals </Card>
-                          </th>
-                          <th key={`totalIngredients: ${index}`}>
-                            <Card className={css.ingredient}>
-                              Items: {index + 1}
-                            </Card>
-                          </th>
-                          <th key={`totalPrice: ${index}`}>
-                            <Card className={css.ingredient}>
-                              {busiCtx.cur}: {totalIndiPrice}
-                            </Card>
-                          </th>
-                          <th key={`totalNumberOfItems: ${index}`}>
-                            <Card>{numberOfItems}</Card>
-                          </th>
-                          <th key={`totalPriceOfIndividualItem: ${index}`}>
-                            <Card>{grandTotal}</Card>
-                          </th>
-                        </tr>
-                      )}
                     </Fragment>
                   );
                 })}
+              </tbody>
+            </table>
+
+            <table className={css.table} border="1">
+              <tbody>
+                <th id={`totalsHeader`}>
+                  <th className={css.totalsH}>Totals</th>
+                </th>
+
+                <tr id={`totals`} key={`totalIngredientsRow:`}>
+                  <th></th>
+                  <th>{numberOfItems}</th>
+
+                  <th key={`totalPriceOfIndividualItem:`}>
+                    {busiCtx.cur}
+                    {grandTotal}
+                  </th>
+                  <th key={`totalNumberOfItems:`}>{numberOfItems} items</th>
+                </tr>
               </tbody>
             </table>
           </Fragment>
