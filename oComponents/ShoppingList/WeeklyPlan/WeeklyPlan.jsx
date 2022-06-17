@@ -2,15 +2,15 @@ import { Fragment } from "react";
 import DailyMeals from "../DailyMeals/DailyMeals";
 
 const WeeklyPlan = (props) => {
+  // console.log(props.plan);
   return (
     <Fragment>
-      <h1>Weekly {props.planText} Plan</h1>
-      {props.plan.map((day, index) => {
+      {props.plan.map((mealsOfTheDay, index) => {
         return (
           <DailyMeals
             key={Math.random() * (index + 1) + Math.random()}
-            day={index + 1}
-            meals={day}
+            dayCount={index + 1}
+            meals={mealsOfTheDay}
             mealModuleClasses={props.mealModuleClasses}
           />
         );

@@ -3,6 +3,7 @@ import MealList from "../MealList/MealList/MealList";
 import PageTitle from "../../BasicPageComponents/PageTitle/PageTitle";
 
 const FullMenu = (props) => {
+  // console.log(props.meals);
   return (
     <div
       className={css.fullMenuDiv}

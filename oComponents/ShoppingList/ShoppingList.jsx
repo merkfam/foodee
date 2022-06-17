@@ -1,52 +1,48 @@
-import MealParser from "./MealParser/MealParser";
-import { useContext } from "react";
-import FoodContext from "../../store/food-context";
+import GroceryList from "./GroceryList/GroceryList";
+import { Fragment, useEffect, useState } from "react";
+import WeeklyPlan from "./WeeklyPlan/WeeklyPlan";
+import css from "./ShoppingList.module.css";
 
 const ShoppingList = (props) => {
-  const foodCtx = useContext(FoodContext);
-  const list = props.shoppingList;
-  const realMeals = foodCtx.MainMeals.list;
-  const ingredients = foodCtx.MainMeals.ingredients;
+  const [ingredients, setIngredients] = useState(props.shoppingList);
 
-  // const realMeals = list.filter((meal) => {
-  //   if (meal.Meal !== "Snack" && meal.Meal !== "Dessert") {
-  //     return meal;
-  //   }
-  // });
-  // // console.log("realMeals below:");
-  // // console.log(realMeals);
-
-  // const otherMeals = list.filter((meal) => {
-  //   if ((meal.Meal === "Snack") | (meal.Meal === "Dessert")) {
-  //     return meal;
-  //   }
-  // });
-
-  setTimeout(() => {
-    return;
-  }, 2000);
+  useEffect(() => {
+    setIngredients(props.shoppingList);
+  }, [props.shoppingList]);
   return (
     <div>
-      <div key={Math.random()}>
-        <MealParser
-          meals={realMeals}
+      <Fragment>
+        <h1 className={css.groceryHeader}>Grocery List</h1>
+        <GroceryList
           ingredients={ingredients}
-          planText="Meal"
-          showMeals={props.showMeals}
-          showMealType={props.showMealType}
-          mealModuleClasses={props.mealModuleClasses}
+          setIngredients={setIngredients}
+          scheduleId={props.scheduleId}
+          getNew={props.getNew}
+          reload={props.reload}
+          setReload={props.setReload}
         />
+      </Fragment>
+      <div>
+        {props.realMeals.length >= 0 && (
+          <Fragment>
+            <h1 className={css.groceryHeader}>Weekly {props.planText} Plan</h1>
+            <WeeklyPlan
+              plan={props.realMeals}
+              planText="Main"
+              mealModuleClasses={props.mealModuleClasses}
+            />
+          </Fragment>
+        )}
       </div>
-      {/* <div key={Math.random()}>
-        <MealParser
-          // meals={otherMeals}
-          days={props.otherDays}
-          planText="Snack"
-          showMeals={props.showMeals}
-          showMealType={props.showMealType}
-          mealModuleClasses={props.mealModuleClasses}
-        />
-      </div> */}
+      <div>
+        {props.otherMeals.length >= 0 && (
+          <WeeklyPlan
+            plan={props.otherMeals}
+            planText={props.planText}
+            mealModuleClasses={props.mealModuleClasses}
+          />
+        )}
+      </div>
     </div>
   );
 };

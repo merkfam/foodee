@@ -3,6 +3,7 @@ import Meal from "../Meal/Meal";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
 
 const MealList = (props) => {
+  // console.log(props.meals);
   return (
     <div
       className={`${css.mealListOuterDiv}`}

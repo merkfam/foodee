@@ -2,10 +2,11 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 // import EmptyMenu from "../../Dummy_Data_Full/EmptyMenu.json";
 
 const handler = async (req, res) => {
+  // console.log("ENTERING GET_WEEKLY_SCHEDULE");
   if (req.method === "POST") {
-    let data = req.body;
+    // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
+    let data;
     try {
       //   const uri = process.env.MerK_MONGO_URI;
       const uri = process.env.MerK_MONGO_URI;
@@ -15,19 +16,42 @@ const handler = async (req, res) => {
         serverApi: ServerApiVersion.v1,
       });
 
-      const menuCollection = client.db("food-planner").collection("full-menu");
-      const result = await menuCollection.insertOne(data);
-      client.close((data) => {
-        console.log("closing area");
-        console.log(data);
-        return data;
+      const promise = await new Promise(async (resolve, reject) => {
+        client.connect(async (err) => {
+          if (err) {
+            return console.log(
+              "There was an error getting the saved weekly schedule."
+            );
+          }
+
+          const menuCollection = client
+            .db("food-planner")
+            .collection("full-menu");
+
+          menuCollection.find({}).toArray(async (err, results) => {
+            // console.log("results below:");
+            // console.log(results);
+            if (err) {
+              return res.send(err);
+            }
+            const result = results[1];
+            // console.log("result below:");
+            // console.log(result);
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
+            res.setHeader("Cache-Control", "max-age=180000");
+            res.send(result);
+            // console.log(resolve());
+            client.close();
+            return result;
+          });
+        });
       });
-      res.send(result);
     } catch (err) {
-      console.log("Error: Adding the new meal plan did not succeed.");
+      console.log("Error: Updating Weekly Schedule Data Failed.");
       console.log(err);
     }
-    console.log("leaving now...");
+    console.log("leaving GET_WEEKLY_SCHEDULE now...");
     // p.resolve()
   }
 };

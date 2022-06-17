@@ -6,17 +6,15 @@ import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
 
 const Meal = (props) => {
   const { entrees, sides, dish, headers, show } = props.mealModuleClasses;
-
+  // console.log(props.entrees);
   return (
     <Fragment>
       {show.meals ? <PageSection section={props.meal} /> : null}
       <BootStrapGridder>
         <Col md="6">
           <EntreeList
-            // showMeals={show.meals}
             showMealType={show.mealType}
             entreeClasses={entrees}
-            // headerClasses={headers}
             dishType="Entree"
             dishClasses={dish}
             entrees={props.entrees}
@@ -25,11 +23,9 @@ const Meal = (props) => {
         </Col>
         <Col md="6">
           <EntreeList
-            // showMeals={show.meal}
             showMealType={show.mealType}
             show={show}
             sideClasses={sides}
-            // headerClasses={headers}
             dishType="Side"
             dishClasses={dish}
             entrees={props.sides}

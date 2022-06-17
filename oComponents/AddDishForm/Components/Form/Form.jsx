@@ -93,7 +93,7 @@ const AddProductForm = (props) => {
   const removeIngredient = (id) => {
     setIngredients((prev) => {
       if (prev.length > -1) {
-        return [...prev.splice(id, 1)];
+        return [...prev];
       }
     });
   };

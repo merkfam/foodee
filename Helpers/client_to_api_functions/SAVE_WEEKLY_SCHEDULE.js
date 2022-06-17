@@ -1,39 +1,23 @@
-const SAVE_GET_WEEKLY_SCHEDULE = async (data) => {
+const SAVE_WEEKLY_SCHEDULE = async (data) => {
   const enteredData = JSON.stringify(data);
-  // try {
-  //   const final = await fetch("/api/save_schedule", {
-  //     method: "POST",
-  //     body: enteredData,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-  //   console.log("finished with saving weekly menu");
-  //   console.log(final);
   try {
-    const retreival = await fetch("/api/get_schedule", {
+    const final = await fetch("/api/save_schedule", {
       method: "POST",
       body: enteredData,
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log("finished with server");
-    const sendData = await retreival.json();
-    console.log(sendData);
-    return sendData;
+    console.log("finished with saving weekly menu");
+    console.log(final);
   } catch (err) {
-    console.log("catch 2 i.e retreival");
+    console.log("Error: Saving Weekly Schedule Failed in Fetch.");
     console.log(err);
     return err;
   }
-  // } catch (err) {
-  //   console.log(err);
-  //   return err;
-  // }
 };
 
-export default SAVE_GET_WEEKLY_SCHEDULE;
+export default SAVE_WEEKLY_SCHEDULE;
 // const promise = await new Promise(async (resolve, reject) => {
 //   client.connect(async (err) => {
 //     if (err) {

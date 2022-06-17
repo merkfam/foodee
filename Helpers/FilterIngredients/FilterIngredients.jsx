@@ -26,8 +26,8 @@ const FilterIngredients = (all_Ingredients) => {
       number: data[ingredient].number,
     };
   });
-  console.log("final below");
-  console.log(final);
+  // console.log("final below");
+  // console.log(final);
 
   return final;
 };

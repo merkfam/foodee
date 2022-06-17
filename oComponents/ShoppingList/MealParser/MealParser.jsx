@@ -6,27 +6,18 @@ import GroceryList from "../GroceryList/GroceryList";
 const MealParser = (props) => {
   return (
     <Fragment>
-      {props.meals.length > -1 ? (
+      {props.meals.length > -1 && props.mealData !== "other" && (
         <Fragment>
           <GroceryList filtered={props.ingredients} />
-
-          <WeeklyPlan
-            plan={props.meals}
-            planText={props.planText}
-            mealModuleClasses={props.mealModuleClasses}
-          />
         </Fragment>
-      ) : (
-        <h1>No Meals Were Found In Your Database, Sorry!</h1>
       )}
+      <WeeklyPlan
+        plan={props.meals}
+        planText={props.planText}
+        mealModuleClasses={props.mealModuleClasses}
+      />
     </Fragment>
   );
 };
-// else {
-//   console.log("nada");
-//   console.log(data);
-// }
-// };
-// , []);
 
 export default MealParser;

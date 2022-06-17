@@ -28,29 +28,30 @@ const handler = async (req, res) => {
             .collection("full-menu");
 
           menuCollection.find({}).toArray(async (err, results) => {
-            console.log("results below:");
-            console.log(results);
+            // console.log("results below:");
+            // console.log(results);
             if (err) {
               return res.send(err);
             }
             const result = results[0];
-            console.log("result below:");
-            console.log(result);
+            // console.log("result below:");
+            // console.log(result);
             res.statusCode = 200;
             res.setHeader("Content-Type", "application/json");
             res.setHeader("Cache-Control", "max-age=180000");
             res.send(result);
-            console.log(resolve());
+            // console.log(resolve());
             client.close();
             return result;
           });
         });
       });
-      console.log("data then more");
-    } catch {
-      console.log("Error: Adding the new user did not succeed.");
+      // console.log("data then more");
+    } catch (err) {
+      console.log("Error: Retreiving FULL MENU Data Failed.");
+      console.log(err);
     }
-    console.log("leaving now...");
+    // console.log("leaving GET_FULL_MENU now...");
     // p.resolve()
   }
 };

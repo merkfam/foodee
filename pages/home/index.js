@@ -1,18 +1,14 @@
 import css from "./home.module.css";
 import ShoppingList from "../../oComponents/ShoppingList/ShoppingList";
 import FoodContext from "../../store/food-context";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const Home = (props) => {
   const foodCtx = useContext(FoodContext);
 
-  const full_menu = [
-    foodCtx.Breakfast,
-    foodCtx.Lunch,
-    foodCtx.Dinner,
-    foodCtx.Snack,
-    foodCtx.Dessert,
-  ];
+  const menuId = foodCtx.menuId;
+  const scheduleId = foodCtx.scheduleId;
+  const getNew = foodCtx.getNew;
 
   const otherDays = 3;
   const weeklyDays = 7;
@@ -37,14 +33,34 @@ const Home = (props) => {
     show: { meals: showMeals, mealType: showMealType },
   };
 
+  const realMeals = foodCtx.MainMeals.list;
+  const realIngredients = foodCtx.MainMeals.ingredients;
+  const otherMeals = foodCtx.OtherMeals.list;
+  const otherIngredients = foodCtx.OtherMeals.ingredients;
+
+  const shoppingList = [...realIngredients, ...otherIngredients];
+  // const [ingredients, setIngredients] = useState(shoppingList);
+
   return (
     <ShoppingList
-      shoppingList={full_menu}
+      // shoppingList={ingredients}
+      shoppingList={shoppingList}
+      // setShoppingList={setIngredients}
+      realMeals={realMeals}
+      realIngredients={realIngredients}
+      otherMeals={otherMeals}
+      otherIngredients={otherIngredients}
+      menuId={menuId}
+      scheduleId={scheduleId}
       otherDays={otherDays}
       weeklyDays={weeklyDays}
       showMeals={showMeals}
       showMealType={showMealType}
       mealModuleClasses={mealModuleClasses}
+      getNew={getNew}
+      reload={foodCtx.reload}
+      setReload={foodCtx.setReload}
+      hasIngredients={foodCtx.hasScheduleIngredients}
     />
   );
 };

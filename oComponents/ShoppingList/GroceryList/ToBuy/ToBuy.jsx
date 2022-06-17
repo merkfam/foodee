@@ -4,32 +4,27 @@ import { useContext, useState } from "react";
 import BusinessContext from "../../../../store/business-context";
 const ToBuy = (props) => {
   const busiCtx = useContext(BusinessContext);
-  const [remove, setRemove] = useState();
   const deleter = (event) => {
-    // setRemove(css.delete);
-    const id = event.target.id;
-    props.onClick(props.index);
+    props.onClick(props.index, props.id);
   };
   return (
-    <tr
-      id={props._id}
-      index={props.index}
-      onClick={deleter}
-      className={`${remove}`}
-    >
+    <tr id={props.id} index={props.index} onClick={deleter}>
       <th>
         <Card>{props.line}: </Card>
       </th>
       <th>
-        <Card>{props.ingredient}</Card>
+        <Card className={css.ingredient}>{props.ingredient}</Card>
       </th>
       <th>
-        <Card>
+        <Card className={css.ingredient}>
           {busiCtx.cur}: {props.price}
         </Card>
       </th>
       <th>
         <Card>x {props.number}</Card>
+      </th>
+      <th>
+        <Card>{props.price.length > 6 ? 0 : props.number * props.price}</Card>
       </th>
     </tr>
   );

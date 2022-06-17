@@ -4,21 +4,26 @@ import PageSubSectionHeader from "../../../../BasicPageComponents/PageSubSection
 
 const EntreeList = (props) => {
   const text = "Entree";
+  // console.log(props);
+  // console.log(props.entrees);
   return (
-    <div key={Math.random()}>
+    <div key={Math.random() + Math.random()}>
       <PageSubSectionHeader text={props.showMealType && props.dishType} />
-      {props.entrees.length >= 0
-        ? props.entrees.map((entree, index) => {
-            return (
+
+      {props.entrees.map((entree, index) => {
+        return (
+          <div key={`EntreeList Div: ${Math.random()} * ${Math.random()}`}>
+            {
               <Entree
                 showMeals={props.showMeals}
                 entree={entree.Dish}
                 ingredients={entree.Ingredients}
                 key={`Entree ${Math.random()}`}
               />
-            );
-          })
-        : null}
+            }
+          </div>
+        );
+      })}
     </div>
   );
 };
