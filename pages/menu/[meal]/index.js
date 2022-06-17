@@ -42,6 +42,8 @@ const MealPage = (props) => {
     show: { meals: showMeals, mealType: showMealType },
   };
 
+  const deleteDish = foodCtx.deleteDish;
+
   return (
     <Meal
       entrees={final.Entrees}
@@ -49,6 +51,7 @@ const MealPage = (props) => {
       key={Math.random()}
       meal={final.Meal}
       mealModuleClasses={mealModuleClasses}
+      deleteDish={deleteDish}
     />
   );
 };

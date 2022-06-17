@@ -1,6 +1,5 @@
 import { createPortal } from "react-dom";
 import { useState, useLayoutEffect } from "react";
-import { MongoClient } from "mongodb";
 
 function createWrapperAndAppendToBody(wrapperId) {
   const wrapperElement = document.createElement("div");

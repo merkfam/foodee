@@ -1,6 +1,7 @@
 import { createContext, Fragment, useEffect, useState } from "react";
 // import SAVE_WEEKLY_SCHEDULE from "../Helpers/client_to_api_functions/SAVE_WEEKLY_SCHEDULE";
 import { GENERATE_SCHEDULE } from "../Helpers/FOODCONTEXT/FOODCONTEXT";
+// import { log } from "../Helpers/LoggingFunctions";
 
 const FoodContext = createContext({
   menuId: "",
@@ -23,6 +24,7 @@ const FoodContext = createContext({
   getNew: () => {},
   reload: () => {},
   setReload: () => {},
+  deleteDish: () => {},
 });
 
 export const FoodContextProvider = (props) => {
@@ -40,6 +42,37 @@ export const FoodContextProvider = (props) => {
   const [reload, setReload] = useState(false);
   const updateReload = (bool) => {
     setReload(bool);
+  };
+
+  const deleteDish = async (id) => {
+    const data = {
+      menuId: menuId,
+      _id: id.id,
+      meal: id.meal,
+      dishType: id.dishType,
+      name: id.name,
+    };
+    const fixedData = JSON.stringify(data);
+    // log((data, "data"), show);
+
+    try {
+      const retreival = await fetch("/api/delete_dish", {
+        body: fixedData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // console.log("UPDATE_WEEKLY_SCHEDULE: newData");
+      const sendData = await retreival.json();
+      return sendData;
+
+      return sendData;
+    } catch (err) {
+      console.log("There was an error sending schedule update info.");
+      console.log(err);
+    }
   };
 
   const getMenu = async () => {
@@ -218,6 +251,7 @@ export const FoodContextProvider = (props) => {
     reload: reload,
     setReload: updateReload,
     getNew: UPDATE_WEEKLY_SCHEDULE,
+    deleteDish: deleteDish,
   };
 
   // useEffect(() => {

@@ -50,11 +50,11 @@
 .totalsH {
   text-align: center;
 }
-
+/* 
 .th {
-  /* width: 5% !important;
-  max-width: 17% !important; */
-}
+  width: 5% !important;
+  max-width: 17% !important;
+} */
 
 .text {
   font-size: 12px;
