@@ -3,7 +3,6 @@ import Meal from "../Meal/Meal";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
 
 const MealList = (props) => {
-  // console.log(props.meals);
   return (
     <div
       className={`${css.mealListOuterDiv}`}
@@ -12,12 +11,13 @@ const MealList = (props) => {
       {props.meals.map((meal, index) => {
         return (
           <div key={`MealListContainer ${Math.random() * Math.random()}`}>
-            <div className={css.sectionDiv}>
-              <PageSection key={index * Math.random()} section={meal.meal} />
-            </div>
+            {props.mealModuleClasses.show.meal && (
+              <div className={css.sectionDiv}>
+                <PageSection key={index * Math.random()} section={meal.meal} />
+              </div>
+            )}
 
             <Meal
-              origin={props.origin}
               mealModuleClasses={props.mealModuleClasses}
               showDishType={props.showDishType}
               meal={meal.meal}

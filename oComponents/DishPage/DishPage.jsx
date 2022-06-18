@@ -8,7 +8,6 @@ import Form2 from "../AddDishForm/Components/Form/Form2";
 
 const DishPage = (props) => {
   const data = props.mealData;
-  console.log(data);
   const router = useRouter();
 
   const [edit, setEdit] = useState("false");
@@ -64,8 +63,18 @@ const DishPage = (props) => {
             handleNo={handleNo}
             handleYes={deleteDish}
           />
-          <Button text={editText} onClick={pushEdit} />
-          <Button text="Delete" onClick={confirm} />
+          <div className={css.buttonContainer}>
+            <Button
+              text="Delete"
+              onClick={confirm}
+              className={`btn btn-secondary ${css.buttonDelete}`}
+            />
+            <Button
+              text={editText}
+              onClick={pushEdit}
+              className={`btn btn-secondary ${css.buttonEdit}`}
+            />
+          </div>
           <Form2
             meal={data.meal}
             ingredients={data.ingredients}

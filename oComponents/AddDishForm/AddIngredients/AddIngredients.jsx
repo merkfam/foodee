@@ -7,7 +7,8 @@ import BootstrapGridder from "../../UI/BootStrap/BootStrapGridder";
 import Col from "react-bootstrap/Col";
 import Button from "../../UI/Button/PostButton/PostButton";
 import Label from "../../UI/Label/Label";
-import ToBuy from "../../ShoppingList/GroceryList/ToBuy/ToBuy";
+// import ToBuy from "../../ShoppingList/GroceryList/ToBuy/ToBuy";
+import FormIngredientList from "./FormIngredient/FormIngredientList";
 
 const AddIngredients = (props) => {
   const busiCtx = useContext(BusinessContext);
@@ -63,7 +64,7 @@ const AddIngredients = (props) => {
               </tr>
               {props.ingredients.map((ingredient, index) => {
                 return (
-                  <ToBuy
+                  <FormIngredientList
                     onClick={deleter}
                     index={index}
                     key={`${ingredient._id} | ${index}`}

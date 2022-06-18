@@ -17,7 +17,6 @@ function Header1() {
     const dropEl = document.getElementById("basic-navbar-nav");
     const toggleEl = document.getElementsByClassName("navbar-toggler");
     const dropElClasses = dropEl.classList;
-    // const toggleElClasses = toggleEl[0].classList;
 
     let eventName = event.target.className;
 
@@ -124,9 +123,9 @@ function Header1() {
               />
             </Navbar.Text>
           </Nav>
-          {in_}
+          {/* {in_} */}
         </Navbar.Collapse>
-        {out}
+        {/* {out} */}
       </Navbar>
     </div>
   );

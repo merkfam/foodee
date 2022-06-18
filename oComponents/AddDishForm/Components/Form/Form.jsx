@@ -25,11 +25,6 @@ const AddProductForm = (props) => {
   const [currentPrice, setCurrentPrice] = useState("");
 
   const dishes = props.dishes;
-  console.log(dishType);
-  console.log(dishName);
-  console.log(instructions);
-  console.log(ingredients);
-  console.log(meal);
 
   const ingredientsAreValid = ingredients.length > 0;
   const dishTypeIsValid = dishType === "entrees" || dishType === "sides";
@@ -42,7 +37,6 @@ const AddProductForm = (props) => {
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-    // console.log(name, value);
 
     name === "dishName" && setDishName(value);
     name === "meal" && setmeal(value);
@@ -72,9 +66,9 @@ const AddProductForm = (props) => {
       console.log("all required fields not filled in...");
     }
 
-    // setDishName("");
-    // setInstructions("");
-    // setIngredients([]);
+    setDishName("");
+    setInstructions("");
+    setIngredients([]);
   };
 
   const addIngredients = (event) => {

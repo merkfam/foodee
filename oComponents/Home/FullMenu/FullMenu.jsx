@@ -3,7 +3,6 @@ import MealList from "../MealList/MealList/MealList";
 import PageTitle from "../../BasicPageComponents/PageTitle/PageTitle";
 
 const FullMenu = (props) => {
-  // console.log(props.meals);
   return (
     <div
       className={css.fullMenuDiv}
@@ -12,7 +11,6 @@ const FullMenu = (props) => {
       <PageTitle title="Full Menu" key={Math.random()} />
 
       <MealList
-        origin="fullMenu"
         mealModuleClasses={props.mealModuleClasses}
         classes={{ class: null, plural: true }}
         meals={props.meals}

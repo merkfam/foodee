@@ -5,12 +5,11 @@ import Card from "../../../UI/Card/Card";
 import Input from "../../../UI/Input/Input";
 import Label from "../../../UI/Label/Label";
 import TextArea from "../../../UI/TextArea/TextArea";
-import Button from "../../../UI/AppWrapper/WrapComponents/Button/Button";
+import Button from "../../../UI/Button/PostButton/PostButton";
 import BootStrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import { Col } from "react-bootstrap";
 import FormIngredients from "../../AddIngredients/FormIngredient/FormIngredients";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
-// import POST_ADD from "../../../../Helpers/client_to_api_functions/POST_ADD";
 
 const AddProductForm = (props) => {
   const [ingredientError, setIngredientError] = useState("");
@@ -18,10 +17,14 @@ const AddProductForm = (props) => {
   const [dishName, setDishName] = useState(props.name);
   const [dishType, setDishType] = useState(props.dishType);
 
-  const [instructions, setInstructions] = useState(props.instructions);
+  const [instructions, setInstructions] = useState(
+    props.instructions.instructions
+  );
+
   const [ingredients, setIngredients] = useState(props.ingredients);
 
   const [currentIngredient, setCurrentIngredient] = useState("");
+
   const [currentPrice, setCurrentPrice] = useState("");
 
   const formIsValid = dishName !== "" && ingredients.length > 0;
@@ -64,6 +67,7 @@ const AddProductForm = (props) => {
     if (event) {
       event.preventDefault();
     }
+
     if (currentIngredient === "") {
       setIngredientError("You must first give the ingredient a name");
       return;
@@ -72,6 +76,7 @@ const AddProductForm = (props) => {
     setIngredients((prev) => {
       return [...prev, data];
     });
+
     setIngredientError("");
     setCurrentIngredient("");
     setCurrentPrice("");
@@ -90,6 +95,7 @@ const AddProductForm = (props) => {
       $("#addIngredient").click().animate({ backgroundColor: "white" });
     }
   };
+
   useEffect(() => {
     $(document).ready(function () {
       $(window).on("keydown", function (event) {

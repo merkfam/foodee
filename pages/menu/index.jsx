@@ -15,7 +15,7 @@ const Menu = (props) => {
 
   // console.log(full_menu.Snack, full_menu.Dessert);
 
-  const showMeals = false;
+  const showMeals = true;
   const showMealType = true;
 
   // Classes For Meal Module & Below
