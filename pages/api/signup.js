@@ -43,7 +43,7 @@ const handleSignup = async (req, res) => {
       console.log("No Errors Receiving Data.");
     }
 
-    console.log("in signup");
+    // console.log("in signup");
 
     const headers = {
       "Content-Type": "application/json",
@@ -51,10 +51,10 @@ const handleSignup = async (req, res) => {
     };
     // Data sent in POST request
     let data = req.body;
-    console.log("signup data below:");
+    // console.log("signup data below:");
 
     // create new user
-    console.log("trying to create a new user now...");
+    // console.log("trying to create a new user now...");
     const endpoint = process.env.SORS_FIREBASE_SIGNUP_URI;
 
     const options = {

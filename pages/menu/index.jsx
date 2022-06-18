@@ -13,8 +13,6 @@ const Menu = (props) => {
     foodCtx.dessert,
   ];
 
-  // console.log(full_menu.Snack, full_menu.Dessert);
-
   const showMeals = true;
   const showMealType = true;
 

@@ -13,11 +13,7 @@ const Entree = (props) => {
   const router = useRouter();
 
   const getMeal = () => {
-    // console.log(router);
     const path = router.pathname;
-    // console.log(path);
-    const query = router.query;
-    // console.log(query);
     if (path.toString() === "/menu") {
       router.push(`/menu/${props.meal}/${props.entree}`);
     } else {
@@ -40,7 +36,7 @@ const Entree = (props) => {
 
   return (
     <Fragment>
-      <PageSection section={props.dishType} />
+      {/* <PageSection section={props.dishType} /> */}
       <Card
         id={props.id}
         onClick={getMealHandler}

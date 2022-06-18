@@ -37,14 +37,14 @@ const update_dish = async (req, res) => {
   console.log("INGREDIENTS,", ingredients);
 
   if (req.method === "POST") {
-    console.log("method POST true");
-    console.log("Entering get_Dish_schedule now.");
+    // console.log("method POST true");
+    // console.log("Entering get_Dish_schedule now.");
     // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
       //   const uri = process.env.MerK_MONGO_URI;
-      console.log("trying...");
+      // console.log("trying...");
       const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -53,7 +53,7 @@ const update_dish = async (req, res) => {
       });
 
       const promise = await new Promise(async (resolve, reject) => {
-        console.log("in promise block");
+        // console.log("in promise block");
         client.connect(async (err) => {
           if (err) {
             console.log(err);
@@ -77,7 +77,7 @@ const update_dish = async (req, res) => {
           const menuCollection = client
             .db("food-planner")
             .collection("full-menu");
-          console.log("Going to replace now...");
+          // console.log("Going to replace now...");
           menuCollection
             .updateOne(
               { [filter]: _id2 },
@@ -89,10 +89,10 @@ const update_dish = async (req, res) => {
             )
 
             .then(async (response) => {
-              console.log("response", response);
+              // console.log("response", response);
               res.status(200);
               res.send(response);
-              console.log("done replacing");
+              // console.log("done replacing");
             });
         });
       });

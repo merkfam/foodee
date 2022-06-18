@@ -66,14 +66,14 @@
 }
 
 .postButton {
-  width: 20%;
+  width: 30%;
   margin: auto;
   margin-top: 1%;
   margin-bottom: 1%;
   background-color: darkmagenta !important;
 }
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 385px) {
   .postButton {
     width: 40%;
   }

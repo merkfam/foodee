@@ -5,7 +5,7 @@ import BusinessContext from "../../../../store/business-context";
 const FormIngredientList = (props) => {
   const busiCtx = useContext(BusinessContext);
   const deleter = (event) => {
-    props.onClick(props.index, props.id);
+    props.onClick && props.onClick(props.index, props.id);
   };
   return (
     <tr id={props.id} index={props.index} onClick={deleter} className={css.tr}>

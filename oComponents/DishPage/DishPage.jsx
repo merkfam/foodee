@@ -1,10 +1,12 @@
 import css from "./DishPage.module.css";
 import { Fragment, useContext, useState } from "react";
-import BusinessContext from "../../store/business-context";
+// import Entree from "../Home/MealList/Meal/EntreeList/Entree/Entree";
+import Dish from "./Dish";
 import Button from "../UI/Button/PostButton/PostButton";
 import Modal from "../UI/Modal/Modal0";
 import { useRouter } from "next/router";
 import Form2 from "../AddDishForm/Components/Form/Form2";
+import { clearPreviewData } from "next/dist/server/api-utils";
 
 const DishPage = (props) => {
   const data = props.mealData;
@@ -75,16 +77,30 @@ const DishPage = (props) => {
               className={`btn btn-secondary ${css.buttonEdit}`}
             />
           </div>
-          <Form2
-            meal={data.meal}
-            ingredients={data.ingredients}
-            name={data.dish}
-            instructions={data.instructions}
-            mealType={data.mealType}
-            dishType={data.dishType}
-            id={data.id}
-            updateDish={updateDish}
-          />
+          {editText === "Cancel" ? (
+            <Form2
+              meal={data.meal}
+              ingredients={data.ingredients}
+              name={data.dish}
+              instructions={data.instructions}
+              mealType={data.mealType}
+              dishType={data.dishType}
+              id={data.id}
+              updateDish={updateDish}
+            />
+          ) : (
+            <Dish
+              entree={data.dish}
+              ingredients={data.ingredients}
+              key={`Entree ${Math.random()}`}
+              meal={data.meal}
+              dishType={data.dishType}
+              mealType={clearPreviewData.mealType}
+              id={data._id}
+              instructions={data.instructions}
+              setCurrentMeal={props.setCurrentMeal}
+            />
+          )}
         </Fragment>
       ) : (
         <h1>Please Try Again.</h1>

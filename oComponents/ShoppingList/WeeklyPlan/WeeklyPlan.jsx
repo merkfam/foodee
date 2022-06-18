@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import DailyMeals from "../DailyMeals/DailyMeals";
 
 const WeeklyPlan = (props) => {
-  // console.log(props.plan);
   return (
     <Fragment>
       {props.plan.map((mealsOfTheDay, index) => {

@@ -19,13 +19,13 @@ const update_weekly_schedule = async (req, res) => {
   //   console.log("data", data);
 
   if (req.method === "POST") {
-    console.log("method POST true");
-    console.log("Entering delete_dish now.");
+    // console.log("method POST true");
+    // console.log("Entering delete_dish now.");
     // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
-      console.log("trying...");
+      // console.log("trying...");
       const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -34,7 +34,7 @@ const update_weekly_schedule = async (req, res) => {
       });
 
       const promise = await new Promise(async (resolve, reject) => {
-        console.log("in promise block");
+        // console.log("in promise block");
         client.connect(async (err) => {
           if (err) {
             console.log(err);
@@ -46,7 +46,7 @@ const update_weekly_schedule = async (req, res) => {
           let path2 = `${meal}.${dishType}`;
           path2 = path2.toString();
 
-          console.log("path", ":", path);
+          // console.log("path", ":", path);
 
           const menuCollection = client
             .db("food-planner")
@@ -55,7 +55,7 @@ const update_weekly_schedule = async (req, res) => {
           menuCollection
             .updateOne({ [path]: name }, { $pull: { [path2]: { dish: name } } })
             .then(async (response) => {
-              console.log("response", response);
+              // console.log("response", response);
               res.status(200);
               res.send(response);
               console.log("done replacing");

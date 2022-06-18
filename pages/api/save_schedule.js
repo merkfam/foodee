@@ -18,8 +18,8 @@ const handler = async (req, res) => {
       const menuCollection = client.db("food-planner").collection("full-menu");
       const result = await menuCollection.insertOne(data);
       client.close((data) => {
-        console.log("closing area");
-        console.log(data);
+        // console.log("closing area");
+        // console.log(data);
         return data;
       });
       res.send(result);

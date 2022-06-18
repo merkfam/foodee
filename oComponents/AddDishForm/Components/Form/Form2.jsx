@@ -113,7 +113,7 @@ const AddProductForm = (props) => {
       <Card className={css.card}>
         <form onSubmit={handleSubmit} className="form">
           <PageSection
-            section="Add Your Next Masterpiece"
+            section="Edit or Delete Your Failure"
             className={css.title}
           />
           <Card className={css.formContainer}>

@@ -8,7 +8,6 @@ const Dish = () => {
 
   return (
     <Fragment>
-      <h1>Individual Meal</h1>
       <DishPage
         mealData={mealData}
         updateDish={updateDish}

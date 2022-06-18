@@ -4,7 +4,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
       const data = req.body;
-      console.log(data);
+      // console.log(data);
       const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -24,7 +24,7 @@ const handler = async (req, res) => {
             );
           }
           const mealType = data.meal.trim();
-          console.log(mealType);
+          // console.log(mealType);
           const dishType = data.dishType;
 
           // path is : "Breakfast.Entrees"
@@ -53,22 +53,22 @@ const handler = async (req, res) => {
             },
           };
 
-          console.log("send data below:");
-          console.log(sendData);
+          // console.log("send data below:");
+          // console.log(sendData);
 
           //  mealType = breakfast | dishType = entrees
           const path = `${mealType}.${dishType}`;
           const path2 = `${mealType}.meal`;
 
-          console.log("path below");
-          console.log(path);
-          console.log("path2 below:");
-          console.log([path2]);
+          // console.log("path below");
+          // console.log(path);
+          // console.log("path2 below:");
+          // console.log([path2]);
 
           // const filter = { _id: ObjectId("62a5715d7ec7c156a41e024a") };
           const filter2 = { [path2]: mealType };
-          console.log("filter2 below:");
-          console.log(filter2);
+          // console.log("filter2 below:");
+          // console.log(filter2);
 
           const updateDoc = {
             $push: {
@@ -83,14 +83,14 @@ const handler = async (req, res) => {
 
           const result = await menuCollection.updateOne(filter2, updateDoc);
 
-          console.log("api result below:");
-          console.log(result);
+          // console.log("api result below:");
+          // console.log(result);
           res.statusCode = 200;
           res.setHeader("Content-Type", "application/json");
           res.setHeader("Cache-Control", "max-age=180000");
           client.close();
           const final = JSON.stringify(result);
-          console.log(final);
+          // console.log(final);
           res.send(final);
           resolve();
         });

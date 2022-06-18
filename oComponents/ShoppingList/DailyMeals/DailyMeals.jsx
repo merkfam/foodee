@@ -29,6 +29,7 @@ const AllMeals = (props) => {
                 key={`Entree ${Math.random()}`}
                 meal={meal.meal}
                 dishType={meal.dishType}
+                mealType={meal.mealType}
                 id={meal.entree._id}
                 instructions={meal.entree.instructions}
                 setCurrentMeal={props.setCurrentMeal}

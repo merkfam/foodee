@@ -14,8 +14,6 @@ const MealPage = (props) => {
     foodCtx.dessert,
   ];
 
-  console.log("menu,", menu);
-
   const meal = router.query.meal;
 
   let final;
