@@ -1,33 +1,33 @@
 [
   {
-    "Breakfast": {
-      "Meal": "Breakfast",
-      "Entrees": [],
-      "Sides": []
+    "breakfast": {
+      "meal": " breakfast",
+      "entrees": [],
+      "sides": []
     },
 
-    "Lunch": {
-      "Meal": "Lunch",
-      "Entrees": [],
-      "Sides": []
+    "lunch": {
+      "meal": "lunch",
+      "entrees": [],
+      "sides": []
     },
 
-    "Dinner": {
-      "Meal": "Dinner",
-      "Entrees": [],
-      "Sides": []
+    "dinner": {
+      "meal": "dinner",
+      "entrees": [],
+      "sides": []
     },
 
-    "Snack": {
-      "Meal": "Snack",
-      "Entrees": [],
-      "Sides": []
+    "snack": {
+      "meal": "snack",
+      "entrees": [],
+      "sides": []
     },
 
-    "Dessert": {
-      "Meal": "Dessert",
-      "Entrees": [],
-      "Sides": []
+    "dessert": {
+      "meal": "dessert",
+      "entrees": [],
+      "sides": []
     }
   }
 ]

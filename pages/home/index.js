@@ -33,19 +33,19 @@ const Home = (props) => {
     show: { meals: showMeals, mealType: showMealType },
   };
 
-  const realMeals = foodCtx.MainMeals.list;
-  const realIngredients = foodCtx.MainMeals.ingredients;
-  const otherMeals = foodCtx.OtherMeals.list;
-  const otherIngredients = foodCtx.OtherMeals.ingredients;
+  const realMeals = foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.list;
+  const realIngredients =
+    foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.ingredients;
+  const otherMeals = foodCtx && foodCtx.otherMeals && foodCtx.otherMeals.list;
+  const otherIngredients =
+    foodCtx && foodCtx.otherMeals && foodCtx.otherMeals.ingredients;
 
-  const shoppingList = [...realIngredients, ...otherIngredients];
-  // const [ingredients, setIngredients] = useState(shoppingList);
+  const shoppingList = realIngredients &&
+    otherIngredients && [...realIngredients, ...otherIngredients];
 
   return (
     <ShoppingList
-      // shoppingList={ingredients}
       shoppingList={shoppingList}
-      // setShoppingList={setIngredients}
       realMeals={realMeals}
       realIngredients={realIngredients}
       otherMeals={otherMeals}

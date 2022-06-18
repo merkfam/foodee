@@ -1,21 +1,19 @@
 import { createContext, Fragment, useEffect, useState } from "react";
-// import SAVE_WEEKLY_SCHEDULE from "../Helpers/client_to_api_functions/SAVE_WEEKLY_SCHEDULE";
 import { GENERATE_SCHEDULE } from "../Helpers/FOODCONTEXT/FOODCONTEXT";
-// import { log } from "../Helpers/LoggingFunctions";
 
 const FoodContext = createContext({
   menuId: "",
-  Breakfast: [],
-  Lunch: [],
-  Dinner: [],
-  Snack: [],
-  Dessert: [],
-  WeeklySchedule: {},
-  MainMeals: {
+  breakfast: [],
+  lunch: [],
+  dinner: [],
+  snack: [],
+  dessert: [],
+  weeklySchedule: {},
+  mainMeals: {
     list: [],
     ingredients: [],
   },
-  OtherMeals: {
+  otherMeals: {
     list: [],
     ingredients: [],
   },
@@ -25,23 +23,55 @@ const FoodContext = createContext({
   reload: () => {},
   setReload: () => {},
   deleteDish: () => {},
+  updateDish: () => {},
 });
 
 export const FoodContextProvider = (props) => {
-  const show = false;
-  const show2 = true;
-
   const [menuId, setMenuId] = useState("");
-  const [breakfast, setBreakfast] = useState("");
-  const [lunch, setLunch] = useState("");
-  const [dinner, setDinner] = useState("");
-  const [snack, setSnack] = useState("");
-  const [dessert, setDessert] = useState("");
+  const [breakfast, setBreakfast] = useState([]);
+  const [lunch, setLunch] = useState([]);
+  const [dinner, setDinner] = useState([]);
+  const [snack, setSnack] = useState([]);
+  const [dessert, setDessert] = useState([]);
   const [weeklyScheduleData, setWeeklyScheduleData] = useState({});
   const [scheduleId, setScheduleId] = useState("");
   const [reload, setReload] = useState(false);
+  const [currentMeal, setCurrentMeal] = useState({});
+  const [hasWeeklySchedule, setHasWeeklySchedule] = useState(false);
+
   const updateReload = (bool) => {
     setReload(bool);
+  };
+
+  const updateDish = async (id) => {
+    console.log("id,", id);
+    const data = {
+      menuId: menuId,
+      _id: id._id,
+      meal: id.meal,
+      dishType: id.dishType,
+      dish: id.dish,
+      ingredients: id.ingredients,
+      instructions: id.instructions,
+    };
+
+    const fixedData = JSON.stringify(data);
+
+    try {
+      const retreival = await fetch("/api/update_dish", {
+        body: fixedData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const sendData = await retreival.json();
+      return sendData;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
   };
 
   const deleteDish = async (id) => {
@@ -53,7 +83,6 @@ export const FoodContextProvider = (props) => {
       name: id.name,
     };
     const fixedData = JSON.stringify(data);
-    // log((data, "data"), show);
 
     try {
       const retreival = await fetch("/api/delete_dish", {
@@ -64,10 +93,7 @@ export const FoodContextProvider = (props) => {
         },
       });
 
-      // console.log("UPDATE_WEEKLY_SCHEDULE: newData");
       const sendData = await retreival.json();
-      return sendData;
-
       return sendData;
     } catch (err) {
       console.log("There was an error sending schedule update info.");
@@ -84,13 +110,12 @@ export const FoodContextProvider = (props) => {
         },
       });
       const final = await data.json();
-      // log("got the menu", show);
-      const { _id, Breakfast, Lunch, Dinner, Snack, Dessert } = final;
-      setBreakfast(Breakfast);
-      setLunch(Lunch);
-      setDinner(Dinner);
-      setSnack(Snack);
-      setDessert(Dessert);
+      const { _id, breakfast, lunch, dinner, snack, dessert } = final;
+      setBreakfast(breakfast);
+      setLunch(lunch);
+      setDinner(dinner);
+      setSnack(snack);
+      setDessert(dessert);
       setMenuId(_id);
       return final;
     } catch (err) {
@@ -102,7 +127,6 @@ export const FoodContextProvider = (props) => {
   const update_weekly_schedule_fetch = async (schedule) => {
     const data = { previousId: scheduleId, newSchedule: schedule };
     const fixedData = JSON.stringify(data);
-    // log((data, "data"), show);
 
     try {
       const retreival = await fetch("/api/update_weekly_schedule", {
@@ -113,7 +137,6 @@ export const FoodContextProvider = (props) => {
         },
       });
 
-      // console.log("UPDATE_WEEKLY_SCHEDULE: newData");
       const sendData = await retreival.json();
 
       return sendData;
@@ -135,12 +158,12 @@ export const FoodContextProvider = (props) => {
       const sendData = await retreival.json();
 
       if (sendData) {
-        // log(("sendData", sendData), show);
-
         setWeeklyScheduleData(sendData);
         setScheduleId(sendData._id);
+        setHasWeeklySchedule(true);
         return true;
       } else {
+        setHasWeeklySchedule(false);
         return false;
       }
 
@@ -148,14 +171,15 @@ export const FoodContextProvider = (props) => {
     } catch (err) {
       console.log("There was an error retreiving the weekly schedule data");
       console.log(err);
-      setWeeklyScheduleData(null);
       return null;
     }
   };
   // useEffect is called to avoid endless re-renders
+  let hasSchedule;
   useEffect(() => {
     getMenu();
-    GET_WEEKLY_SCHEDULE();
+    hasSchedule = GET_WEEKLY_SCHEDULE();
+    setHasWeeklySchedule(hasSchedule);
   }, []);
 
   // separate fullMeals and otherMeals so that they can be used easier.
@@ -194,82 +218,77 @@ export const FoodContextProvider = (props) => {
     }
   };
 
-  const MainMealsList =
+  const mainMealsList =
     weeklyScheduleData &&
-    weeklyScheduleData.Meals &&
-    weeklyScheduleData.Meals.main
-      ? weeklyScheduleData.Meals.main
+    weeklyScheduleData.meals &&
+    weeklyScheduleData.meals.main
+      ? weeklyScheduleData.meals.main
       : [];
 
-  let MainMealsIngredients =
+  let mainMealsIngredients =
     weeklyScheduleData &&
-    weeklyScheduleData.Ingredients &&
-    weeklyScheduleData.Ingredients.main
-      ? weeklyScheduleData.Ingredients.main
-      : null;
-
-  const OtherMealslist =
-    weeklyScheduleData &&
-    weeklyScheduleData.Meals &&
-    weeklyScheduleData.Meals.other
-      ? weeklyScheduleData.Meals.other
+    weeklyScheduleData.ingredients &&
+    weeklyScheduleData.ingredients.main
+      ? weeklyScheduleData.ingredients.main
       : [];
 
-  const OtherMealsIngredients =
+  const otherMealsList =
     weeklyScheduleData &&
-    weeklyScheduleData.Ingredients &&
-    weeklyScheduleData.Ingredients.other
-      ? weeklyScheduleData.Ingredients.other
+    weeklyScheduleData.meals &&
+    weeklyScheduleData.meals.other
+      ? weeklyScheduleData.meals.other
+      : [];
+
+  const otherMealsIngredients =
+    weeklyScheduleData &&
+    weeklyScheduleData.ingredients &&
+    weeklyScheduleData.ingredients.other
+      ? weeklyScheduleData.ingredients.other
       : [];
 
   const hasScheduleIngredients =
     weeklyScheduleData &&
-    weeklyScheduleData.Ingredients &&
-    weeklyScheduleData.Ingredients.main
+    weeklyScheduleData.ingredients &&
+    weeklyScheduleData.ingredients.main
       ? true
       : false;
 
   const contexValue = {
     menuId: menuId,
-    Breakfast: breakfast,
-    Lunch: lunch,
-    Dinner: dinner,
-    Snack: snack,
-    Dessert: dessert,
+    breakfast: breakfast,
+    lunch: lunch,
+    dinner: dinner,
+    snack: snack,
+    dessert: dessert,
 
-    MainMeals: {
-      list: MainMealsList,
-      ingredients: MainMealsIngredients,
+    mainMeals: {
+      list: mainMealsList,
+      ingredients: mainMealsIngredients,
     },
-    OtherMeals: {
-      list: OtherMealslist,
-      ingredients: OtherMealsIngredients,
+    otherMeals: {
+      list: otherMealsList,
+      ingredients: otherMealsIngredients,
     },
-    WeeklySchedule: weeklyScheduleData,
+    weeklySchedule: weeklyScheduleData,
     scheduleId: scheduleId,
     hasScheduleIngredients: hasScheduleIngredients,
     reload: reload,
+    currentMeal: currentMeal,
+    setCurrentMeal: setCurrentMeal,
     setReload: updateReload,
     getNew: UPDATE_WEEKLY_SCHEDULE,
     deleteDish: deleteDish,
+    updateDish: updateDish,
   };
-
-  // useEffect(() => {
-  //   MainMealsIngredients =
-  //     weeklyScheduleData &&
-  //     weeklyScheduleData.Ingredients &&
-  //     weeklyScheduleData.Ingredients.main
-  //       ? weeklyScheduleData.Ingredients.main
-  //       : null;
-  // }, [MainMealsIngredients]);
 
   return (
     <FoodContext.Provider value={contexValue}>
-      {contexValue.Breakfast && MainMealsIngredients && (
+      {contexValue.breakfast && hasScheduleIngredients && hasWeeklySchedule && (
         <Fragment>{props.children}</Fragment>
       )}
-      {!contexValue.Breakfast ||
-        (contexValue.MainMeals.ingredients && <h1>...Loading</h1>)}
+      {(!contexValue.breakfast ||
+        !hasScheduleIngredients ||
+        !hasWeeklySchedule) && <h1>Loading...</h1>}
     </FoodContext.Provider>
   );
 };

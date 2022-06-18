@@ -1,15 +1,8 @@
-/* .table {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
+.card {
+  border-width: 4px;
+  border-radius: 12px;
+  padding: 4px;
 }
-
-.main {
-  display: block !important;
-  width: 10% !important;
-}
-
- */
 
 .table {
   width: 100%;
@@ -17,44 +10,30 @@
   overflow-y: auto;
   overflow-x: hidden;
   table-layout: fixed;
-  padding: 2px;
+  border: none;
 }
 
 .th1 {
-  width: 10%;
+  width: 7%;
 }
 
 .th2 {
-  width: 35%;
+  width: 30%;
 }
 
 .th {
-  width: 18%;
+  width: 20%;
   overflow-x: hidden !important;
   white-space: normal !important;
 }
-
-/* .tr {
-  max-width: 95% !important;
-} */
 
 .totals {
   max-width: 5% !important;
 }
 
-.totalsTr {
-  text-align: center;
-  width: 100% !important;
+.table2 {
+  margin-top: 3%;
 }
-
-.totalsH {
-  text-align: center;
-}
-/* 
-.th {
-  width: 5% !important;
-  max-width: 17% !important;
-} */
 
 .text {
   font-size: 12px;
@@ -78,4 +57,16 @@
   border-color: grey;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
+}
+
+@media screen and (max-width: 300px) {
+  .th2,
+  .th,
+  .th1 {
+    font-size: x-small;
+  }
+
+  .th2 {
+    width: 28%;
+  }
 }

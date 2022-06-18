@@ -1,31 +1,22 @@
 import css from "./add.module.css";
 import AddDishForm from "../../oComponents/AddDishForm/AddDishFormPage";
-// import { MongoClient, ObjectId } from "mongodb";
 import { useContext } from "react";
 import FoodContext from "../../store/food-context";
-// const menu = props.menu;
-// const full_menu = [
-//   menu.Breakfast,
-//   menu.Lunch,
-//   menu.Dinner,
-//   menu.Snack,
-//   menu.Dessert,
-// ];
 
 const AddNewDishPage = (props) => {
   const foodCtx = useContext(FoodContext);
   const menu = [
-    foodCtx.Breakfast,
-    foodCtx.Lunch,
-    foodCtx.Dinner,
-    foodCtx.Snack,
-    foodCtx.Dessert,
+    foodCtx.breakfast,
+    foodCtx.lunch,
+    foodCtx.dinner,
+    foodCtx.snack,
+    foodCtx.dessert,
   ];
 
   const dishes = [];
 
   menu.forEach((meal) => {
-    dishes.push(meal.Meal);
+    meal && meal.meal && dishes.push(meal.meal);
   });
   dishes.unshift("Choose");
 

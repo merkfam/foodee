@@ -9,6 +9,7 @@ const ShoppingList = (props) => {
   useEffect(() => {
     setIngredients(props.shoppingList);
   }, [props.shoppingList]);
+
   return (
     <div className={css.shoppingContainer}>
       <Fragment>
@@ -23,7 +24,7 @@ const ShoppingList = (props) => {
         />
       </Fragment>
       <div>
-        {props.realMeals.length >= 0 && (
+        {props.realMeals && (
           <Fragment>
             <h1 className={css.groceryHeader}>Weekly {props.planText} Plan</h1>
             <WeeklyPlan
@@ -35,10 +36,10 @@ const ShoppingList = (props) => {
         )}
       </div>
       <div>
-        {props.otherMeals.length >= 0 && (
+        {props.otherMeals && (
           <WeeklyPlan
             plan={props.otherMeals}
-            planText={props.planText}
+            planText="Other"
             mealModuleClasses={props.mealModuleClasses}
           />
         )}

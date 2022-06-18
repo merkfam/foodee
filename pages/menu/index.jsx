@@ -6,11 +6,11 @@ import { useContext } from "react";
 const Menu = (props) => {
   const foodCtx = useContext(FoodContext);
   const full_menu = [
-    foodCtx.Breakfast,
-    foodCtx.Lunch,
-    foodCtx.Dinner,
-    foodCtx.Snack,
-    foodCtx.Dessert,
+    foodCtx.breakfast,
+    foodCtx.lunch,
+    foodCtx.dinner,
+    foodCtx.snack,
+    foodCtx.dessert,
   ];
 
   // console.log(full_menu.Snack, full_menu.Dessert);

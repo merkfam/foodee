@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Meal from "../../../oComponents/Home/MealList/Meal/Meal";
-import { TitleFy } from "../../../Helpers/Strings";
 import FoodContext from "../../../store/food-context";
 import { useContext } from "react";
 
@@ -8,18 +7,20 @@ const MealPage = (props) => {
   const router = useRouter();
   const foodCtx = useContext(FoodContext);
   const menu = [
-    foodCtx.Breakfast,
-    foodCtx.Lunch,
-    foodCtx.Dinner,
-    foodCtx.Snack,
-    foodCtx.Dessert,
+    foodCtx.breakfast,
+    foodCtx.lunch,
+    foodCtx.dinner,
+    foodCtx.snack,
+    foodCtx.dessert,
   ];
+
+  console.log("menu,", menu);
 
   const meal = router.query.meal;
 
   let final;
   menu.forEach((mealData) => {
-    if (mealData.Meal === TitleFy(meal)) {
+    if (mealData.meal === meal) {
       final = mealData;
     }
   });
@@ -43,13 +44,17 @@ const MealPage = (props) => {
   };
 
   const deleteDish = foodCtx.deleteDish;
+  const currentMeal = foodCtx.currentMeal;
+  const setCurrentMeal = foodCtx.setCurrentMeal;
 
   return (
     <Meal
-      entrees={final.Entrees}
-      sides={final.Sides}
+      currentMeal={currentMeal}
+      setCurrentMeal={setCurrentMeal}
+      entrees={final && final.entrees}
+      sides={final && final.sides}
       key={Math.random()}
-      meal={final.Meal}
+      meal={final && final.meal}
       mealModuleClasses={mealModuleClasses}
       deleteDish={deleteDish}
     />

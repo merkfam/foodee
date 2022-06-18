@@ -13,15 +13,16 @@ const MealList = (props) => {
         return (
           <div key={`MealListContainer ${Math.random() * Math.random()}`}>
             <div className={css.sectionDiv}>
-              <PageSection key={index * Math.random()} section={meal.Meal} />
+              <PageSection key={index * Math.random()} section={meal.meal} />
             </div>
 
             <Meal
+              origin={props.origin}
               mealModuleClasses={props.mealModuleClasses}
               showDishType={props.showDishType}
-              meal={meal.Meal}
-              entrees={meal.Entrees}
-              sides={meal.Sides}
+              meal={meal.meal}
+              entrees={meal.entrees}
+              sides={meal.sides}
               key={`MealListMeal ${Math.random() * Math.random()}`}
             />
           </div>

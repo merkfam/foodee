@@ -12,6 +12,7 @@ const FullMenu = (props) => {
       <PageTitle title="Full Menu" key={Math.random()} />
 
       <MealList
+        origin="fullMenu"
         mealModuleClasses={props.mealModuleClasses}
         classes={{ class: null, plural: true }}
         meals={props.meals}

@@ -4,27 +4,22 @@ import BootStrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import Col from "react-bootstrap/Col";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
 import PostButton from "../../../UI/Button/PostButton/PostButton";
+import { TitleFy } from "../../../../Helpers/Strings";
 
 const Meal = (props) => {
-  const [canDelete, setCanDelete] = useState(false);
   const { entrees, sides, dish, headers, show } = props.mealModuleClasses;
-  const setDelete = () => {
-    console.log("ready");
-    confirm();
-  };
   return (
     <Fragment>
-      {show.meals ? <PageSection section={props.meal} /> : null}
+      {show.meals ? <PageSection section={TitleFy(props.meal)} /> : null}
 
       <BootStrapGridder>
-        <PostButton onClick={setDelete} text="Select" />
         <Col md="6">
           <EntreeList
+            setCurrentMeal={props.setCurrentMeal}
             meal={props.meal}
-            canDelete={canDelete}
             showMealType={show.mealType}
             entreeClasses={entrees}
-            dishType="Entree"
+            dishType="entree"
             dishClasses={dish}
             entrees={props.entrees}
             key={`EntreeList ${Math.random()}`}
@@ -33,19 +28,18 @@ const Meal = (props) => {
         </Col>
         <Col md="6">
           <EntreeList
+            setCurrentMeal={props.setCurrentMeal}
             meal={props.meal}
-            canDelete={canDelete}
             showMealType={show.mealType}
             show={show}
             sideClasses={sides}
-            dishType="Side"
+            dishType="side"
             dishClasses={dish}
             entrees={props.sides}
             key={`SideList ${Math.random()}`}
             deleteDish={props.deleteDish}
           />
         </Col>
-        <PostButton onClick={setDelete} text="Select" />
       </BootStrapGridder>
     </Fragment>
   );

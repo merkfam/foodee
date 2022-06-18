@@ -1,37 +1,39 @@
 import css from "./EntreeList.module.css";
+import { useRouter } from "next/router";
 import Entree from "./Entree/Entree";
 import PageSubSectionHeader from "../../../../BasicPageComponents/PageSubSectionHeader/PageSubSectionHeader";
+import { TitleFy } from "../../../../../Helpers/Strings";
 
 const EntreeList = (props) => {
+  const router = useRouter();
   const text = "Entree";
-  // console.log(props);
-  // console.log(props.entrees);
+
   return (
     <div key={Math.random() + Math.random()}>
-      <PageSubSectionHeader text={props.showMealType && props.dishType} />
+      <PageSubSectionHeader
+        text={props.showMealType && TitleFy(props.dishType)}
+      />
 
-      {props.entrees.map((entree, index) => {
-        {
-          /* console.log(entree._id); */
-        }
-        return (
-          <div key={`EntreeList Div: ${Math.random()} * ${Math.random()}`}>
-            {
-              <Entree
-                meal={props.meal}
-                dishType={props.dishType}
-                canDelete={props.canDelete}
-                id={entree._id}
-                deleteDish={props.deleteDish}
-                showMeals={props.showMeals}
-                entree={entree.Dish}
-                ingredients={entree.Ingredients}
-                key={`Entree ${Math.random()}`}
-              />
-            }
-          </div>
-        );
-      })}
+      {props.entrees &&
+        props.entrees.map((entree, index) => {
+          return (
+            <div key={`EntreeList Div: ${Math.random()} * ${Math.random()}`}>
+              {
+                <Entree
+                  setCurrentMeal={props.setCurrentMeal}
+                  meal={props.meal}
+                  dishType={props.dishType}
+                  id={entree._id}
+                  showMeals={props.showMeals}
+                  entree={entree.dish}
+                  ingredients={entree.ingredients}
+                  instructions={entree.instructions}
+                  key={`Entree ${Math.random()}`}
+                />
+              }
+            </div>
+          );
+        })}
     </div>
   );
 };

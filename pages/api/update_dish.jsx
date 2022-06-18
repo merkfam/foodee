@@ -1,14 +1,44 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 // import EmptyMenu from "../../Dummy_Data_Full/EmptyMenu.json";
 
-const update_weekly_schedule = async (req, res) => {
-  console.log("ENTERING UPDATE WEEKLY SCHEDULE");
+const update_dish = async (req, res) => {
+  console.log("ENTERING UPDATE DISH SCHEDULE");
   let data = req.body;
   console.log("data", data);
+  const _id2 = ObjectId(data._id);
+  const _id = data._id;
+  const menuId = data.menuId;
+  const ingredients = data.ingredients;
+  const instructions = data.instructions;
+  const dish = data.dish;
+  const meal = data.meal;
+  const dishType = data.dishType;
+
+  //   for (let i = 0; i < ingredients.length; i++) {
+  //     const ingredient = ingredients[i];
+  //     if (!ingredient._id) {
+  //       ingredient._id = ObjectId(
+  //         new ObjectId(Math.random() + Math.random() * Math.random() * 6)
+  //       ).toString();
+  //     } else {
+  //       const value = ingredient._id;
+  //       //   const price = ingredient.Price;
+  //       //   const ing = ingredient.Ingredient
+  //       ingredient._id = value;
+  //     }
+  //   }
+
+  console.log("_id,", _id);
+  console.log("_id2,", _id2);
+  console.log("instructions,", instructions);
+  console.log("meal,", meal);
+  console.log("dish,", dish);
+  console.log("dishType,", dishType);
+  console.log("INGREDIENTS,", ingredients);
 
   if (req.method === "POST") {
     console.log("method POST true");
-    console.log("Entering get_weekly_schedule now.");
+    console.log("Entering get_Dish_schedule now.");
     // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -31,32 +61,33 @@ const update_weekly_schedule = async (req, res) => {
           }
 
           const update = {
-            _id: data.previousId,
-            meals: data.newSchedule.schedule.meals,
-            ingredients: data.newSchedule.schedule.ingredients,
+            _id: _id,
+            dish: dish,
+            ingredients: ingredients,
+            instructions: instructions,
           };
-          let _id = data.previousId;
-          if (_id === "undefined" || _id === "") {
-            _id = ObjectId(Math.random() * 500);
-          }
-          console.log("update", update);
-          console.log("update_weekly_schedule");
-          console.log("data");
-          console.log(data);
+          //   meal=Breakfast, dishType=Entrees
+          let filter = `${meal}.${dishType}s._id`;
+          filter = filter.toString();
 
+          let documentPath = `${meal}.${dishType}s.$`;
+          documentPath = documentPath.toString();
+
+          console.log("documentPath,", documentPath);
           const menuCollection = client
             .db("food-planner")
             .collection("full-menu");
           console.log("Going to replace now...");
           menuCollection
-            .findOneAndReplace(
-              { _id: ObjectId(_id) },
+            .updateOne(
+              { [filter]: _id2 },
               {
-                meals: data.newSchedule.schedule.meals,
-                ingredients: data.newSchedule.schedule.ingredients,
-              },
-              { upsert: true }
+                $set: {
+                  [documentPath]: { ...update },
+                },
+              }
             )
+
             .then(async (response) => {
               console.log("response", response);
               res.status(200);
@@ -66,12 +97,10 @@ const update_weekly_schedule = async (req, res) => {
         });
       });
     } catch (err) {
-      console.log("Error: Retreiving Weekly Schedule Data Failed.");
+      console.log("Error: Retreiving Dish Schedule Data Failed.");
       console.log(err);
-      res.send(err);
-      return;
     }
-    console.log("leaving GET_WEEKLY_SCHEDULE now...");
+    console.log("leaving GET_DISH_SCHEDULE now...");
     // p.resolve()
   }
 };
@@ -129,4 +158,4 @@ const update_weekly_schedule = async (req, res) => {
 //   res.send(full_menu)
 //   resolve
 
-export default update_weekly_schedule;
+export default update_dish;

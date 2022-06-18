@@ -1,9 +1,9 @@
 export const TitleFy = (text) => {
-  if (text[0] === text[0].toUpperCase()) {
+  if (text && text[0] === text[0].toUpperCase()) {
     return text;
   }
-  const f = text[0].toUpperCase();
-  const o = text.slice(1);
+  const f = text && text[0].toUpperCase();
+  const o = text && text.slice(1);
   const final = f + o;
   return final;
 };

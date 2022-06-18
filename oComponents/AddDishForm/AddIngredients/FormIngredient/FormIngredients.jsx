@@ -1,13 +1,13 @@
 import { useContext, Fragment } from "react";
-import css from "./AddIngredients.module.css";
-import Ingredient from "./IngredientInput/Ingredient";
-import IngredientPrice from "./IngredientInput/IngredientPrice";
-import BusinessContext from "../../../store/business-context";
-import BootstrapGridder from "../../UI/BootStrap/BootStrapGridder";
+import css from "./FormIngredients.module.css";
+import Ingredient from "../IngredientInput/Ingredient";
+import IngredientPrice from "../IngredientInput/IngredientPrice";
+import BusinessContext from "../../../../store/business-context";
+import BootstrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import Col from "react-bootstrap/Col";
-import Button from "../../UI/Button/PostButton/PostButton";
-import Label from "../../UI/Label/Label";
-import ToBuy from "../../ShoppingList/GroceryList/ToBuy/ToBuy";
+import Button from "../../../UI/Button/PostButton/PostButton";
+import Label from "../../../UI/Label/Label";
+import FormIngredientList from "./FormIngredientList";
 
 const AddIngredients = (props) => {
   const busiCtx = useContext(BusinessContext);
@@ -63,7 +63,7 @@ const AddIngredients = (props) => {
               </tr>
               {props.ingredients.map((ingredient, index) => {
                 return (
-                  <ToBuy
+                  <FormIngredientList
                     onClick={deleter}
                     index={index}
                     key={`${ingredient._id} | ${index}`}

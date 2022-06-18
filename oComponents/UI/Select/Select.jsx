@@ -2,7 +2,6 @@ import { Form } from "react-bootstrap";
 import css from "./Select.module.css";
 import Option from "./Option/Option";
 import Label from "../Label/Label";
-import { Fragment } from "react";
 
 const Select = (props) => {
   const classes = ` ${props.className}`;
@@ -10,8 +9,6 @@ const Select = (props) => {
 
   if (props.choose === true) {
     options.unshift("Choose");
-    console.log("options below:");
-    console.log(options);
   }
 
   return (

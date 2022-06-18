@@ -2,52 +2,50 @@ import css from "./Entree.module.css";
 import Ingredients from "../../../Ingredients/Ingredients";
 import Card from "../../../../../UI/Card/Card";
 import PageSubSection from "../../../../../BasicPageComponents/PageSubSection/PageSubSection";
-import { Fragment, useState } from "react";
-import Modal from "../../../../../UI/Modal/Modal0";
+import { Fragment, useContext } from "react";
+import { useRouter } from "next/router";
+import FoodContext from "../../../../../../store/food-context";
+import { TitleFy } from "../../../../../../Helpers/Strings";
 const Entree = (props) => {
-  const [showModal, setShowModal] = useState(false);
-  const confirm = () => {
-    setShowModal(true);
+  const foodCtx = useContext(FoodContext);
+  console.log(props);
+
+  const router = useRouter();
+
+  const getMeal = () => {
+    const path = router.pathname;
+    if (path.toString() === "/menu") {
+      router.push(`/menu/${props.meal}/${props.entree}`);
+    } else {
+      router.push(`/menu/${props.meal}/${props.entree}`);
+    }
   };
-  const handleNo = () => {
-    setShowModal(false);
-  };
-  const deleteDish = async (e) => {
-    const data = {
-      meal: props.meal,
+
+  const getMealHandler = () => {
+    foodCtx.setCurrentMeal({
       dishType: props.dishType,
+      meal: props.meal,
+      dish: props.entree,
       id: props.id,
-      name: props.entree,
-    };
-    props.deleteDish(data);
-    setShowModal(false);
-    console.log("deleting...");
+      ingredients: props.ingredients,
+      instructions: props.instructions,
+    });
+
+    getMeal();
   };
 
   return (
     <Fragment>
-      {showModal && (
-        <Modal
-          title="Confirm Delete"
-          message="Are you sure you'd like to delete the selected item?"
-          show={showModal}
-          okayButton="Sure"
-          closeButton="No"
-          handleNo={handleNo}
-          handleYes={deleteDish}
-        />
-      )}
-      {/* {props.canDelete && check} */}
       <Card
         id={props.id}
-        onClick={confirm}
+        onClick={getMealHandler}
         key={`IngredientCard ${Math.random() * Math.random()}`}
         className={`${css.card} `}
       >
         <div key={`IngredientDiv ${Math.random() * Math.random()}`}>
           <div className={css.heading}>
             <PageSubSection
-              text={props.entree}
+              text={TitleFy(props.entree)}
               key={Math.random() * Math.random()}
             />
           </div>

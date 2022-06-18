@@ -6,15 +6,15 @@ const update_weekly_schedule = async (req, res) => {
   console.log("data", data);
 
   const _id = data._id;
-  console.log("_id", "|", _id);
+  // console.log("_id", "|", _id);
   const dishType = data.dishType + "s";
-  console.log("dishType", "|", dishType);
+  // console.log("dishType", "|", dishType);
   const meal = data.meal;
-  console.log("meal", "|", meal);
+  // console.log("meal", "|", meal);
   const menuId = data.menuId;
-  console.log("menuId,", menuId);
+  // console.log("menuId,", menuId);
   const name = data.name;
-  console.log("name,", name);
+  // console.log("name,", name);
 
   //   console.log("data", data);
 
@@ -40,8 +40,9 @@ const update_weekly_schedule = async (req, res) => {
             console.log(err);
             return console.log("There was an error deleting dish.");
           }
-          let path = `${meal}.${dishType}.Dish`;
+          let path = `${meal}.${dishType}.dish`;
           path = path.toString();
+
           let path2 = `${meal}.${dishType}`;
           path2 = path2.toString();
 
@@ -52,17 +53,8 @@ const update_weekly_schedule = async (req, res) => {
             .collection("full-menu");
           console.log("Going to delete now...");
           menuCollection
-            .updateOne(
-              //   { "Breakfast.Entrees.Dish": "Paloh" }
-              //   Breakfast.Entrees.Dish
-
-              { [path]: name },
-              { $pull: { [path2]: { _id: ObjectId(_id) } } }
-              // { $pull: { "Breakfast.Entrees._id": { _id: ObjectId(_id) } } }
-            )
+            .updateOne({ [path]: name }, { $pull: { [path2]: { dish: name } } })
             .then(async (response) => {
-              //   const data = await response.json();
-              //   console.log("data", data);
               console.log("response", response);
               res.status(200);
               res.send(response);

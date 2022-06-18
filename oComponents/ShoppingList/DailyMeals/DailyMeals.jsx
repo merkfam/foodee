@@ -1,5 +1,5 @@
 import css from "./AllMeals.module.css";
-import Meal from "../../Home/MealList/Meal/Meal";
+import { TitleFy } from "../../../Helpers/Strings";
 import Entree from "../../Home/MealList/Meal/EntreeList/Entree/Entree";
 import PageSection from "../../BasicPageComponents/PageSection/PageSection";
 import PageTitle from "../../BasicPageComponents/PageTitle/PageTitle";
@@ -12,31 +12,42 @@ const AllMeals = (props) => {
       </div>
 
       {props.meals.map((meal, index) => {
+        {
+          /* console.log(meal); */
+        }
         const mealName = meal.meal;
         return (
           <div key={`MealListContainer ${Math.random() * Math.random()}`}>
             <div className={css.mealDiv}>
               <PageSection
                 key={index * Math.random()}
-                section={mealName}
+                section={TitleFy(mealName)}
                 className={css.meal}
               />
             </div>
-            {meal.entree && meal.entree.Dish && (
+            {meal.entree && meal.entree.dish && (
               <Entree
-                showMeals={props.showMeals}
-                entree={meal.entree.Dish}
-                ingredients={meal.entree.Ingredients}
+                entree={meal.entree.dish}
+                ingredients={meal.entree.ingredients}
                 key={`Entree ${Math.random()}`}
+                meal={meal.meal}
+                dishType={meal.dishType}
+                id={meal.entree._id}
+                instructions={meal.entree.instructions}
+                setCurrentMeal={props.setCurrentMeal}
               />
             )}
 
-            {meal.entree && meal.side.Dish && (
+            {meal.entree && meal.side.dish && (
               <Entree
-                showMeals={props.showMeals}
-                entree={meal.side.Dish}
-                ingredients={meal.side.Ingredients}
-                key={`Entree ${Math.random()}`}
+                entree={meal.side.dish}
+                ingredients={meal.side.ingredients}
+                key={`Side ${Math.random()}`}
+                meal={meal.meal}
+                id={meal.side._id}
+                instructions={meal.side.instructions}
+                setCurrentMeal={props.setCurrentMeal}
+                dishType={meal.dishType}
               />
             )}
           </div>

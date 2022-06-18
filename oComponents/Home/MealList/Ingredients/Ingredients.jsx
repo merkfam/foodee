@@ -19,8 +19,8 @@ const Ingredients = (props) => {
           return (
             <Ingredient
               key={`Ingredient-Col-${Math.random()}`}
-              ingredient={ingredient.Ingredient}
-              price={ingredient.Price}
+              ingredient={ingredient.ingredient}
+              price={ingredient.price}
               id={ingredient._id}
               number={index + 1}
             />

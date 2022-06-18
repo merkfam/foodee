@@ -25,18 +25,24 @@ const AddProductForm = (props) => {
   const [currentPrice, setCurrentPrice] = useState("");
 
   const dishes = props.dishes;
+  console.log(dishType);
+  console.log(dishName);
+  console.log(instructions);
+  console.log(ingredients);
+  console.log(meal);
 
   const ingredientsAreValid = ingredients.length > 0;
-  const dishTypeIsValid = dishType !== "Entree" && dishType !== "Side";
+  const dishTypeIsValid = dishType === "entrees" || dishType === "sides";
   const formIsValid =
     dishName !== "" &&
     dishType !== "" &&
-    ingredients.length > 0 &&
+    ingredients.length >= 0 &&
     dishTypeIsValid;
 
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
+    // console.log(name, value);
 
     name === "dishName" && setDishName(value);
     name === "meal" && setmeal(value);
@@ -50,12 +56,12 @@ const AddProductForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const sendData = {
-      Meal: meal,
-      DishType: dishType,
-      Data: {
-        Dish: dishName,
-        Ingredients: ingredients,
-        Instructions: instructions,
+      meal: meal,
+      dishType: dishType,
+      data: {
+        dish: dishName,
+        ingredients: ingredients,
+        instructions: instructions,
       },
     };
 
@@ -72,9 +78,8 @@ const AddProductForm = (props) => {
   };
 
   const addIngredients = (event) => {
-    const data = { Ingredient: currentIngredient, Price: currentPrice };
+    const data = { ingredient: currentIngredient, price: currentPrice };
     if (event) {
-      // console.log("adding Ingredients");
       event.preventDefault();
     }
     if (currentIngredient === "") {
@@ -92,9 +97,8 @@ const AddProductForm = (props) => {
 
   const removeIngredient = (id) => {
     setIngredients((prev) => {
-      if (prev.length > -1) {
-        return [...prev];
-      }
+      prev.splice(id, 1);
+      return [...prev];
     });
   };
 
@@ -166,22 +170,22 @@ const AddProductForm = (props) => {
                       <BootStrapGridder>
                         <Col sm="12" md="6">
                           <Radial
-                            value="Entrees"
+                            value="entrees"
                             text="Main Dish"
                             id="dishType"
                             name="dishType"
                             onChange={handleChange}
-                            checked={dishType === "Entrees" ? true : false}
+                            checked={dishType === "entrees" ? true : false}
                           />
                         </Col>
                         <Col sm="12" md="6">
                           <Radial
-                            value="Sides"
+                            value="sides"
                             text="Side Dish"
                             id="dishType"
                             name="dishType"
                             onChange={handleChange}
-                            checked={dishType === "Sides" ? true : false}
+                            checked={dishType === "sides" ? true : false}
                           />
                         </Col>
                       </BootStrapGridder>

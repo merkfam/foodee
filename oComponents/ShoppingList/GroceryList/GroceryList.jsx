@@ -12,7 +12,7 @@ const GroceryList = (props) => {
   const [grandTotal, setGrandTotal] = useState(0);
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [ingredients, setIngredients] = useState(props.ingredients);
-  // let ingredients = props.ingredients;
+
   const checkIngredient = (index, id) => {
     props.setIngredients((prev) => {
       const deleteIndex = ingredients.findIndex(
@@ -34,33 +34,39 @@ const GroceryList = (props) => {
   };
 
   useEffect(() => {
-    const price = ingredients.reduce((total, iPrice) => {
-      const price = iPrice.price;
-      if (price === "undefined" || price === undefined || price.length > 6) {
-        return total + 0;
-      } else {
-        return total + Number(price);
-      }
-    }, 0);
+    const price =
+      ingredients &&
+      ingredients.reduce((total, iPrice) => {
+        const price = iPrice.price;
+        if (price === "undefined" || price === undefined || price.length > 6) {
+          return total + 0;
+        } else {
+          return total + Number(price);
+        }
+      }, 0);
 
-    const grand = ingredients.reduce((total, iPrice) => {
-      const price = iPrice.price;
-      const number = iPrice.number;
-      if (price === "undefined" || price === undefined || price.length > 6) {
-        return total + 0;
-      } else {
-        return total + Number(price) * Number(number);
-      }
-    }, 0);
+    const grand =
+      ingredients &&
+      ingredients.reduce((total, iPrice) => {
+        const price = iPrice.price;
+        const number = iPrice.number;
+        if (price === "undefined" || price === undefined || price.length > 6) {
+          return total + 0;
+        } else {
+          return total + Number(price) * Number(number);
+        }
+      }, 0);
 
-    const numberOfItems = ingredients.reduce((total, iPrice) => {
-      const number = iPrice.number;
-      if (price === "undefined" || price === undefined || price.length > 6) {
-        return total + 0;
-      } else {
-        return total + Number(number);
-      }
-    }, 0);
+    const numberOfItems =
+      ingredients &&
+      ingredients.reduce((total, iPrice) => {
+        const number = iPrice.number;
+        if (price === "undefined" || price === undefined || price.length > 6) {
+          return total + 0;
+        } else {
+          return total + Number(number);
+        }
+      }, 0);
     setNumberOfItems(numberOfItems);
     setGrandTotal(grand);
     setTotalIndiPrice(price);
@@ -71,14 +77,13 @@ const GroceryList = (props) => {
       {isLoading ? (
         <h1>Loading...</h1>
       ) : (
+        ingredients &&
         ingredients.length > 0 && (
-          <Fragment>
-            <table className={css.table} border="1">
+          <Card className={css.card}>
+            <table className={css.table}>
               <tbody className={css.tbody}>
                 <tr key="Grocery List Table Index" className={css.tr}>
-                  <th className={css.th1}>
-                    <p class={css.text}>#</p>
-                  </th>
+                  <th className={css.th1}></th>
                   <th className={css.th2}>
                     <p>Ingredients</p>
                   </th>
@@ -88,9 +93,6 @@ const GroceryList = (props) => {
                   <th className={css.th}>
                     <p>Amount</p>
                   </th>
-                  {/* <th className={css.th}>
-                    <p class={css.text}>Total</p>
-                  </th> */}
                 </tr>
 
                 {ingredients.map((ingredient, index) => {
@@ -112,25 +114,37 @@ const GroceryList = (props) => {
               </tbody>
             </table>
 
-            <table className={css.table} border="1">
-              <tbody>
-                <th id={`totalsHeader`}>
-                  <th className={css.totalsH}>Totals</th>
-                </th>
-
-                <tr id={`totals`} key={`totalIngredientsRow:`}>
-                  <th></th>
-                  <th>{numberOfItems}</th>
-
-                  <th key={`totalPriceOfIndividualItem:`}>
-                    {busiCtx.cur}
-                    {grandTotal}
+            <table className={css.table2}>
+              <tbody className={css.tbody}>
+                <tr
+                  id={`totals`}
+                  key={`totalIngredientsRow:`}
+                  className={css.tr}
+                >
+                  <th className={css.th1}>
+                    <p>M</p>
                   </th>
-                  <th key={`totalNumberOfItems:`}>{numberOfItems} items</th>
+
+                  <th className={css.th2}>
+                    <p>Totals:</p>
+                  </th>
+
+                  <th key={`totalPriceOfIndividualItem:`} className={css.th}>
+                    <span>
+                      <p>
+                        {busiCtx.cur}
+                        {grandTotal}
+                      </p>
+                    </span>
+                  </th>
+
+                  <th key={`totalNumberOfItems:`} className={css.th}>
+                    <p>x{numberOfItems}</p>
+                  </th>
                 </tr>
               </tbody>
             </table>
-          </Fragment>
+          </Card>
         )
       )}
       <div className={css.buttonDiv}>

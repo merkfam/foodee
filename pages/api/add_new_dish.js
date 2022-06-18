@@ -1,24 +1,5 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 
-// db.students.updateOne(
-//   { _id: 4, "grades.grade": 85 },
-//   { $set: { "grades.$.std" : 6 } }
-// )
-// import { connectToDatabase } from "../../util/mongodb";
-
-// export default async (req, res) => {
-//   const { db } = await connectToDatabase();
-
-//   const movies = await db
-//     .collection("movies")
-//     .find({})
-//     .sort({ metacritic: -1 })
-//     .limit(20)
-//     .toArray();
-
-//   res.json(movies);
-// };
-
 const handler = async (req, res) => {
   if (req.method === "POST") {
     try {
@@ -42,47 +23,51 @@ const handler = async (req, res) => {
               "There was an error adding the new dish, try again."
             );
           }
-          const mealType = data.Meal;
-          const dishType = data.DishType;
+          const mealType = data.meal.trim();
+          console.log(mealType);
+          const dishType = data.dishType;
 
           // path is : "Breakfast.Entrees"
 
-          const path = `${mealType}.${dishType}`;
-          const path2 = `${mealType}.Meal`;
-          console.log("path below");
-          console.log(path);
-          console.log("path2 below:");
-          console.log([path2]);
-          const instructions = data.Data.Instructions;
-          const ingredients = data.Data.Ingredients;
-          const dishName = data.Data.Dish;
+          const instructions = data.data.instructions;
+          const ingredients = data.data.ingredients;
+          const dishName = data.data.dish;
           const newIngredients = ingredients.map((ingredient) => {
             return {
               _id: ObjectId(Math.random() * Math.random()),
               ...ingredient,
             };
           });
-          const dish = data.Data.DishType;
+          const dish = data.data.dishType;
           const sendData = {
-            _id: ObjectId(
+            _id: new ObjectId(
               Math.random() * (Math.random() + Math.random()) * Math.random()
             ),
-            Dish: dishName,
-            Ingredients: newIngredients,
-            Instructions: {
+            dish: dishName,
+            ingredients: newIngredients,
+            instructions: {
               _id: ObjectId(
                 Math.random() + Math.random() * Math.random() + Math.random()
               ),
-              Instructions: instructions,
+              instructions: instructions,
             },
           };
 
           console.log("send data below:");
           console.log(sendData);
 
+          //  mealType = breakfast | dishType = entrees
+          const path = `${mealType}.${dishType}`;
+          const path2 = `${mealType}.meal`;
+
+          console.log("path below");
+          console.log(path);
+          console.log("path2 below:");
+          console.log([path2]);
+
           // const filter = { _id: ObjectId("62a5715d7ec7c156a41e024a") };
           const filter2 = { [path2]: mealType };
-          console.log("filter1 below:");
+          console.log("filter2 below:");
           console.log(filter2);
 
           const updateDoc = {

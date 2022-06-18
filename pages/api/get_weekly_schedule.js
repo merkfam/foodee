@@ -35,6 +35,10 @@ const handler = async (req, res) => {
               return res.send(err);
             }
             const result = results[1];
+            if (result === "undefined") {
+              res.statusCode = 500;
+              res.send({ err: "NO_SCHEDULE" });
+            }
             // console.log("result below:");
             // console.log(result);
             res.statusCode = 200;
