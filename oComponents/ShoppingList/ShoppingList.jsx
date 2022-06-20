@@ -10,6 +10,8 @@ const ShoppingList = (props) => {
     setIngredients(props.shoppingList);
   }, [props.shoppingList]);
 
+  // console.log(props.realMeals);
+
   return (
     <div className={css.shoppingContainer}>
       <Fragment>

@@ -1,20 +1,15 @@
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
-// import EmptyMenu from "../../Dummy_Data_Full/EmptyMenu.json";
 
 const update_weekly_schedule = async (req, res) => {
-  // console.log("ENTERING UPDATE WEEKLY SCHEDULE");
   let data = req.body;
+
   // console.log("data", data);
+  // console.log(data.newSchedule.schedule.meals.main);
 
   if (req.method === "POST") {
-    // console.log("method POST true");
-    // console.log("Entering get_weekly_schedule now.");
-    // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
-      //   const uri = process.env.MerK_MONGO_URI;
-      // console.log("trying...");
       const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -23,7 +18,6 @@ const update_weekly_schedule = async (req, res) => {
       });
 
       const promise = await new Promise(async (resolve, reject) => {
-        // console.log("in promise block");
         client.connect(async (err) => {
           if (err) {
             console.log(err);
@@ -39,15 +33,10 @@ const update_weekly_schedule = async (req, res) => {
           if (_id === "undefined" || _id === "") {
             _id = ObjectId(Math.random() * 500);
           }
-          // console.log("update", update);
-          // console.log("update_weekly_schedule");
-          // console.log("data");
-          // console.log(data);
 
           const menuCollection = client
             .db("food-planner")
             .collection("full-menu");
-          // console.log("Going to replace now...");
           menuCollection
             .findOneAndReplace(
               { _id: ObjectId(_id) },
@@ -58,10 +47,8 @@ const update_weekly_schedule = async (req, res) => {
               { upsert: true }
             )
             .then(async (response) => {
-              // console.log("response", response);
               res.status(200);
               res.send(response);
-              // console.log("done replacing");
             });
         });
       });
@@ -71,8 +58,6 @@ const update_weekly_schedule = async (req, res) => {
       res.send(err);
       return;
     }
-    // console.log("leaving GET_WEEKLY_SCHEDULE now...");
-    // p.resolve()
   }
 };
 

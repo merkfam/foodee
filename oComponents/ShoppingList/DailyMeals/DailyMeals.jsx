@@ -24,6 +24,7 @@ const AllMeals = (props) => {
             </div>
             {meal.entree && meal.entree.dish && (
               <Entree
+                access="noAccess"
                 entree={meal.entree.dish}
                 ingredients={meal.entree.ingredients}
                 key={`Entree ${Math.random()}`}
@@ -38,6 +39,7 @@ const AllMeals = (props) => {
 
             {meal.entree && meal.side.dish && (
               <Entree
+                access="noAccess"
                 entree={meal.side.dish}
                 ingredients={meal.side.ingredients}
                 key={`Side ${Math.random()}`}

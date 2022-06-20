@@ -6,7 +6,7 @@ import { Fragment, useContext } from "react";
 import { useRouter } from "next/router";
 import FoodContext from "../../../../../../store/food-context";
 import { TitleFy } from "../../../../../../Helpers/Strings";
-import PageSection from "../../../../../BasicPageComponents/PageSection/PageSection";
+// import PageSection from "../../../../../BasicPageComponents/PageSection/PageSection";
 const Entree = (props) => {
   const foodCtx = useContext(FoodContext);
 
@@ -22,24 +22,27 @@ const Entree = (props) => {
   };
 
   const getMealHandler = () => {
-    foodCtx.setCurrentMeal({
-      dishType: props.dishType,
-      meal: props.meal,
-      dish: props.entree,
-      id: props.id,
-      ingredients: props.ingredients,
-      instructions: props.instructions,
-    });
+    if (props.access === "noAccess") {
+      return;
+    } else {
+      foodCtx.setCurrentMeal({
+        dishType: props.dishType,
+        meal: props.meal,
+        dish: props.entree,
+        id: props.id,
+        ingredients: props.ingredients,
+        instructions: props.instructions,
+      });
 
-    getMeal();
+      getMeal();
+    }
   };
 
   return (
     <Fragment>
-      {/* <PageSection section={props.dishType} /> */}
       <Card
         id={props.id}
-        onClick={getMealHandler}
+        onClick={props.access === "noAccess" ? null : getMealHandler}
         key={`IngredientCard ${Math.random() * Math.random()}`}
         className={`${css.card} `}
       >

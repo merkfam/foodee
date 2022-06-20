@@ -76,28 +76,29 @@ const GroceryList = (props) => {
     <div className={css.main}>
       {isLoading ? (
         <h1>Loading...</h1>
-      ) : (
-        ingredients &&
-        ingredients.length > 0 && (
-          <Card className={css.card}>
-            <table className={css.table}>
-              <tbody className={css.tbody}>
-                <tr key="Grocery List Table Index" className={css.tr}>
-                  <th className={css.th1}></th>
-                  <th className={css.th2}>
-                    <p>Ingredients</p>
-                  </th>
-                  <th className={css.th}>
-                    <p>Prices</p>
-                  </th>
-                  <th className={css.th}>
-                    <p>Amount</p>
-                  </th>
-                </tr>
+      ) : ingredients &&
+        ingredients.length > -1 &&
+        ingredients[0].ingredient ? (
+        <Card className={css.card}>
+          <table className={css.table}>
+            <tbody className={css.tbody}>
+              <tr key="Grocery List Table Index" className={css.tr}>
+                <th className={css.th1}></th>
+                <th className={css.th2}>
+                  <p>Ingredients</p>
+                </th>
+                <th className={css.th}>
+                  <p>Prices</p>
+                </th>
+                <th className={css.th}>
+                  <p>Amount</p>
+                </th>
+              </tr>
 
-                {ingredients.map((ingredient, index) => {
-                  return (
-                    <Fragment key={`TableOfIngredients: ${index}`}>
+              {ingredients.map((ingredient, index) => {
+                return (
+                  <Fragment key={`TableOfIngredients: ${index}`}>
+                    {ingredient.ingredient && (
                       <ToBuy
                         onClick={checkIngredient}
                         index={index}
@@ -108,44 +109,42 @@ const GroceryList = (props) => {
                         number={ingredient.number}
                         ingredient={ingredient.ingredient}
                       />
-                    </Fragment>
-                  );
-                })}
-              </tbody>
-            </table>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </tbody>
+          </table>
 
-            <table className={css.table2}>
-              <tbody className={css.tbody}>
-                <tr
-                  id={`totals`}
-                  key={`totalIngredientsRow:`}
-                  className={css.tr}
-                >
-                  <th className={css.th1}>
-                    <p>M</p>
-                  </th>
+          <table className={css.table2}>
+            <tbody className={css.tbody}>
+              <tr id={`totals`} key={`totalIngredientsRow:`} className={css.tr}>
+                <th className={css.th1}>
+                  <p>M</p>
+                </th>
 
-                  <th className={css.th2}>
-                    <p>Totals:</p>
-                  </th>
+                <th className={css.th2}>
+                  <p>Totals:</p>
+                </th>
 
-                  <th key={`totalPriceOfIndividualItem:`} className={css.th}>
-                    <span>
-                      <p>
-                        {busiCtx.cur}
-                        {grandTotal}
-                      </p>
-                    </span>
-                  </th>
+                <th key={`totalPriceOfIndividualItem:`} className={css.th}>
+                  <span>
+                    <p>
+                      {busiCtx.cur}
+                      {grandTotal}
+                    </p>
+                  </span>
+                </th>
 
-                  <th key={`totalNumberOfItems:`} className={css.th}>
-                    <p>x{numberOfItems}</p>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </Card>
-        )
+                <th key={`totalNumberOfItems:`} className={css.th}>
+                  <p>x{numberOfItems}</p>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </Card>
+      ) : (
+        <h6 className={css.none}>No Ingredients To Display</h6>
       )}
       <div className={css.buttonDiv}>
         <PostButton

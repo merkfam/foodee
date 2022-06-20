@@ -2,9 +2,9 @@ import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
 // import EmptyMenu from "../../Dummy_Data_Full/EmptyMenu.json";
 
 const update_dish = async (req, res) => {
-  console.log("ENTERING UPDATE DISH SCHEDULE");
+  // console.log("ENTERING UPDATE DISH SCHEDULE");
   let data = req.body;
-  console.log("data", data);
+  // console.log("data", data);
   const _id2 = ObjectId(data._id);
   const _id = data._id;
   const menuId = data.menuId;
@@ -28,13 +28,13 @@ const update_dish = async (req, res) => {
   //     }
   //   }
 
-  console.log("_id,", _id);
-  console.log("_id2,", _id2);
-  console.log("instructions,", instructions);
-  console.log("meal,", meal);
-  console.log("dish,", dish);
-  console.log("dishType,", dishType);
-  console.log("INGREDIENTS,", ingredients);
+  // console.log("_id,", _id);
+  // console.log("_id2,", _id2);
+  // console.log("instructions,", instructions);
+  // console.log("meal,", meal);
+  // console.log("dish,", dish);
+  // console.log("dishType,", dishType);
+  // console.log("INGREDIENTS,", ingredients);
 
   if (req.method === "POST") {
     // console.log("method POST true");
@@ -61,7 +61,7 @@ const update_dish = async (req, res) => {
           }
 
           const update = {
-            _id: _id,
+            _id: _id2,
             dish: dish,
             ingredients: ingredients,
             instructions: instructions,
@@ -73,7 +73,7 @@ const update_dish = async (req, res) => {
           let documentPath = `${meal}.${dishType}s.$`;
           documentPath = documentPath.toString();
 
-          console.log("documentPath,", documentPath);
+          // console.log("documentPath,", documentPath);
           const menuCollection = client
             .db("food-planner")
             .collection("full-menu");

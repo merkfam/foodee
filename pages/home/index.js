@@ -34,6 +34,7 @@ const Home = (props) => {
   };
 
   const realMeals = foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.list;
+  // console.log(realMeals);
   const realIngredients =
     foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.ingredients;
   const otherMeals = foodCtx && foodCtx.otherMeals && foodCtx.otherMeals.list;

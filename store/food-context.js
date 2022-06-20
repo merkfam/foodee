@@ -110,6 +110,7 @@ export const FoodContextProvider = (props) => {
         },
       });
       const final = await data.json();
+      // console.log("final", final);
       const { _id, breakfast, lunch, dinner, snack, dessert } = final;
       setBreakfast(breakfast);
       setLunch(lunch);
@@ -127,6 +128,7 @@ export const FoodContextProvider = (props) => {
   const update_weekly_schedule_fetch = async (schedule) => {
     const data = { previousId: scheduleId, newSchedule: schedule };
     const fixedData = JSON.stringify(data);
+    // console.log("data,", data);
 
     try {
       const retreival = await fetch("/api/update_weekly_schedule", {
@@ -138,7 +140,7 @@ export const FoodContextProvider = (props) => {
       });
 
       const sendData = await retreival.json();
-
+      // console.log("sendData", sendData);
       return sendData;
     } catch (err) {
       console.log("There was an error sending schedule update info.");
@@ -155,8 +157,9 @@ export const FoodContextProvider = (props) => {
           "Content-Type": "application/json",
         },
       });
+      // console.log("weekly schedule data below:");
       const sendData = await retreival.json();
-
+      // console.log(sendData);
       if (sendData) {
         setWeeklyScheduleData(sendData);
         setScheduleId(sendData._id);
@@ -175,10 +178,13 @@ export const FoodContextProvider = (props) => {
     }
   };
   // useEffect is called to avoid endless re-renders
+
   let hasSchedule;
   useEffect(() => {
-    getMenu();
+    const md = getMenu();
+
     hasSchedule = GET_WEEKLY_SCHEDULE();
+
     setHasWeeklySchedule(hasSchedule);
   }, []);
 
@@ -189,11 +195,15 @@ export const FoodContextProvider = (props) => {
       ? [breakfast, lunch, dinner]
       : [null];
 
+  // console.log("brakfast,", breakfast);
+  // console.log("fullMeals,", fullMeals);
+
   const otherMeals =
     snack !== undefined && snack !== "undefined" ? [snack, dessert] : [null];
 
   const UPDATE_WEEKLY_SCHEDULE = async () => {
     const newSchedule = GENERATE_SCHEDULE(fullMeals, otherMeals, false);
+    // console.log("newSchedule,", newSchedule);
 
     try {
       const response = await update_weekly_schedule_fetch({
@@ -218,6 +228,10 @@ export const FoodContextProvider = (props) => {
     }
   };
 
+  // console.log("weeklyScheduleData,", weeklyScheduleData);
+  // console.log("weeklyScheduleData.meals,", weeklyScheduleData.meals);
+  // console.log("weeklyScheduleData.meals.main,", weeklyScheduleData.meals.main);
+
   const mainMealsList =
     weeklyScheduleData &&
     weeklyScheduleData.meals &&
@@ -225,7 +239,7 @@ export const FoodContextProvider = (props) => {
       ? weeklyScheduleData.meals.main
       : [];
 
-  let mainMealsIngredients =
+  const mainMealsIngredients =
     weeklyScheduleData &&
     weeklyScheduleData.ingredients &&
     weeklyScheduleData.ingredients.main

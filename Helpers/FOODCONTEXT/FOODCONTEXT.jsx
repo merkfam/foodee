@@ -1,16 +1,20 @@
 export const GENERATE_SCHEDULE = (realMenuData, otherMenuData, save = true) => {
-  if (realMenuData[0] === "" || otherMenuData[0] === "") {
-    return;
-  }
+  //
+
+  // if (realMenuData[0] === "" || otherMenuData[0] === "") {
+  //   return;
+  // }
 
   // Need To check if returned data is null //
+  // console.log("realMenuData,", realMenuData);
+  // console.log("otherMenuData,", otherMenuData);
   const [dailyMainMenuList, fullIngredients] =
-    realMenuData === null ||
-    realMenuData === "undefined" ||
-    realMenuData.length <= 0
+    realMenuData === null || realMenuData === "undefined"
       ? [null, null]
       : organizeMeals(realMenuData, 7);
 
+  // console.log("dailyMenuList,", dailyMainMenuList);
+  // console.log(dailyMainMenuList);
   // Filters the ingredients to send only those that are used in the schedule and then
   // returns them with the number of times they are needed. //
 
@@ -42,14 +46,42 @@ export const organizeMeals = (mealClassChoice, number) => {
   const dailyList = [];
   const allIngredients = [];
 
+  // console.log("mealClassChoice,", mealClassChoice);
+
   for (let day = 0; day < number; day++) {
     const dayList = [];
+
     for (let i = 0; i < mealClassChoice.length; i++) {
       const meal = mealClassChoice[i];
-      const entreeRand = Math.floor(Math.random() * meal.entrees.length);
-      const sideRand = Math.floor(Math.random() * meal.sides.length);
-      const entree = meal.entrees[entreeRand];
-      const side = meal.sides[sideRand];
+
+      // console.log("entree typeof,", typeof meal.entrees);
+
+      const entreeRand =
+        meal.entrees && typeof meal.entrees === "object"
+          ? Math.floor(meal.entrees.length * Math.random())
+          : null;
+
+      let entree;
+
+      if (entreeRand === null) {
+        entree = [];
+      } else {
+        entree = meal.entrees[entreeRand];
+      }
+      // console.log("entree,", entree);
+
+      const sideRand =
+        meal.sides && typeof meal.sides === "object"
+          ? Math.floor(meal.sides.length * Math.random())
+          : null;
+
+      let side;
+      if (sideRand === null) {
+        side = [];
+      } else {
+        side = meal.sides[sideRand];
+      }
+
       dayList.push({ meal: meal.meal, entree: entree, side: side });
     }
     dailyList.push(dayList);
@@ -58,19 +90,28 @@ export const organizeMeals = (mealClassChoice, number) => {
   dailyList &&
     dailyList.forEach((day) => {
       day.forEach((meal) => {
-        meal.entree &&
-          meal.entree.ingredients.forEach((ingredient) => {
-            if (ingredient === "undefined") {
-              return;
-            }
-            allIngredients.push(ingredient);
-          });
-        meal.side &&
-          meal.side.ingredients.forEach((ingredient) => {
-            allIngredients.push(ingredient);
-          });
+        meal.entree && meal.entree.ingredients
+          ? meal.entree.ingredients.forEach((ingredient) => {
+              if (ingredient === "undefined") {
+                allIngredients.push(ingredient);
+              } else {
+                allIngredients.push(ingredient);
+              }
+            })
+          : allIngredients.push([]);
+
+        meal.side && meal.side.ingredients
+          ? meal.side.ingredients.forEach((ingredient) => {
+              if (ingredient === "undefined") {
+                allIngredients.push(ingredient);
+              } else {
+                allIngredients.push(ingredient);
+              }
+            })
+          : allIngredients.push([]);
       });
     });
+  // console.log("allIngredients,", allIngredients);
   return [dailyList, allIngredients];
 };
 
