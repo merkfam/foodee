@@ -12,6 +12,9 @@ const AllMeals = (props) => {
       </div>
 
       {props.meals.map((meal, index) => {
+        {
+          /* console.log(meal); */
+        }
         const mealName = meal.meal;
         return (
           <div key={`MealListContainer ${Math.random() * Math.random()}`}>
@@ -37,7 +40,7 @@ const AllMeals = (props) => {
               />
             )}
 
-            {meal.entree && meal.side.dish && (
+            {meal.side && meal.side.dish && (
               <Entree
                 access="noAccess"
                 entree={meal.side.dish}
