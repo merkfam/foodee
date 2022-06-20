@@ -7,7 +7,7 @@ import PageSubSectionHeader from "../BasicPageComponents/PageSubSectionHeader/Pa
 const DishInstructions = (props) => {
   return (
     <Card>
-      <h5 className={css.text}>Ingredients:</h5>
+      <h5 className={css.text}>Instructions:</h5>
       <Card className={css.card}>
         <p>{props.instructions && props.instructions}</p>
       </Card>

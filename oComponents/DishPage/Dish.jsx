@@ -11,7 +11,7 @@ const Dish = (props) => {
       <Card>
         <Card className={css.card}>
           <DishIngredients ingredients={props.ingredients} />
-          <DishInstructions instructions={props.instructions.instructions} />
+          <DishInstructions instructions={props.instructions} />
         </Card>
       </Card>
     </Card>
