@@ -44,7 +44,10 @@ const MealPage = (props) => {
   const deleteDish = foodCtx.deleteDish;
   const currentMeal = foodCtx.currentMeal;
   const setCurrentMeal = foodCtx.setCurrentMeal;
-
+  currentMeal;
+  console.log(final.entrees);
+  console.log(final.sides);
+  console.log();
   return (
     <Meal
       currentMeal={currentMeal}

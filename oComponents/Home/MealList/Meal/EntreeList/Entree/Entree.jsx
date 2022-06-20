@@ -31,7 +31,10 @@ const Entree = (props) => {
         dish: props.entree,
         id: props.id,
         ingredients: props.ingredients,
-        instructions: props.instructions,
+        instructions:
+          props.access === "access"
+            ? props.instructions.instructions
+            : props.instructions,
       });
 
       getMeal();
