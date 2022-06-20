@@ -5,7 +5,6 @@ import { useContext } from "react";
 
 const MealPage = (props) => {
   const router = useRouter();
-  // console.log(router.query);
   let currentMeal = router.query.meal;
   const foodCtx = useContext(FoodContext);
   const menu = [
@@ -48,20 +47,13 @@ const MealPage = (props) => {
 
   const setCurrentMeal = foodCtx.setCurrentMeal;
 
-  // currentMeal === NaN || currentMeal === "NaN"
-  //   ? (currentMeal = "")
-  //   : (currentMeal = currentMeal);
-
-  // console.log(currentMeal);
-
   return (
     <Meal
-      currentMeal={currentMeal}
       setCurrentMeal={setCurrentMeal}
       entrees={final && typeof final.entrees === "object" && final.entrees}
       sides={final && typeof final.sides === "object" && final.sides}
       key={Math.random()}
-      meal={final && typeof final.meal === "object" && final.meal}
+      meal={final && final.meal ? final.meal : currentMeal}
       mealModuleClasses={mealModuleClasses}
       deleteDish={deleteDish}
     />

@@ -7,10 +7,10 @@ import { TitleFy } from "../../../../Helpers/Strings";
 
 const Meal = (props) => {
   const { entrees, sides, dish, headers, show } = props.mealModuleClasses;
-  // console.log("props,", props);
   return (
     <Fragment>
-      {show.meals && <PageSection section={TitleFy(props.currentMeal)} />}
+      {/* {show.meals && <PageSection section={TitleFy(props.currentMeal)} />} */}
+      {show.meals && <PageSection section={TitleFy(props.meal)} />}
 
       <BootStrapGridder>
         <Col md="6">
