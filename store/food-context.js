@@ -287,7 +287,7 @@ export const FoodContextProvider = (props) => {
     scheduleId: scheduleId,
     hasScheduleIngredients: hasScheduleIngredients,
     reload: reload,
-    currentMeal: currentMeal,
+    currentMeal: currentMeal === "undefined" ? [] : currentMeal,
     setCurrentMeal: setCurrentMeal,
     setReload: updateReload,
     getNew: UPDATE_WEEKLY_SCHEDULE,

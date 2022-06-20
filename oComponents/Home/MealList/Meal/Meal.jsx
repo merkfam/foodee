@@ -1,22 +1,22 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import EntreeList from "./EntreeList/EntreeList";
 import BootStrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import Col from "react-bootstrap/Col";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
-import PostButton from "../../../UI/Button/PostButton/PostButton";
 import { TitleFy } from "../../../../Helpers/Strings";
 
 const Meal = (props) => {
   const { entrees, sides, dish, headers, show } = props.mealModuleClasses;
+  // console.log("props,", props);
   return (
     <Fragment>
-      {show.meals ? <PageSection section={TitleFy(props.meal)} /> : null}
+      {show.meals && <PageSection section={TitleFy(props.currentMeal)} />}
 
       <BootStrapGridder>
         <Col md="6">
           <EntreeList
             setCurrentMeal={props.setCurrentMeal}
-            meal={props.meal}
+            meal={props.currentMeal}
             showMealType={show.mealType}
             entreeClasses={entrees}
             dishType="entree"
@@ -29,7 +29,7 @@ const Meal = (props) => {
         <Col md="6">
           <EntreeList
             setCurrentMeal={props.setCurrentMeal}
-            meal={props.meal}
+            meal={props.currentMeal}
             showMealType={show.mealType}
             show={show}
             sideClasses={sides}

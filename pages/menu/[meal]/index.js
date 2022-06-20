@@ -5,6 +5,8 @@ import { useContext } from "react";
 
 const MealPage = (props) => {
   const router = useRouter();
+  // console.log(router.query);
+  let currentMeal = router.query.meal;
   const foodCtx = useContext(FoodContext);
   const menu = [
     foodCtx.breakfast,
@@ -20,6 +22,7 @@ const MealPage = (props) => {
   menu.forEach((mealData) => {
     if (mealData.meal === meal) {
       final = mealData;
+      return;
     }
   });
 
@@ -42,20 +45,23 @@ const MealPage = (props) => {
   };
 
   const deleteDish = foodCtx.deleteDish;
-  const currentMeal = foodCtx.currentMeal;
+
   const setCurrentMeal = foodCtx.setCurrentMeal;
-  currentMeal;
-  console.log(final.entrees);
-  console.log(final.sides);
-  console.log();
+
+  // currentMeal === NaN || currentMeal === "NaN"
+  //   ? (currentMeal = "")
+  //   : (currentMeal = currentMeal);
+
+  // console.log(currentMeal);
+
   return (
     <Meal
       currentMeal={currentMeal}
       setCurrentMeal={setCurrentMeal}
-      entrees={final && final.entrees}
-      sides={final && final.sides}
+      entrees={final && typeof final.entrees === "object" && final.entrees}
+      sides={final && typeof final.sides === "object" && final.sides}
       key={Math.random()}
-      meal={final && final.meal}
+      meal={final && typeof final.meal === "object" && final.meal}
       mealModuleClasses={mealModuleClasses}
       deleteDish={deleteDish}
     />
