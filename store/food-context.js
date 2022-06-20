@@ -75,6 +75,7 @@ export const FoodContextProvider = (props) => {
   };
 
   const deleteDish = async (id) => {
+    // console.log("id,", id.dishType);
     const data = {
       menuId: menuId,
       _id: id.id,
@@ -94,6 +95,7 @@ export const FoodContextProvider = (props) => {
       });
 
       const sendData = await retreival.json();
+      setCurrentMeal(data);
       return sendData;
     } catch (err) {
       console.log("There was an error sending schedule update info.");
@@ -227,10 +229,6 @@ export const FoodContextProvider = (props) => {
       return err;
     }
   };
-
-  // console.log("weeklyScheduleData,", weeklyScheduleData);
-  // console.log("weeklyScheduleData.meals,", weeklyScheduleData.meals);
-  // console.log("weeklyScheduleData.meals.main,", weeklyScheduleData.meals.main);
 
   const mainMealsList =
     weeklyScheduleData &&

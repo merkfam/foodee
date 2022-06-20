@@ -9,6 +9,7 @@ import { TitleFy } from "../../../../../../Helpers/Strings";
 // import PageSection from "../../../../../BasicPageComponents/PageSection/PageSection";
 const Entree = (props) => {
   const foodCtx = useContext(FoodContext);
+  // console.log(props.instructions);
 
   const router = useRouter();
 
@@ -31,10 +32,10 @@ const Entree = (props) => {
         dish: props.entree,
         id: props.id,
         ingredients: props.ingredients,
-        instructions:
-          props.access === "access"
-            ? props.instructions.instructions
-            : props.instructions,
+        instructions: {
+          instructions: props.instructions.instructions,
+          _id: props.instructions._id,
+        },
       });
 
       getMeal();

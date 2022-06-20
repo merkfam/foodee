@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 const MealPage = (props) => {
   const router = useRouter();
-  let currentMeal = router.query.meal;
+
   const foodCtx = useContext(FoodContext);
   const menu = [
     foodCtx.breakfast,
@@ -14,16 +14,17 @@ const MealPage = (props) => {
     foodCtx.snack,
     foodCtx.dessert,
   ];
-
+  let currentMeal = router.query.meal;
   const meal = router.query.meal;
 
   let final;
-  menu.forEach((mealData) => {
-    if (mealData.meal === meal) {
-      final = mealData;
-      return;
-    }
+
+  final = menu.filter((item) => {
+    return item.meal === meal;
   });
+
+  final = final[0];
+  console.log("final,", final);
 
   const showMeals = true;
   const showMealType = true;

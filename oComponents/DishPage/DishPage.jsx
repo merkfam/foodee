@@ -9,6 +9,7 @@ import { clearPreviewData } from "next/dist/server/api-utils";
 
 const DishPage = (props) => {
   const data = props.mealData;
+  console.log(data);
   const router = useRouter();
 
   const [edit, setEdit] = useState("false");

@@ -8,8 +8,9 @@ const FullMenu = (props) => {
       className={css.fullMenuDiv}
       key={`FullMeal ${Math.random() * Math.random()}`}
     >
-      <PageTitle title="Full Menu" key={Math.random()} />
-
+      <div className={css.title}>
+        <PageTitle title="Full Menu" key={Math.random()} />
+      </div>
       <MealList
         mealModuleClasses={props.mealModuleClasses}
         classes={{ class: null, plural: true }}

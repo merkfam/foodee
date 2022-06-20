@@ -17,7 +17,9 @@ const AddProductForm = (props) => {
   const [dishName, setDishName] = useState(props.name);
   const [dishType, setDishType] = useState(props.dishType);
 
-  const [instructions, setInstructions] = useState(props.instructions);
+  const [instructions, setInstructions] = useState(
+    props.instructions.instructions
+  );
 
   const [ingredients, setIngredients] = useState(props.ingredients);
 
@@ -166,7 +168,7 @@ const AddProductForm = (props) => {
                       className={css.description}
                       value={instructions}
                       placeholder={`Instructions for making ${dishName}`}
-                      id="instructions"
+                      id={props.instructions._id}
                       name="instructions"
                       handleChange={handleChange}
                     />

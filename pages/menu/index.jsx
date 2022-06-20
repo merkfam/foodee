@@ -32,7 +32,7 @@ const Menu = (props) => {
     headers: headersClasses,
     show: { meals: showMeals, mealType: showMealType },
   };
-  console.log(full_menu);
+  // console.log(full_menu);
 
   return <FullMenu meals={full_menu} mealModuleClasses={mealModuleClasses} />;
 };

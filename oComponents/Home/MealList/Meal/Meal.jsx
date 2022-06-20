@@ -9,14 +9,13 @@ const Meal = (props) => {
   const { entrees, sides, dish, headers, show } = props.mealModuleClasses;
   return (
     <Fragment>
-      {/* {show.meals && <PageSection section={TitleFy(props.currentMeal)} />} */}
       {show.meals && <PageSection section={TitleFy(props.meal)} />}
 
       <BootStrapGridder>
         <Col md="6">
           <EntreeList
             setCurrentMeal={props.setCurrentMeal}
-            meal={props.currentMeal}
+            meal={props.meal}
             showMealType={show.mealType}
             entreeClasses={entrees}
             dishType="entree"
@@ -29,7 +28,7 @@ const Meal = (props) => {
         <Col md="6">
           <EntreeList
             setCurrentMeal={props.setCurrentMeal}
-            meal={props.currentMeal}
+            meal={props.meal}
             showMealType={show.mealType}
             show={show}
             sideClasses={sides}
