@@ -49,6 +49,15 @@ const AddProductForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // let editedMeal;
+    // for (let i = 0; i < meal.length; i++) {
+    //   if (meal[i] === "/") {
+    //     editedMeal += "/";
+    //   } else {
+    //     editedMeal += meal[i];
+    //   }
+    // } ` `
+
     const sendData = {
       meal: meal,
       dishType: dishType,

@@ -24,7 +24,6 @@ const MealPage = (props) => {
   });
 
   final = final[0];
-  console.log("final,", final);
 
   const showMeals = true;
   const showMealType = true;

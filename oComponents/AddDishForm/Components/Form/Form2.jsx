@@ -17,9 +17,7 @@ const AddProductForm = (props) => {
   const [dishName, setDishName] = useState(props.name);
   const [dishType, setDishType] = useState(props.dishType);
 
-  const [instructions, setInstructions] = useState(
-    props.instructions.instructions
-  );
+  const [instructions, setInstructions] = useState(props.instructions);
 
   const [ingredients, setIngredients] = useState(props.ingredients);
 

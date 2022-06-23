@@ -45,12 +45,7 @@ const handler = async (req, res) => {
             ),
             dish: dishName,
             ingredients: newIngredients,
-            instructions: {
-              _id: ObjectId(
-                Math.random() + Math.random() * Math.random() + Math.random()
-              ),
-              instructions: instructions,
-            },
+            instructions: instructions,
           };
 
           // console.log("send data below:");
