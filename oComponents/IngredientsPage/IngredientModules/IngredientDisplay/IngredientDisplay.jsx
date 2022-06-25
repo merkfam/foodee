@@ -73,6 +73,7 @@ const IngredientDisplay = (props) => {
     };
     setShowDeleteModal(false);
     foodCtx.deleteIngredient(data);
+    props.deleteIngredientAfterDelete(props.index);
   };
 
   return (

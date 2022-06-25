@@ -13,6 +13,7 @@ import Radial from "../../../UI/Radials/Radial";
 import AddIngredients from "../../AddIngredients/AddIngredients";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
 import POST_ADD from "../../../../Helpers/client_to_api_functions/POST_ADD";
+import { SuperTitleFy } from "../../../../Helpers/Strings";
 
 const AddProductForm = (props) => {
   const [ingredientError, setIngredientError] = useState("");
@@ -21,12 +22,6 @@ const AddProductForm = (props) => {
   const [dishType, setDishType] = useState("");
   const [instructions, setInstructions] = useState("");
   const [ingredients, setIngredients] = useState([]);
-
-  // Set All Fields Separately So This Stops Being Such A Pain Wasting So Much Time Making
-  // Sense Of All These Lines...Pass the functions and values needed into
-  // Add Ingredients, also be careful with the pullOut Function, It could Easily Be
-  // Messed Up and then the whole set of ingredient data won't be available, apart from the
-  // ingredient.name
 
   const [currentIngredient, setCurrentIngredient] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
@@ -58,12 +53,13 @@ const AddProductForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const finalDishName = SuperTitleFy(dishName);
 
     const sendData = {
       meal: meal,
       dishType: dishType,
       data: {
-        dish: dishName,
+        dish: finalDishName,
         ingredients: ingredients,
         instructions: instructions,
       },

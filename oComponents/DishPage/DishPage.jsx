@@ -8,7 +8,6 @@ import Form3 from "../AddDishForm/Components/Form/Form3";
 import FoodContext from "../../store/food-context";
 
 const DishPage = (props) => {
-  // console.log(props);
   const foodCtx = useContext(FoodContext);
   const ingredientList = foodCtx.allIngredients;
   const data = props.mealData;
@@ -23,7 +22,6 @@ const DishPage = (props) => {
     data = { ...data, _id: mealId };
     console.log("Updating...");
     console.log(data);
-    props.updateDish(data);
   };
 
   const confirm = () => {

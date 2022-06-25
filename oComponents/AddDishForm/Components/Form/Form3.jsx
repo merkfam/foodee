@@ -10,9 +10,11 @@ import BootStrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import { Col } from "react-bootstrap";
 import AddIngredients from "../../AddIngredients/AddIngredients";
 import PageSection from "../../../BasicPageComponents/PageSection/PageSection";
+import { SuperTitleFy } from "../../../../Helpers/Strings";
 
 const Form3 = (props) => {
-  const [ingredientError, setIngredientError] = useState("");
+  const [ingredientError, setIngredientError] = useState(null);
+  const [dishError, setDishError] = useState(null);
   const [dishName, setDishName] = useState(props.name);
   const [instructions, setInstructions] = useState(props.instructions);
   const ingredientData = props.ingredients;
@@ -32,13 +34,24 @@ const Form3 = (props) => {
 
   const compileAllDataForUpdate = (e) => {
     e.preventDefault();
+    if (dishName === "" || dishName === "unidentified") {
+      setDishError("You need to specify a name for your dish");
+      return;
+    }
+    if (ingredients && ingredients.length < 1) {
+      setIngredientError("You have no ingredients.");
+      return;
+    }
+    const finalDishName = SuperTitleFy(dishName);
     const data = {
-      dish: dishName,
+      dish: finalDishName,
       instructions: instructions,
       ingredients: ingredients,
       dishType: props.dishType,
       meal: props.meal,
     };
+    setIngredientError(null);
+    setDishError(null);
     props.updateDish(data);
   };
 
@@ -58,8 +71,7 @@ const Form3 = (props) => {
     if (event) {
       event.preventDefault();
     }
-
-    setIngredientError("");
+    setIngredientError(null);
     setCurrentIngredient("");
     setCurrentPrice("");
   };
@@ -114,6 +126,7 @@ const Form3 = (props) => {
                         name: "dishName-label",
                       }}
                     />
+                    {dishError !== null && <p>{dishError}</p>}
                   </Col>
 
                   <Fragment>
