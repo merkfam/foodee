@@ -36,7 +36,7 @@ const update_weekly_schedule = async (req, res) => {
 
           const menuCollection = client
             .db("food-planner")
-            .collection("full-menu");
+            .collection("weekly_list");
           menuCollection
             .findOneAndReplace(
               { _id: ObjectId(_id) },

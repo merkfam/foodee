@@ -1,4 +1,4 @@
-import { useContext, Fragment } from "react";
+import { useContext, Fragment, useState } from "react";
 import css from "./FormIngredients.module.css";
 import Ingredient from "../IngredientInput/Ingredient";
 import IngredientPrice from "../IngredientInput/IngredientPrice";
@@ -8,9 +8,14 @@ import Col from "react-bootstrap/Col";
 import Button from "../../../UI/Button/PostButton/PostButton";
 import Label from "../../../UI/Label/Label";
 import FormIngredientList from "./FormIngredientList";
+import FoodContext from "../../../../store/food-context";
+import SelectIngredient from "../SelectIngredient/SelectIngredient";
+import Input from "../../../UI/Input/Input";
 
 const AddIngredients = (props) => {
   const busiCtx = useContext(BusinessContext);
+  const foodCtx = useContext(FoodContext);
+  const listIngredients = foodCtx.allIngredients;
   const deleter = (index) => {
     props.removeIngredient(index);
   };
@@ -25,20 +30,33 @@ const AddIngredients = (props) => {
       </div>
       <BootstrapGridder>
         <Col xs="12" md="5">
-          <Ingredient
-            label={props.ingredientLabel}
-            input={props.input}
+          <SelectIngredient
+            options={listIngredients}
+            choose={false}
+            label="Meal"
+            labelClass={css.label}
+            optionClass={css.selectorsOptions}
+            className={css.selectLeft}
             onChange={props.onChange}
-            value={props.ingredientValue}
-            onKeyDown={props.onKeyDown}
+            htmlSize={100}
+            value={meal}
+            id="meal"
+            name="meal"
+            bsPrefix={css.selectPrefix}
           />
         </Col>
-        <Col xs="12" md="5">
-          <IngredientPrice
-            value={props.priceValue}
+        <Col>
+          <Input
+            input={{
+              label: "number",
+              text: "number",
+              type: "number",
+              id: "number",
+              name: "number",
+              separate: "true",
+              onChange: props.onChange,
+            }}
             onChange={props.onChange}
-            label={props.priceLabel}
-            onKeyDown={props.onKeyDown}
           />
         </Col>
         <Col>
@@ -60,6 +78,7 @@ const AddIngredients = (props) => {
               <tr key="Ingredient Price Header">
                 <th className={css.th}>Ingredients</th>
                 <th className={css.th}>Prices</th>
+                <th className={css.th}>Number</th>
               </tr>
               {props.ingredients.map((ingredient, index) => {
                 return (
@@ -70,7 +89,8 @@ const AddIngredients = (props) => {
                     id={ingredient.id}
                     line={index + 1}
                     price={ingredient.price}
-                    number={ingredient.number}
+                    number={ingredient.number ? ingredient.number : 1}
+                    // number={ingredient.number}
                     ingredient={ingredient.ingredient}
                     hide={true}
                   />
@@ -85,3 +105,21 @@ const AddIngredients = (props) => {
 };
 
 export default AddIngredients;
+
+{
+  /* <Ingredient
+            label={props.ingredientLabel}
+            input={props.input}
+            onChange={props.onChange}
+            value={props.ingredientValue}
+            onKeyDown={props.onKeyDown}
+          />
+        </Col>
+        <Col xs="12" md="5">
+          <IngredientPrice
+            value={props.priceValue}
+            onChange={props.onChange}
+            label={props.priceLabel}
+            onKeyDown={props.onKeyDown}
+          /> */
+}

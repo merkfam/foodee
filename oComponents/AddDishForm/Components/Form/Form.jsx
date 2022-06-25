@@ -21,8 +21,16 @@ const AddProductForm = (props) => {
   const [dishType, setDishType] = useState("");
   const [instructions, setInstructions] = useState("");
   const [ingredients, setIngredients] = useState([]);
+
+  // Set All Fields Separately So This Stops Being Such A Pain Wasting So Much Time Making
+  // Sense Of All These Lines...Pass the functions and values needed into
+  // Add Ingredients, also be careful with the pullOut Function, It could Easily Be
+  // Messed Up and then the whole set of ingredient data won't be available, apart from the
+  // ingredient.name
+
   const [currentIngredient, setCurrentIngredient] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
+  const [currentNumber, setCurrentNumber] = useState("");
 
   const dishes = props.dishes;
 
@@ -45,18 +53,11 @@ const AddProductForm = (props) => {
     name === "ingredient" && setCurrentIngredient(value);
     name === "price" && setCurrentPrice(value);
     name === "instructions" && setInstructions(value);
+    name === "number" && setCurrentNumber(value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // let editedMeal;
-    // for (let i = 0; i < meal.length; i++) {
-    //   if (meal[i] === "/") {
-    //     editedMeal += "/";
-    //   } else {
-    //     editedMeal += meal[i];
-    //   }
-    // } ` `
 
     const sendData = {
       meal: meal,
@@ -79,24 +80,19 @@ const AddProductForm = (props) => {
     setInstructions("");
     setIngredients([]);
   };
+  // console.log(ingredients);
 
   const addIngredients = (event) => {
     const data = { ingredient: currentIngredient, price: currentPrice };
     if (event) {
       event.preventDefault();
     }
-    if (currentIngredient === "") {
-      setIngredientError("You must first give the ingredient a name");
-      return;
-    }
 
-    setIngredients((prev) => {
-      return [...prev, data];
-    });
     setIngredientError("");
     setCurrentIngredient("");
     setCurrentPrice("");
   };
+  // console.log(ingredients);
 
   const removeIngredient = (id) => {
     setIngredients((prev) => {
@@ -181,6 +177,7 @@ const AddProductForm = (props) => {
                             checked={dishType === "entrees" ? true : false}
                           />
                         </Col>
+
                         <Col sm="12" md="6">
                           <Radial
                             value="sides"
@@ -205,13 +202,20 @@ const AddProductForm = (props) => {
                         value: "",
                       }}
                       input={{ text: "Ingredient", onKeyDown: handleKeyDown }}
+                      buttonId="addIngredient"
                       ingredients={ingredients}
-                      onClick={addIngredients}
-                      onChange={handleChange}
                       priceValue={currentPrice}
                       ingredientValue={currentIngredient}
+                      currentIngredient={currentIngredient}
+                      number={currentNumber}
+                      setIngredient={setIngredients}
+                      onClick={addIngredients}
+                      onChange={handleChange}
+                      setCurrentIngredient={setCurrentIngredient}
+                      setIngredientError={setIngredientError}
                       onKeyDown={handleKeyDown}
-                      buttonId="addIngredient"
+                      setNumber={setCurrentNumber}
+                      setIngredients={setIngredients}
                     />
                     {ingredientError !== "" && <p>{ingredientError}</p>}
                     <div className={css.instructionsDiv}>

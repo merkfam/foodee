@@ -17,6 +17,9 @@ const FormIngredientList = (props) => {
           {busiCtx.cur}: {props.price}
         </p>
       </th>
+      <th className={css.th}>
+        <p className={css.p}>{props.number}</p>
+      </th>
     </tr>
   );
 };

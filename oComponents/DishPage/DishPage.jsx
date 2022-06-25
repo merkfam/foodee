@@ -1,22 +1,28 @@
 import css from "./DishPage.module.css";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import Dish from "./Dish";
 import Button from "../UI/Button/PostButton/PostButton";
 import Modal from "../UI/Modal/Modal0";
 import { useRouter } from "next/router";
-import Form2 from "../AddDishForm/Components/Form/Form2";
-import { clearPreviewData } from "next/dist/server/api-utils";
+import Form3 from "../AddDishForm/Components/Form/Form3";
+import FoodContext from "../../store/food-context";
 
 const DishPage = (props) => {
+  // console.log(props);
+  const foodCtx = useContext(FoodContext);
+  const ingredientList = foodCtx.allIngredients;
   const data = props.mealData;
-  console.log(data);
   const router = useRouter();
 
   const [edit, setEdit] = useState("false");
   const [editText, setEditText] = useState("Edit");
   const [showModal, setShowModal] = useState(false);
 
-  const updateDish = async (data) => {
+  const updateDishHandler = async (data) => {
+    const mealId = props.mealData.id;
+    data = { ...data, _id: mealId };
+    console.log("Updating...");
+    console.log(data);
     props.updateDish(data);
   };
 
@@ -54,7 +60,7 @@ const DishPage = (props) => {
 
   return (
     <Fragment>
-      {data.dish ? (
+      {data ? (
         <Fragment>
           <Modal
             title="Confirm Delete"
@@ -78,16 +84,19 @@ const DishPage = (props) => {
             />
           </div>
           {editText === "Cancel" ? (
-            <Form2
-              meal={data.meal}
-              ingredients={data.ingredients}
-              name={data.dish}
-              instructions={data.instructions}
-              mealType={data.mealType}
-              dishType={data.dishType}
-              id={data.id}
-              updateDish={updateDish}
-            />
+            <Fragment>
+              <Form3
+                meal={data.meal}
+                ingredients={data.ingredients}
+                name={data.dish}
+                instructions={data.instructions}
+                mealType={data.mealType}
+                dishType={data.dishType}
+                id={data.id}
+                updateDish={updateDishHandler}
+                options={ingredientList}
+              />
+            </Fragment>
           ) : (
             <Dish
               entree={data.dish}
@@ -95,7 +104,7 @@ const DishPage = (props) => {
               key={`Entree ${Math.random()}`}
               meal={data.meal}
               dishType={data.dishType}
-              mealType={clearPreviewData.mealType}
+              mealType={data.mealType}
               id={data._id}
               instructions={data.instructions}
               setCurrentMeal={props.setCurrentMeal}

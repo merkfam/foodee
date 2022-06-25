@@ -25,7 +25,7 @@ const handler = async (req, res) => {
 
           const menuCollection = client
             .db("food-planner")
-            .collection("full-menu");
+            .collection("weekly_list");
 
           menuCollection.find({}).toArray(async (err, results) => {
             // console.log("results below:");
@@ -33,7 +33,7 @@ const handler = async (req, res) => {
             if (err) {
               return res.send(err);
             }
-            const result = results[1];
+            const result = results[0];
             if (result === "undefined") {
               res.statusCode = 500;
               res.send({ err: "NO_SCHEDULE" });

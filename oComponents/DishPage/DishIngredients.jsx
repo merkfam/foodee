@@ -5,13 +5,14 @@ import FormIngredientList from "../AddDishForm/AddIngredients/FormIngredient/For
 const DishIngredients = (props) => {
   return (
     <Fragment>
-      {props.ingredients.length > 0 ? (
+      {props.ingredients && props.ingredients.length > 0 ? (
         <div className={css.ingredientsDiv}>
           <table className={css.table}>
             <tbody className={css.tbody}>
               <tr key="Ingredient Price Header">
-                <th className={css.th}>Ingredients</th>
-                <th className={css.th}>Prices</th>
+                <th className={css.th}>Ingredient</th>
+                <th className={css.th}>Price</th>
+                <th className={css.th}>Number</th>
               </tr>
               {props.ingredients &&
                 props.ingredients.map((ingredient, index) => {
@@ -32,7 +33,9 @@ const DishIngredients = (props) => {
             </tbody>
           </table>
         </div>
-      ) : null}
+      ) : (
+        <h1>Loading...</h1>
+      )}
     </Fragment>
   );
 };

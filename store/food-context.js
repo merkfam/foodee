@@ -18,12 +18,16 @@ const FoodContext = createContext({
     ingredients: [],
   },
   scheduleId: "",
+  allIngredients: [],
   hasScheduleIngredients: Boolean,
   getNew: () => {},
   reload: () => {},
   setReload: () => {},
   deleteDish: () => {},
   updateDish: () => {},
+  updateIngredient: () => {},
+  deleteIngredient: () => {},
+  addNewIngredient: () => {},
 });
 
 export const FoodContextProvider = (props) => {
@@ -38,13 +42,117 @@ export const FoodContextProvider = (props) => {
   const [reload, setReload] = useState(false);
   const [currentMeal, setCurrentMeal] = useState({});
   const [hasWeeklySchedule, setHasWeeklySchedule] = useState(false);
+  const [listOfIngredients, setListOfIngredients] = useState([]);
+  const [listOfIngredientsId, setListOfIngredientsId] = useState("");
+
+  const getListOfIngredients = async () => {
+    try {
+      const data = await fetch("/api/get_ingredient_list", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const list_data = await data.json();
+      list_data && list_data.ingredients
+        ? setListOfIngredients(list_data.ingredients)
+        : setListOfIngredients([]);
+
+      list_data && list_data._id
+        ? setListOfIngredientsId(list_data._id)
+        : setListOfIngredientsId("");
+      return data;
+    } catch (err) {
+      console.log("There was an error receiving data from the server...");
+      console.log(err);
+    }
+  };
+
+  const addNewIngredient = async (newIngredient) => {
+    console.log("listId,", listOfIngredientsId);
+    newIngredient = {
+      name: newIngredient.ingredient,
+      price: newIngredient.price,
+      listId: listOfIngredientsId,
+    };
+
+    const fixedData = JSON.stringify(newIngredient);
+
+    try {
+      const retreival = await fetch("/api/add_ingredient", {
+        body: fixedData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const sendData = await retreival.json();
+      return sendData;
+    } catch (err) {
+      console.log("There Was An Error Adding The New Ingredient");
+      console.log(err);
+      return err;
+    }
+  };
+
+  const updateIngredient = async (newIngredient) => {
+    newIngredient = {
+      ...newIngredient,
+      list_id: listOfIngredientsId,
+    };
+
+    const fixedData = JSON.stringify(newIngredient);
+
+    try {
+      const retreival = await fetch("/api/update_ingredient", {
+        body: fixedData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const sendData = await retreival.json();
+      return sendData;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  };
+
+  const deleteIngredient = async (theIngredient) => {
+    // console.log("listId,", listOfIngredientsId);
+    const ingredient = {
+      ...theIngredient,
+      listId: listOfIngredientsId,
+    };
+
+    const fixedData = JSON.stringify(ingredient);
+
+    try {
+      const retreival = await fetch("/api/delete_ingredient", {
+        body: fixedData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const sendData = await retreival.json();
+      setCurrentMeal(sendData);
+      return sendData;
+    } catch (err) {
+      console.log("There was an error sending ingredient data for deletion.");
+      console.log(err);
+    }
+  };
 
   const updateReload = (bool) => {
     setReload(bool);
   };
 
   const updateDish = async (id) => {
-    console.log("id,", id);
+    // console.log("sending to server...");
+    // console.log("id,", id);
     const data = {
       menuId: menuId,
       _id: id._id,
@@ -186,6 +294,7 @@ export const FoodContextProvider = (props) => {
     const md = getMenu();
 
     hasSchedule = GET_WEEKLY_SCHEDULE();
+    getListOfIngredients();
 
     setHasWeeklySchedule(hasSchedule);
   }, []);
@@ -286,11 +395,15 @@ export const FoodContextProvider = (props) => {
     hasScheduleIngredients: hasScheduleIngredients,
     reload: reload,
     currentMeal: currentMeal === "undefined" ? [] : currentMeal,
+    allIngredients: listOfIngredients,
     setCurrentMeal: setCurrentMeal,
     setReload: updateReload,
     getNew: UPDATE_WEEKLY_SCHEDULE,
     deleteDish: deleteDish,
     updateDish: updateDish,
+    addNewIngredient: addNewIngredient,
+    updateIngredient: updateIngredient,
+    deleteIngredient: deleteIngredient,
   };
 
   return (

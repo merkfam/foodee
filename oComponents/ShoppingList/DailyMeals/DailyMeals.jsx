@@ -12,9 +12,6 @@ const AllMeals = (props) => {
       </div>
 
       {props.meals.map((meal, index) => {
-        {
-          /* console.log(meal); */
-        }
         const mealName = meal.meal;
         return (
           <div key={`MealListContainer ${Math.random() * Math.random()}`}>

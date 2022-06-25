@@ -15,7 +15,9 @@ const handler = async (req, res) => {
         serverApi: ServerApiVersion.v1,
       });
 
-      const menuCollection = client.db("food-planner").collection("full-menu");
+      const menuCollection = client
+        .db("food-planner")
+        .collection("weekly_list");
       const result = await menuCollection.insertOne(data);
       client.close((data) => {
         // console.log("closing area");

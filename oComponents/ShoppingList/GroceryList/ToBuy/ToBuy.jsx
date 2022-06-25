@@ -9,18 +9,23 @@ const ToBuy = (props) => {
   };
   return (
     <tr id={props.id} index={props.index} onClick={deleter} className={css.tr}>
-      <th className={`${css.space}`}>{props.line}:</th>
-      <th className={css.th}>
+      <td className={`${css.line}`}>{props.line}:</td>
+      <td className={css.td}>
         <p className={css.p}>{props.ingredient}</p>
-      </th>
-      <th className={css.th}>
+      </td>
+      <td className={css.price}>
         <p className={css.p}>
-          {busiCtx.cur}: {props.price}
+          {busiCtx.cur}
+          {props.price}
         </p>
-      </th>
-      <th className={css.th}>
-        <p className={css.p}>x {props.number}</p>
-      </th>
+      </td>
+      {/* <td className={css.price}> x {props.number}</td> */}
+
+      <td className={css.td}>
+        <p className={css.p}>
+          {busiCtx.cur} {props.total}
+        </p>
+      </td>
     </tr>
   );
 };

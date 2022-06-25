@@ -7,8 +7,8 @@
 .table {
   width: 100%;
   max-width: 100% !important;
-  overflow-y: auto;
-  overflow-x: hidden;
+  /* overflow-y: auto; */
+  overflow-x: scroll;
   table-layout: fixed;
   border: none;
 }
@@ -17,14 +17,29 @@
   width: 7%;
 }
 
-.th2 {
-  width: 30%;
+.line {
+  width: 8%;
 }
 
-.th {
-  width: 20%;
+.ingredientTh {
+  width: 35%;
+}
+
+.priceTh {
+  width: 15%;
   overflow-x: hidden !important;
   white-space: normal !important;
+}
+
+.amountTh {
+  width: 15%;
+  overflow-x: hidden !important;
+  white-space: normal !important;
+}
+
+.bottom {
+  width: 30%;
+  font-size: larger;
 }
 
 .totals {
@@ -60,17 +75,20 @@
 }
 
 @media screen and (max-width: 300px) {
-  .th2,
-  .th,
-  .th1 {
-    font-size: x-small;
+  .ingredientTh,
+  .line,
+  .amountTh,
+  .priceTh {
+    font-size: small !important;
   }
 
-  .th2 {
-    width: 28%;
+  .ingredientTh {
+    width: 20% !important;
+    margin-right: 1% !important;
+    padding-right: 1% !important;
   }
 }
 
 .none {
-  text-align: center;
+  text-align: left;
 }

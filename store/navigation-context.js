@@ -13,6 +13,8 @@ const NavigationContext = createContext({
   lunchLink: "",
   dinner: "",
   dinnerLink: "",
+  ingredients: "",
+  ingredientsLink: "",
   dropDown: "",
   add: "",
 });
@@ -49,6 +51,8 @@ export const NavigationContextProvider = (props) => {
   const lunchLink = linkify(lunch, directory);
   const dinner = "Dinner";
   const dinnerLink = linkify(dinner, directory);
+  const ingredients = "Ingredients";
+  const ingredientsLink = linkify(ingredients);
   const dropDown = "Account";
   const add = "Add";
   const addLink = linkify(add);
@@ -65,6 +69,8 @@ export const NavigationContextProvider = (props) => {
     lunchLink: lunchLink,
     dinner: dinner,
     dinnerLink: dinnerLink,
+    ingredients: ingredients,
+    ingredientsLink: ingredientsLink,
     add: add,
     addLink: addLink,
     dropDown: dropDown,

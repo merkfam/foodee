@@ -13,20 +13,16 @@ const update_dish = async (req, res) => {
   const dish = data.dish;
   const meal = data.meal;
   const dishType = data.dishType;
+  console.log(ingredients);
 
-  //   for (let i = 0; i < ingredients.length; i++) {
-  //     const ingredient = ingredients[i];
-  //     if (!ingredient._id) {
-  //       ingredient._id = ObjectId(
-  //         new ObjectId(Math.random() + Math.random() * Math.random() * 6)
-  //       ).toString();
-  //     } else {
-  //       const value = ingredient._id;
-  //       //   const price = ingredient.Price;
-  //       //   const ing = ingredient.Ingredient
-  //       ingredient._id = value;
-  //     }
-  //   }
+  for (let i = 0; i < ingredients.length; i++) {
+    const ingredient = ingredients[i];
+    if (!ingredient._id) {
+      ingredient._id = ObjectId(
+        new ObjectId(Math.random() + Math.random() * Math.random() * 6)
+      ).toString();
+    }
+  }
 
   // console.log("_id,", _id);
   // console.log("_id2,", _id2);

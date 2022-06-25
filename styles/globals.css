@@ -20,6 +20,10 @@ body {
   font-weight: bolder;
 }
 
+.form-select2 {
+  margin: 0 !important;
+}
+
 /* table {
   max-width: 100% !important;
 } */

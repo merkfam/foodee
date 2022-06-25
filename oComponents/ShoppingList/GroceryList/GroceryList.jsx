@@ -6,12 +6,45 @@ import Card from "../../UI/Card/Card";
 import BusinessContext from "../../../store/business-context";
 
 const GroceryList = (props) => {
+  const [ingredients, setIngredients] = useState(props.ingredients);
+
+  useEffect(() => {
+    const formattedIngredients = props.ingredients.filter(
+      (numberObj, ingredient) => {
+        const item = ingredient.ingredient;
+        const price =
+          numberObj.price === "" ||
+          numberObj.price === "undefined" ||
+          numberObj.price === null
+            ? (numberObj.price = 1)
+            : +numberObj.price;
+
+        const number =
+          typeof numberObj.number === "number" && numberObj.number > 0
+            ? numberObj.number
+            : 1;
+
+        const totalPrice = number * price;
+        const itemName = numberObj[item];
+        if (ingredient.ingredient === "undefined") {
+          return;
+        }
+        return (
+          (numberObj["total"] = totalPrice),
+          (numberObj["price"] = +numberObj["price"])
+        );
+      },
+      {}
+    );
+    setIngredients(formattedIngredients);
+  }, [props.ingredients]);
+
   const busiCtx = useContext(BusinessContext);
   const [isLoading, setIsLoading] = useState(false);
   const [totalIndiPrice, setTotalIndiPrice] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
   const [numberOfItems, setNumberOfItems] = useState(0);
-  const [ingredients, setIngredients] = useState(props.ingredients);
+  const [itemNumber, setItemNumber] = useState({});
 
   const checkIngredient = (index, id) => {
     props.setIngredients((prev) => {
@@ -22,10 +55,6 @@ const GroceryList = (props) => {
       return [...prev];
     });
   };
-
-  useEffect(() => {
-    setIngredients(props.ingredients);
-  }, [props.ingredients]);
 
   const getNewSchedule = async () => {
     setIsLoading(true);
@@ -41,7 +70,7 @@ const GroceryList = (props) => {
         if (price === "undefined" || price === undefined || price.length > 6) {
           return total + 0;
         } else {
-          return total + Number(price);
+          return total + price;
         }
       }, 0);
 
@@ -50,10 +79,19 @@ const GroceryList = (props) => {
       ingredients.reduce((total, iPrice) => {
         const price = iPrice.price;
         const number = iPrice.number;
-        if (price === "undefined" || price === undefined || price.length > 6) {
+        if (number === NaN || price === NaN) {
+        }
+
+        if (
+          price === "undefined" ||
+          price === undefined ||
+          price.length > 6 ||
+          price === NaN ||
+          number === NaN
+        ) {
           return total + 0;
         } else {
-          return total + Number(price) * Number(number);
+          return total + price * number;
         }
       }, 0);
 
@@ -64,12 +102,37 @@ const GroceryList = (props) => {
         if (price === "undefined" || price === undefined || price.length > 6) {
           return total + 0;
         } else {
-          return total + Number(number);
+          return total + number;
         }
       }, 0);
+
+    const numberOfItems2 = ingredients.filter((numberObj, ingredient) => {
+      const item = ingredient.ingredient;
+      const price =
+        numberObj.price === "" ||
+        numberObj.price === "undefined" ||
+        numberObj.price === null
+          ? (numberObj.price = 1)
+          : +numberObj.price;
+
+      const number =
+        typeof numberObj.number === "number" && numberObj.number > 0
+          ? numberObj.number
+          : 1;
+
+      const totalPrice = number * price;
+      const itemName = numberObj[item];
+      return (
+        (numberObj["total"] = totalPrice),
+        (numberObj["price"] = +numberObj["price"])
+      );
+    }, {});
+
+    setItemNumber(numberOfItems2);
     setNumberOfItems(numberOfItems);
     setGrandTotal(grand);
     setTotalIndiPrice(price);
+    // console.log(numberOfItems2);
   }, [ingredients]);
 
   return (
@@ -83,14 +146,15 @@ const GroceryList = (props) => {
           <table className={css.table}>
             <tbody className={css.tbody}>
               <tr key="Grocery List Table Index" className={css.tr}>
-                <th className={css.th1}></th>
-                <th className={css.th2}>
-                  <p>Ingredients</p>
+                <th className={css.line}></th>
+                <th className={css.ingredientTh}>
+                  <p>Ingredient</p>
                 </th>
-                <th className={css.th}>
-                  <p>Prices</p>
+                <th className={css.priceTh}>
+                  <p>Price</p>
                 </th>
-                <th className={css.th}>
+                {/* <th className={css.priceTh}></th> */}
+                <th className={css.amountTh}>
                   <p>Amount</p>
                 </th>
               </tr>
@@ -105,6 +169,7 @@ const GroceryList = (props) => {
                         key={`${ingredient._id} | ${index}`}
                         id={ingredient.id}
                         line={index + 1}
+                        total={ingredient.total}
                         price={ingredient.price}
                         number={ingredient.number}
                         ingredient={ingredient.ingredient}
@@ -118,26 +183,32 @@ const GroceryList = (props) => {
 
           <table className={css.table2}>
             <tbody className={css.tbody}>
-              <tr id={`totals`} key={`totalIngredientsRow:`} className={css.tr}>
-                <th className={css.th1}>
+              <tr
+                id={`totals`}
+                key={`totalIngredientsRow:`}
+                className={`${css.tr} ${css.bottom}`}
+              >
+                <th className={css.line}>
                   <p>M</p>
                 </th>
 
-                <th className={css.th2}>
-                  <p>Totals:</p>
-                </th>
-
-                <th key={`totalPriceOfIndividualItem:`} className={css.th}>
-                  <span>
-                    <p>
-                      {busiCtx.cur}
-                      {grandTotal}
-                    </p>
-                  </span>
-                </th>
-
-                <th key={`totalNumberOfItems:`} className={css.th}>
+                <th className={css.ingredientTh}>
                   <p>x{numberOfItems}</p>
+                </th>
+
+                <th
+                  key={`totalNumberOfItems:`}
+                  className={`${css.th} ${css.bottom}`}
+                ></th>
+                {/* <th></th> */}
+                <th
+                  key={`GrandTotal:`}
+                  className={`${css.amountTh} ${css.bottom}`}
+                >
+                  <p>
+                    {busiCtx.cur}
+                    {grandTotal}
+                  </p>
                 </th>
               </tr>
             </tbody>

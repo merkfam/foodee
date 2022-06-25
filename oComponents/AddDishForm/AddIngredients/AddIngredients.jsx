@@ -1,86 +1,130 @@
-import { useContext, Fragment } from "react";
+import { useContext, useState } from "react";
 import css from "./AddIngredients.module.css";
-import Ingredient from "./IngredientInput/Ingredient";
-import IngredientPrice from "./IngredientInput/IngredientPrice";
-import BusinessContext from "../../../store/business-context";
 import BootstrapGridder from "../../UI/BootStrap/BootStrapGridder";
 import Col from "react-bootstrap/Col";
 import Button from "../../UI/Button/PostButton/PostButton";
 import Label from "../../UI/Label/Label";
-// import ToBuy from "../../ShoppingList/GroceryList/ToBuy/ToBuy";
-import FormIngredientList from "./FormIngredient/FormIngredientList";
+import FoodContext from "../../../store/food-context";
+import SelectIngredient from "./SelectIngredient/SelectIngredient";
+import Input from "../../UI/Input/Input";
+import IngredientTable from "./FormIngredient/IngredientTable/IngredientTable";
 
 const AddIngredients = (props) => {
-  const busiCtx = useContext(BusinessContext);
-  const deleter = (index) => {
-    props.removeIngredient(index);
+  const foodCtx = useContext(FoodContext);
+  const ingredientOptions = foodCtx.allIngredients;
+  const [chosenIngredient, setChosenIngredient] = useState("Choose");
+  const [optionData, setOptionData] = useState("");
+  const [number, setNumber] = useState("");
+
+  const addIngredient = () => {
+    if (chosenIngredient === "Choose" || chosenIngredient === "") {
+      props.setIngredientError("You First Need To Choose An Ingredient");
+      return;
+    }
+
+    if (number === "" || number === NaN || number < 1) {
+      props.setIngredientError(
+        "You Must First Enter The Number Needed For This Ingredient"
+      );
+      return;
+    }
+
+    props.setIngredientError(null);
+
+    const newData = {
+      price: optionData.ingredient.price,
+      ingredient: optionData.ingredient.name,
+      number: +number,
+      id: optionData._id,
+    };
+
+    props.setIngredients((prev) => {
+      return [...prev, newData];
+    });
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+    const name = e.target.name;
+    name === "number" && setNumber(+value);
+    if (name === "select") {
+      setChosenIngredient(value);
+      const newData = pullOutFullData(value);
+      setOptionData(newData[0]);
+    }
+  };
+
+  const pullOutFullData = (data) => {
+    console.log("data,", data);
+    if (data === "Choose") {
+      return {
+        id: "None",
+        ingredient: { name: "None", price: "0" },
+        number: +number,
+      };
+    }
+
+    const newOption = ingredientOptions.filter((option, index) => {
+      return option && option.ingredient && option.ingredient.name === data;
+    }, []);
+    return newOption;
   };
 
   return (
     <div>
       <div className={css.labelDiv}>
         <Label
-          text={props.label.text}
+          text="Ingredients"
+          id="ingredient"
+          name="ingredient"
           className={`btn form-control  ${css.mainLabel}`}
         />
       </div>
-      <BootstrapGridder>
-        <Col xs="12" md="5">
-          <Ingredient
-            label={props.ingredientLabel}
-            input={props.input}
-            onChange={props.onChange}
-            value={props.ingredientValue}
-            onKeyDown={props.onKeyDown}
-          />
-        </Col>
-        <Col xs="12" md="5">
-          <IngredientPrice
-            value={props.priceValue}
-            onChange={props.onChange}
-            label={props.priceLabel}
-            onKeyDown={props.onKeyDown}
-          />
-        </Col>
-        <Col>
-          <Button
-            id={props.buttonId}
-            onClick={props.onClick}
-            text="+"
-            type="button"
-            className={`btn btn-primary ${css.button}`}
-            onKeyDown={props.onKeyDown}
-          />
-        </Col>
-      </BootstrapGridder>
+      <div className={`${css.ingredientSelectContainer} ${css.verticalCenter}`}>
+        <BootstrapGridder>
+          <Col xs="12" md="5" className={css.fixCol}>
+            <div className={css.selectDiv}>
+              <SelectIngredient
+                id="select"
+                name="select"
+                options={ingredientOptions}
+                choose={true}
+                value={chosenIngredient}
+                onChange={handleChange}
+              />
+            </div>
+          </Col>
 
-      {props.ingredients.length > 0 ? (
-        <div className={css.ingredientsDiv}>
-          <table className={css.table}>
-            <tbody className={css.tbody}>
-              <tr key="Ingredient Price Header">
-                <th className={css.th}>Ingredients</th>
-                <th className={css.th}>Prices</th>
-              </tr>
-              {props.ingredients.map((ingredient, index) => {
-                return (
-                  <FormIngredientList
-                    onClick={deleter}
-                    index={index}
-                    key={`${ingredient._id} | ${index}`}
-                    id={ingredient.id}
-                    line={index + 1}
-                    price={ingredient.price}
-                    number={ingredient.number}
-                    ingredient={ingredient.ingredient}
-                    hide={true}
-                  />
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : null}
+          <Col>
+            <Input
+              input={{
+                placeholder: "number",
+                type: "number",
+                value: number,
+                id: "number",
+                name: "number",
+                onChange: handleChange,
+              }}
+            />
+          </Col>
+          <Col className={css.fixCol}>
+            {/* Add Ingredient Button */}
+            <Button
+              id={props.buttonId}
+              text="+"
+              type="button"
+              className={`btn btn-primary ${css.button}`}
+              onClick={addIngredient}
+              onKeyDown={props.onKeyDown}
+            />
+          </Col>
+        </BootstrapGridder>
+      </div>
+      <IngredientTable
+        ingredients={props.ingredients}
+        delete={props.removeIngredient}
+      />
     </div>
   );
 };

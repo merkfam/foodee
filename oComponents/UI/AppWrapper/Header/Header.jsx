@@ -116,6 +116,15 @@ function Header1() {
             <Navbar.Text>
               <ButtonLink
                 type="main"
+                href={navCtx.ingredientsLink}
+                text={navCtx.ingredients}
+                onClick={closeHeader}
+                id="main"
+              />
+            </Navbar.Text>
+            <Navbar.Text>
+              <ButtonLink
+                type="main"
                 href={navCtx.addLink}
                 text={navCtx.add}
                 onClick={closeHeader}
