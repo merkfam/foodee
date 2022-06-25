@@ -58,7 +58,7 @@ const add_ingredient = async (req, res) => {
           const menuCollection = client
             .db("food-planner")
             .collection("ingredients");
-          console.log("Going to add now...");
+          // console.log("Going to add now...");
           menuCollection
             .updateOne(
               { _id: ObjectId(listId) },
@@ -78,7 +78,7 @@ const add_ingredient = async (req, res) => {
       console.log("Error: Updating Ingredient Data Failed.");
       console.log(err);
     }
-    console.log("leaving UPDATE_INGREDIENT now...");
+    // console.log("leaving UPDATE_INGREDIENT now...");
   }
 };
 

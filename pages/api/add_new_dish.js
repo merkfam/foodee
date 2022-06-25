@@ -38,7 +38,6 @@ const handler = async (req, res) => {
               ...ingredient,
             };
           });
-          const dish = data.data.dishType;
           const sendData = {
             _id: new ObjectId(
               Math.random() * (Math.random() + Math.random()) * Math.random()

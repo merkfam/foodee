@@ -49,7 +49,7 @@ const delete_ingredient = async (req, res) => {
               { $pull: { ingredients: { _id: ObjectId(_id) } } }
             )
             .then(async (response) => {
-              console.log("response,", response);
+              // console.log("response,", response);
               res.status(200);
               res.send(response);
               console.log("done deleting the ingredient");

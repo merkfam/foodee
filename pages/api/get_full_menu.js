@@ -5,7 +5,6 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    let data;
     try {
       //   const uri = process.env.MerK_MONGO_URI;
       const uri = process.env.MerK_MONGO_URI;

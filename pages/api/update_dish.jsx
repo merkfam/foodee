@@ -24,23 +24,10 @@ const update_dish = async (req, res) => {
     }
   }
 
-  // console.log("_id,", _id);
-  // console.log("_id2,", _id2);
-  // console.log("instructions,", instructions);
-  // console.log("meal,", meal);
-  // console.log("dish,", dish);
-  // console.log("dishType,", dishType);
-  // console.log("INGREDIENTS,", ingredients);
-
   if (req.method === "POST") {
-    // console.log("method POST true");
-    // console.log("Entering get_Dish_schedule now.");
-    // Get From Mongo User DataBase
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     try {
-      //   const uri = process.env.MerK_MONGO_URI;
-      // console.log("trying...");
       const uri = process.env.MerK_MONGO_URI;
       const client = new MongoClient(uri, {
         useNewUrlParser: true,

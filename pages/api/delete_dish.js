@@ -51,14 +51,14 @@ const update_weekly_schedule = async (req, res) => {
           const menuCollection = client
             .db("food-planner")
             .collection("full-menu");
-          console.log("Going to delete now...");
+          // console.log("Going to delete now...");
           menuCollection
             .updateOne({ [path]: name }, { $pull: { [path2]: { dish: name } } })
             .then(async (response) => {
               // console.log("response", response);
               res.status(200);
               res.send(response);
-              console.log("done replacing");
+              // console.log("done replacing");
             });
         });
       });

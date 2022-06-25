@@ -28,8 +28,8 @@ const handler = async (req, res) => {
             .collection("ingredients");
 
           menuCollection.find({}).toArray(async (err, results) => {
-            console.log("results below:");
-            console.log(results);
+            // console.log("results below:");
+            // console.log(results);
 
             if (err) {
               return res.send(err);

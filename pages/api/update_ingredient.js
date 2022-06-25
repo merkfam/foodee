@@ -46,7 +46,7 @@ const update_ingredient = async (req, res) => {
             )
 
             .then(async (response) => {
-              console.log("update response,", response);
+              // console.log("update response,", response);
               res.status(200);
               res.send(response);
             });
