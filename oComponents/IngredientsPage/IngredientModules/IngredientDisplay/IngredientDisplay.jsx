@@ -1,8 +1,7 @@
 import css from "./IngredientDisplay.module.css";
 import IngredientActionButtons from "../IngredientActionButtons/IngredientActionButtons";
-import { Fragment, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import FoodContext from "../../../../store/food-context";
-import BootStrapGridder from "../../../UI/BootStrap/BootStrapGridder";
 import Input from "../../../UI/Input/Input";
 import { Col, Row } from "react-bootstrap";
 import PostButton from "../../../UI/Button/PostButton/PostButton";

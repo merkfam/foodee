@@ -15,7 +15,6 @@ const ListIngredientActions = (props) => {
   };
 
   const deleteIngredientAfterDelete = (id) => {
-    console.log("deleting from page...");
     setIngredients((prev) => {
       prev.splice(id, 1);
       return [...prev];

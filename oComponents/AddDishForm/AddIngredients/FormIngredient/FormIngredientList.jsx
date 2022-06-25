@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import BusinessContext from "../../../../store/business-context";
 const FormIngredientList = (props) => {
   const busiCtx = useContext(BusinessContext);
-  const deleter = (event) => {
+  const deleter = () => {
     props.onClick && props.onClick(props.index, props.id);
   };
   return (

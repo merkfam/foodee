@@ -105,21 +105,3 @@ const AddIngredients = (props) => {
 };
 
 export default AddIngredients;
-
-{
-  /* <Ingredient
-            label={props.ingredientLabel}
-            input={props.input}
-            onChange={props.onChange}
-            value={props.ingredientValue}
-            onKeyDown={props.onKeyDown}
-          />
-        </Col>
-        <Col xs="12" md="5">
-          <IngredientPrice
-            value={props.priceValue}
-            onChange={props.onChange}
-            label={props.priceLabel}
-            onKeyDown={props.onKeyDown}
-          /> */
-}
