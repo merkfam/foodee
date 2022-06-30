@@ -8,6 +8,10 @@ import BusinessContext from "../../../store/business-context";
 const GroceryList = (props) => {
   const [ingredients, setIngredients] = useState(props.ingredients);
 
+  const printPage = () => {
+    print();
+  };
+
   useEffect(() => {
     const formattedIngredients = props.ingredients.filter(
       (numberObj, ingredient) => {
@@ -216,11 +220,7 @@ const GroceryList = (props) => {
       )}
       <span className={css.actionDiv}>
         <div className={css.printDiv}>
-          <PostButton
-            className={css.getNew}
-            text="Print"
-            onClick={getNewSchedule}
-          />
+          <PostButton className={css.getNew} text="Print" onClick={printPage} />
         </div>
         <div className={css.buttonDiv}>
           <PostButton
