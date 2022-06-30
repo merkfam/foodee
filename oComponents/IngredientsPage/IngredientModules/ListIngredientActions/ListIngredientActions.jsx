@@ -23,10 +23,7 @@ const ListIngredientActions = (props) => {
 
   return (
     <Fragment>
-      {props.ingredients &&
-      props.ingredients[0] &&
-      props.ingredients[0].ingredient &&
-      props.ingredients[0].ingredient.name ? (
+      {props.ingredients && props.ingredients.length === 0 ? (
         <BootStrapGridder>
           <AddIngredient addIngredientToList={addIngredientToList} />
           {ingredients.map((ingredient_data, index) => {
