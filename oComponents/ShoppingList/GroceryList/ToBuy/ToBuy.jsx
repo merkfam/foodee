@@ -1,11 +1,16 @@
 import css from "./ToBuy.module.css";
-import Card from "../../../UI/Card/Card";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import BusinessContext from "../../../../store/business-context";
 const ToBuy = (props) => {
+  // console.log("START TOBUY---------------------------------------");
+  // console.log(
+  //   `props.ingredient: ${props.ingredient}, props.index: ${props.index}`
+  // );
+  // console.log("---------------------------------------START TOBUY");
   const busiCtx = useContext(BusinessContext);
   const deleter = (event) => {
-    props.onClick(props.index, props.id);
+    event.preventDefault();
+    props.onClick(props.line, props.index, props.id);
   };
   return (
     <tr id={props.id} index={props.index} onClick={deleter} className={css.tr}>
@@ -19,7 +24,6 @@ const ToBuy = (props) => {
           {props.price}
         </p>
       </td>
-      {/* <td className={css.price}> x {props.number}</td> */}
 
       <td className={css.td}>
         <p className={css.p}>

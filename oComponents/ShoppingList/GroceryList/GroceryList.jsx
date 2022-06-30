@@ -46,13 +46,13 @@ const GroceryList = (props) => {
   const [numberOfItems, setNumberOfItems] = useState(0);
   const [itemNumber, setItemNumber] = useState({});
 
-  const checkIngredient = (index, id) => {
+  const checkIngredient = (line, index, id) => {
+    const fixedIngredients = ingredients;
+    delete fixedIngredients[index];
+    console.log(index);
+
     props.setIngredients((prev) => {
-      const deleteIndex = ingredients.findIndex(
-        (ingredient) => ingredient.id === id
-      );
-      prev.splice(deleteIndex, 1);
-      return [...prev];
+      return fixedIngredients;
     });
   };
 
@@ -132,16 +132,13 @@ const GroceryList = (props) => {
     setNumberOfItems(numberOfItems);
     setGrandTotal(grand);
     setTotalIndiPrice(price);
-    // console.log(numberOfItems2);
   }, [ingredients]);
 
   return (
     <div className={css.main}>
       {isLoading ? (
         <h1>Loading...</h1>
-      ) : ingredients &&
-        ingredients.length > -1 &&
-        ingredients[0].ingredient ? (
+      ) : ingredients && ingredients.length > 0 ? (
         <Card className={css.card}>
           <table className={css.table}>
             <tbody className={css.tbody}>

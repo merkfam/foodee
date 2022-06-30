@@ -54,13 +54,6 @@ const delete_ingredient = async (req, res) => {
               res.send(response);
               console.log("done deleting the ingredient");
             });
-          // .updateOne({ [path]: name }, { $pull: { [path2]: ObjectId(_id) } })
-          // .then(async (response) => {
-          //   console.log("response", response);
-          //   res.status(200);
-          //   res.send(response);
-          //   console.log("done deleting the ingredient");
-          // });
         });
       });
     } catch (err) {
