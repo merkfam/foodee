@@ -20,13 +20,15 @@ const ListIngredientActions = (props) => {
       return [...prev];
     });
   };
-
   return (
     <Fragment>
-      {props.ingredients && props.ingredients.length === 0 ? (
-        <BootStrapGridder>
-          <AddIngredient addIngredientToList={addIngredientToList} />
-          {ingredients.map((ingredient_data, index) => {
+      <BootStrapGridder>
+        <AddIngredient addIngredientToList={addIngredientToList} />
+        {props.ingredients &&
+        props.ingredients.length > 0 &&
+        props.ingredients[0].ingredient &&
+        props.ingredients[0].ingredient.name ? (
+          ingredients.map((ingredient_data, index) => {
             return (
               <Col xs="12" sm="6" key={`${index}||${ingredient_data._id}`}>
                 <IngredientDisplay
@@ -44,11 +46,13 @@ const ListIngredientActions = (props) => {
                 />
               </Col>
             );
-          })}
-        </BootStrapGridder>
-      ) : (
-        <h1>Loading...</h1>
-      )}
+          })
+        ) : (
+          <p className={css.noIngredients}>
+            Add an ingredient so this message will go away...
+          </p>
+        )}
+      </BootStrapGridder>
     </Fragment>
   );
 };

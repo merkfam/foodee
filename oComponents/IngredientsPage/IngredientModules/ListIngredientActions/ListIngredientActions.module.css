@@ -2,3 +2,7 @@
   width: 100%;
   table-layout: fixed;
 }
+
+.noIngredients {
+  text-align: center;
+}

@@ -18,7 +18,7 @@ const AddIngredient = (props) => {
     const name = event.target.name;
     const value = event.target.value;
     name === "ingredient" && setIngredient(value);
-    name === "price" && setPrice(+value);
+    name === "price" && setPrice(value);
   };
 
   const handleAdd = (e) => {

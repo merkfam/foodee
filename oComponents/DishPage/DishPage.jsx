@@ -18,10 +18,11 @@ const DishPage = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const updateDishHandler = async (data) => {
-    const mealId = props.mealData.id;
-    data = { ...data, _id: mealId };
-    console.log("Updating...");
-    console.log(data);
+    const dishId = props.mealData.id;
+    data = { ...data, _id: dishId };
+    // console.log("Updating...");
+    // console.log(data);
+    props.updateDish(data);
   };
 
   const confirm = () => {

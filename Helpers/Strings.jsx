@@ -28,7 +28,7 @@ export const Camelfy = (text, divider) => {
 
 export const SuperTitleFy = (text) => {
   const stripped = text.trim();
-  console.log("stripped,", stripped);
+  // console.log("stripped,", stripped);
   let newText = "";
   let previousChar;
   if (!text) {
@@ -41,7 +41,7 @@ export const SuperTitleFy = (text) => {
     if (i === 0) {
       newText += char.toUpperCase();
       previousChar = false;
-      console.log(newText);
+      // console.log(newText);
     } else if (char === " ") {
       newText += char;
       previousChar = true;

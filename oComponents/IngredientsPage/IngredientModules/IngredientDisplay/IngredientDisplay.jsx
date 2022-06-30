@@ -45,7 +45,7 @@ const IngredientDisplay = (props) => {
     };
     setShowUpdateModal(false);
     foodCtx.updateIngredient(data);
-    console.log("updating...");
+    // console.log("updating...");
   };
 
   const handleChange = (e) => {
