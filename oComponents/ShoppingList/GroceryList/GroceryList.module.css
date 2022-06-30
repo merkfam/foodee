@@ -7,7 +7,7 @@
 .table {
   width: 100%;
   max-width: 100% !important;
-  /* overflow-y: auto; */
+  text-align: left !important;
   overflow-x: scroll;
   table-layout: fixed;
   border: none;
@@ -53,11 +53,27 @@
 .text {
   font-size: 12px;
 }
+.main {
+  text-align: center;
+}
 
-.buttonDiv {
+.actionDiv {
   display: block;
   width: 100%;
+  text-align: center;
+  margin-bottom: 20%;
+}
+
+.printDiv {
+  display: inline;
+  text-align: left;
+  float: left;
+}
+
+.buttonDiv {
+  display: inline;
   text-align: right;
+  float: right;
 }
 
 .getNew {
