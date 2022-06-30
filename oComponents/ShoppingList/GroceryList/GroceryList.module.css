@@ -108,3 +108,10 @@
 .none {
   text-align: left;
 }
+
+@media print {
+  /* All your print styles go here */
+  .hideForPrint {
+    display: none !important;
+  }
+}

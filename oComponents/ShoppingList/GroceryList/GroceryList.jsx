@@ -218,7 +218,7 @@ const GroceryList = (props) => {
       ) : (
         <h6 className={css.none}>No Ingredients To Display</h6>
       )}
-      <span className={css.actionDiv}>
+      <span className={`${css.actionDiv} ${css.hideForPrint}`}>
         <div className={css.printDiv}>
           <PostButton className={css.getNew} text="Print" onClick={printPage} />
         </div>
@@ -226,7 +226,7 @@ const GroceryList = (props) => {
           <PostButton
             className={css.getNew}
             text="New Schedule"
-            onClick={getNewSchedule}
+            onClick={`${getNewSchedule}`}
           />
         </div>
       </span>
