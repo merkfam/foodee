@@ -24,29 +24,35 @@ const ListIngredientActions = (props) => {
     <Fragment>
       <BootStrapGridder>
         <AddIngredient addIngredientToList={addIngredientToList} />
-        {props.ingredients &&
-        props.ingredients.length > 0 &&
-        props.ingredients[0].ingredient &&
-        props.ingredients[0].ingredient.name ? (
-          ingredients.map((ingredient_data, index) => {
-            return (
-              <Col xs="12" sm="6" key={`${index}||${ingredient_data._id}`}>
-                <IngredientDisplay
-                  deleteIngredientAfterDelete={deleteIngredientAfterDelete}
-                  index={index}
-                  ingredient={
-                    ingredient_data.ingredient &&
-                    ingredient_data.ingredient.name
-                      ? ingredient_data.ingredient.name
-                      : null
-                  }
-                  price={ingredient_data.ingredient.price}
-                  key={ingredient_data._id}
-                  _id={ingredient_data._id}
-                />
-              </Col>
-            );
-          })
+        {ingredients &&
+        ingredients.length > 0 &&
+        ingredients[0].ingredient &&
+        ingredients[0].ingredient.name ? (
+          ingredients
+            .sort((a, b) => {
+              var textA = a.ingredient.name;
+              var textB = b.ingredient.name;
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            })
+            .map((ingredient_data, index) => {
+              return (
+                <Col xs="12" sm="6" key={`${index}||${ingredient_data._id}`}>
+                  <IngredientDisplay
+                    deleteIngredientAfterDelete={deleteIngredientAfterDelete}
+                    index={index}
+                    ingredient={
+                      ingredient_data.ingredient &&
+                      ingredient_data.ingredient.name
+                        ? ingredient_data.ingredient.name
+                        : null
+                    }
+                    price={ingredient_data.ingredient.price}
+                    key={ingredient_data._id}
+                    _id={ingredient_data._id}
+                  />
+                </Col>
+              );
+            })
         ) : (
           <p className={css.noIngredients}>
             Add an ingredient so this message will go away...

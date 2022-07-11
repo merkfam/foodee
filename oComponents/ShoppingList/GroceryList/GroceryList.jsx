@@ -226,7 +226,7 @@ const GroceryList = (props) => {
           <PostButton
             className={css.getNew}
             text="New Schedule"
-            onClick={`${getNewSchedule}`}
+            onClick={getNewSchedule}
           />
         </div>
       </span>

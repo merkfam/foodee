@@ -343,14 +343,22 @@ export const FoodContextProvider = (props) => {
     weeklyScheduleData &&
     weeklyScheduleData.meals &&
     weeklyScheduleData.meals.main
-      ? weeklyScheduleData.meals.main
+      ? weeklyScheduleData.meals.main.sort((a, b) => {
+          var textA = a.ingredient;
+          var textB = b.ingredient;
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        })
       : [];
 
   const mainMealsIngredients =
     weeklyScheduleData &&
     weeklyScheduleData.ingredients &&
     weeklyScheduleData.ingredients.main
-      ? weeklyScheduleData.ingredients.main
+      ? weeklyScheduleData.ingredients.main.sort((a, b) => {
+          var textA = a.ingredient;
+          var textB = b.ingredient;
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        })
       : [];
 
   const otherMealsList =
@@ -364,13 +372,21 @@ export const FoodContextProvider = (props) => {
     weeklyScheduleData &&
     weeklyScheduleData.ingredients &&
     weeklyScheduleData.ingredients.other
-      ? weeklyScheduleData.ingredients.other
+      ? weeklyScheduleData.ingredients.other.sort((a, b) => {
+          var textA = a.ingredient;
+          var textB = b.ingredient;
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        })
       : [];
 
   const hasScheduleIngredients =
     weeklyScheduleData &&
     weeklyScheduleData.ingredients &&
-    weeklyScheduleData.ingredients.main
+    weeklyScheduleData.ingredients.main.sort((a, b) => {
+      var textA = a.ingredient;
+      var textB = b.ingredient;
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    })
       ? true
       : false;
 
@@ -384,11 +400,19 @@ export const FoodContextProvider = (props) => {
 
     mainMeals: {
       list: mainMealsList,
-      ingredients: mainMealsIngredients,
+      ingredients: mainMealsIngredients.sort((a, b) => {
+        var textA = a.ingredient;
+        var textB = b.ingredient;
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      }),
     },
     otherMeals: {
       list: otherMealsList,
-      ingredients: otherMealsIngredients,
+      ingredients: otherMealsIngredients.sort((a, b) => {
+        var textA = a.ingredient;
+        var textB = b.ingredient;
+        return textA < textB ? -1 : textA > textB ? 1 : 0;
+      }),
     },
     weeklySchedule: weeklyScheduleData,
     scheduleId: scheduleId,
