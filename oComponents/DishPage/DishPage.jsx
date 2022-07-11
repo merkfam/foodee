@@ -18,11 +18,12 @@ const DishPage = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const updateDishHandler = async (data) => {
+    console.log(data);
     const dishId = props.mealData.id;
     data = { ...data, _id: dishId };
-    // console.log("Updating...");
-    // console.log(data);
     props.updateDish(data);
+    const redirect = `/menu/${router.query.meal}`;
+    router.push(redirect);
   };
 
   const confirm = () => {

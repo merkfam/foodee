@@ -7,7 +7,7 @@ const update_ingredient = async (req, res) => {
   let _id = data._id;
   const name = data.name;
   const price = data.price;
-  const listId = data.list_id;
+  // const listId = data.list_id;
   if (_id === "undefined") {
     _id = ObjectId(Math.random() + Math.random() / Math.random());
   }
@@ -34,7 +34,7 @@ const update_ingredient = async (req, res) => {
           const menuCollection = client
             .db("food-planner")
             .collection("ingredients");
-          console.log("Going to update ingredient now...");
+          // console.log("Going to update ingredient now...");
           menuCollection
             .updateOne(
               { "ingredients._id": ObjectId(_id) },
@@ -56,7 +56,7 @@ const update_ingredient = async (req, res) => {
       console.log("Error: Updating Ingredient Data Failed.");
       console.log(err);
     }
-    console.log("leaving UPDATE_INGREDIENT now...");
+    // console.log("leaving UPDATE_INGREDIENT now...");
   }
 };
 

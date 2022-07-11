@@ -6,14 +6,14 @@ const update_dish = async (req, res) => {
   let data = req.body;
   // console.log("data", data);
   const _id2 = ObjectId(data._id);
-  const _id = data._id;
-  const menuId = data.menuId;
+  // const _id = data._id;
+  // const menuId = data.menuId;
   const ingredients = data.ingredients;
   const instructions = data.instructions;
   const dish = data.dish;
   const meal = data.meal;
   const dishType = data.dishType;
-  console.log(ingredients);
+  // console.log(ingredients);
 
   for (let i = 0; i < ingredients.length; i++) {
     const ingredient = ingredients[i];
@@ -83,7 +83,7 @@ const update_dish = async (req, res) => {
       console.log("Error: Retreiving Dish Schedule Data Failed.");
       console.log(err);
     }
-    console.log("leaving GET_DISH_SCHEDULE now...");
+    // console.log("leaving GET_DISH_SCHEDULE now...");
     // p.resolve()
   }
 };
