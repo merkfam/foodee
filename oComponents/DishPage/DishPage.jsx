@@ -12,17 +12,59 @@ const DishPage = (props) => {
   const ingredientList = foodCtx.allIngredients;
   const data = props.mealData;
   const router = useRouter();
+  // console.log(props);
 
   const [edit, setEdit] = useState("false");
   const [editText, setEditText] = useState("Edit");
   const [showModal, setShowModal] = useState(false);
+  console.log("data,", data);
 
-  const updateDishHandler = async (data) => {
-    // console.log(data);
+  const updateDishHandler = async (update_data) => {
     const dishId = props.mealData.id;
-    data = { ...data, _id: dishId };
-    props.updateDish(data);
+    update_data = { ...update_data, _id: dishId };
+    props.updateDish(update_data);
     const redirect = `/menu/${router.query.meal}`;
+    const meal = update_data.meal;
+    console.log("update_data,", update_data);
+    const index = meal.index;
+    const dishType = data.dishType;
+    // console.log("dishType,", dishType);
+    // console.log("meal.dishType,", meal.dishType);
+    // console.log("update_data,", update_data);
+    // console.log("meal[dishType]", meal[dishType]);
+
+    if (meal === "breakfast") {
+      foodCtx.setBreakfast((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
+    } else if (meal === "lunch") {
+      foodCtx.setLunch((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
+    } else if (meal === "dinner") {
+      foodCtx.setLunch((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
+    } else if (meal === "snack") {
+      foodCtx.setLunch((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
+    } else if (meal === "dessert") {
+      foodCtx.setLunch((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
+    }
+
     router.push(redirect);
   };
 
@@ -95,6 +137,7 @@ const DishPage = (props) => {
                 id={data.id}
                 updateDish={updateDishHandler}
                 options={ingredientList}
+                setCurrentMeal={props.setCurrentMeal}
               />
             </Fragment>
           ) : (

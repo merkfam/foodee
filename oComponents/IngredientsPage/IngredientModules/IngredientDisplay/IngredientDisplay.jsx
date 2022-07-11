@@ -43,6 +43,7 @@ const IngredientDisplay = (props) => {
       name: newIngredient,
       price: newPrice,
     };
+
     setShowUpdateModal(false);
     foodCtx.updateIngredient(data);
     setEdit("cancel");

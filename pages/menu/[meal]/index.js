@@ -5,7 +5,6 @@ import { useContext } from "react";
 
 const MealPage = (props) => {
   const router = useRouter();
-
   const foodCtx = useContext(FoodContext);
   const menu = [
     foodCtx.breakfast,
@@ -17,13 +16,16 @@ const MealPage = (props) => {
   let currentMeal = router.query.meal;
   const meal = router.query.meal;
 
-  let final;
+  // console.log("menu,", menu);
 
-  final = menu.filter((item) => {
-    return item.meal === meal;
+  let final = menu.filter((meals) => {
+    return meals.meal === meal;
   });
 
+  // console.log("final,", final);
+
   final = final[0];
+  // console.log("final[0],", final);
 
   const showMeals = true;
   const showMealType = true;
@@ -61,85 +63,3 @@ const MealPage = (props) => {
 };
 
 export default MealPage;
-
-// export const getStaticPaths = async () => {
-//   const client = await MongoClient.connect(
-//     process.env.MerK_MONGO_URI
-//   );
-//   const db = client.db("food-planner");
-//   const menuCollection = db.collection("full-menu");
-//   const meals = await menuCollection.find().toArray();
-//   const final = meals[0];
-//   const data = final.Breakfast;
-
-//   client.close();
-//   return {
-//     fallback: "blocking",
-//     paths: meals.map((meal) => ({
-//       params: { meal: meal._id.toString() },
-//     })),
-//   };
-// };
-
-// export const getStaticProps = async (context) => {
-//   // Get Data For Single Page
-//   const meal = context.params.meal;
-
-//   const formatMeal = TitleFy(meal);
-
-//   const client = await MongoClient.connect(
-//     process.env.MerK_MONGO_URI
-//   );
-
-//   const query = `${formatMeal}.Meal`;
-//   const db = client.db("food-planner");
-//   const menuCollection = db.collection("full-menu");
-
-//   const meals = await menuCollection.find().toArray();
-//   const final = meals[0][formatMeal];
-
-//   const Entrees = final.Entrees.map((entree) => {
-//     const Instructions = ObjectId(entree.Instructions._id).toString();
-//     const Ingredients = entree.Ingredients.map((ingredient) => {
-//       return { ...ingredient, _id: ObjectId(ingredient._id).toString() };
-//     });
-
-//     return {
-//       ...entree,
-//       Ingredients: Ingredients,
-//       Instructions: Instructions,
-//       _id: ObjectId(entree._id).toString(),
-//     };
-//   });
-
-//   const Sides = final.Sides.map((side) => {
-//     const Instructions = ObjectId(side.Instructions._id).toString();
-//     const Ingredients = side.Ingredients.map((ingredient) => {
-//       return { ...ingredient, _id: ObjectId(ingredient._id).toString() };
-//     });
-
-//     return {
-//       ...side,
-//       Ingredients: Ingredients,
-//       Instructions: Instructions,
-//       _id: ObjectId(side._id).toString(),
-//     };
-//   });
-
-//   const sendData = {
-//     ...final,
-//     Sides: Sides,
-//     Entrees: Entrees,
-//     _id: ObjectId(final._id).toString(),
-//   };
-
-//   client.close();
-
-//   return {
-//     props: {
-//       menu: {
-//         meals: sendData,
-//       },
-//     },
-//   };
-// };

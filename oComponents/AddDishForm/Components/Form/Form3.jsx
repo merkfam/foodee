@@ -33,6 +33,7 @@ const Form3 = (props) => {
   const [currentPrice, setCurrentPrice] = useState("");
 
   const compileAllDataForUpdate = (e) => {
+    console.log("compile update info function");
     e.preventDefault();
     if (dishName === "" || dishName === "unidentified") {
       setDishError("You need to specify a name for your dish");
@@ -58,7 +59,6 @@ const Form3 = (props) => {
   const handleChange = (event) => {
     const value = event.target.value;
     const name = event.target.name;
-
     name === "dishName" && setDishName(value);
     name === "instructions" && setInstructions(value);
     name === "ingredient" && setCurrentIngredient(value);
@@ -88,6 +88,7 @@ const Form3 = (props) => {
       $("#addIngredient").click().animate({ backgroundColor: "white" });
     }
   };
+
   useEffect(() => {
     $(document).ready(function () {
       $(window).on("keydown", function (event) {

@@ -27,7 +27,7 @@ const ToBuy = (props) => {
 
       <td className={css.td}>
         <p className={css.p}>
-          {busiCtx.cur} {props.total}
+          {busiCtx.cur} {Math.round(props.total)}
         </p>
       </td>
     </tr>

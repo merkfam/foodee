@@ -6,11 +6,8 @@ import { Fragment, useContext } from "react";
 import { useRouter } from "next/router";
 import FoodContext from "../../../../../../store/food-context";
 import { TitleFy } from "../../../../../../Helpers/Strings";
-// import PageSection from "../../../../../BasicPageComponents/PageSection/PageSection";
 const Entree = (props) => {
   const foodCtx = useContext(FoodContext);
-  // console.log(props.instructions);
-
   const router = useRouter();
 
   const getMeal = () => {
@@ -27,6 +24,7 @@ const Entree = (props) => {
       return;
     } else {
       foodCtx.setCurrentMeal({
+        index: props.index,
         dishType: props.dishType,
         meal: props.meal,
         dish: props.entree,

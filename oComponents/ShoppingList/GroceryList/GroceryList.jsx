@@ -208,6 +208,7 @@ const GroceryList = (props) => {
                 >
                   <p>
                     {busiCtx.cur}
+                    {/* {Math.round(grandTotal, 4)} */}
                     {grandTotal}
                   </p>
                 </th>

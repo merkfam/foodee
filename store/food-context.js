@@ -20,6 +20,11 @@ const FoodContext = createContext({
   scheduleId: "",
   allIngredients: [],
   hasScheduleIngredients: Boolean,
+  setBreakfast: () => {},
+  setLunch: () => {},
+  setDinner: () => {},
+  setSnack: () => {},
+  setDessert: () => {},
   getNew: () => {},
   reload: () => {},
   setReload: () => {},
@@ -45,6 +50,7 @@ export const FoodContextProvider = (props) => {
   const [listOfIngredients, setListOfIngredients] = useState([]);
   const [listOfIngredientsId, setListOfIngredientsId] = useState("");
 
+  // console.log("currentMeal,", currentMeal);
   const getListOfIngredients = async () => {
     try {
       const data = await fetch("/api/get_ingredient_list", {
@@ -428,7 +434,15 @@ export const FoodContextProvider = (props) => {
     addNewIngredient: addNewIngredient,
     updateIngredient: updateIngredient,
     deleteIngredient: deleteIngredient,
+    setBreakfast: setBreakfast,
+    setLunch: setLunch,
+    setDinner: setDinner,
+    setSnack: setSnack,
+    setDessert: setDessert,
   };
+  // console.log("breakfast, food-context");
+  // console.log(typeof breakfast);
+  // console.log(breakfast);
 
   return (
     <FoodContext.Provider value={contexValue}>

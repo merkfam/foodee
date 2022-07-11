@@ -20,6 +20,7 @@ const EntreeList = (props) => {
             <div key={`EntreeList Div: ${Math.random()} * ${Math.random()}`}>
               {
                 <Entree
+                  index={index}
                   access="access"
                   showMealType={props.showMealType}
                   setCurrentMeal={props.setCurrentMeal}
