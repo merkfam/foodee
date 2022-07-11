@@ -18,7 +18,7 @@ const DishPage = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const updateDishHandler = async (data) => {
-    console.log(data);
+    // console.log(data);
     const dishId = props.mealData.id;
     data = { ...data, _id: dishId };
     props.updateDish(data);
