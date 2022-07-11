@@ -1,4 +1,5 @@
 import css from "./IngredientOption.module.css";
+import { TitleFy } from "../../../../../Helpers/Strings";
 
 const IngredientOption = (props) => {
   const name = props.option;

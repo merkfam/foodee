@@ -1,18 +1,27 @@
 import css from "./SelectIngredient.module.css";
-import { useContext } from "react";
+import { useState } from "react";
 import { Form } from "react-bootstrap";
 import Label from "../../../UI/Label/Label";
 import IngredientOption from "./IngredientOption/IngredientOption";
 
 const SelectIngredient = (props) => {
-  const classes = ` ${props.className} ${css.fixDiv}`;
-  const options = props.options;
-  if (options[0] !== "Choose") {
-    options.unshift("Choose");
-  }
+  const [ingredientOptions, setIngredientOptions] = useState(
+    props.options &&
+      props.options.length > 1 &&
+      props.options[0].ingredient &&
+      props.options[0].ingredient.name
+      ? props.options.sort((a, b) => {
+          var textA = a.ingredient.name;
+          var textB = b.ingredient.name;
+          return textA < textB ? -1 : textA > textB ? 1 : 0;
+        })
+      : []
+  );
 
-  if (options[1] === "Choose") {
-    options.slice(1, 1);
+  if (ingredientOptions[0] !== "Choose") {
+    setIngredientOptions((prev) => {
+      return ["Choose", ...prev];
+    });
   }
 
   const changeHandler = (e) => {
@@ -34,7 +43,7 @@ const SelectIngredient = (props) => {
         name={props.name}
         value={props.value}
       >
-        {options.map((option, index) => {
+        {ingredientOptions.map((option, index) => {
           return (
             <IngredientOption
               key={`${option._id}|${index}-${Math.random() * Math.random()}`}
