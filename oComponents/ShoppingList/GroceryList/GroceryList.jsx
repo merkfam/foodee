@@ -53,7 +53,7 @@ const GroceryList = (props) => {
   const checkIngredient = (line, index, id) => {
     const fixedIngredients = ingredients;
     delete fixedIngredients[index];
-    console.log(index);
+    // console.log(index);
 
     props.setIngredients((prev) => {
       return fixedIngredients;
@@ -201,15 +201,13 @@ const GroceryList = (props) => {
                   key={`totalNumberOfItems:`}
                   className={`${css.th} ${css.bottom}`}
                 ></th>
-                {/* <th></th> */}
                 <th
                   key={`GrandTotal:`}
                   className={`${css.amountTh} ${css.bottom}`}
                 >
                   <p>
                     {busiCtx.cur}
-                    {/* {Math.round(grandTotal, 4)} */}
-                    {grandTotal}
+                    {grandTotal.toFixed(2)}
                   </p>
                 </th>
               </tr>

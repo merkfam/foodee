@@ -6,10 +6,6 @@ import { useContext, useEffect, useState } from "react";
 const Home = (props) => {
   const foodCtx = useContext(FoodContext);
 
-  const menuId = foodCtx.menuId;
-  const scheduleId = foodCtx.scheduleId;
-  const getNew = foodCtx.getNew;
-
   const otherDays = 3;
   const weeklyDays = 7;
 
@@ -34,31 +30,72 @@ const Home = (props) => {
   };
 
   const realMeals = foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.list;
-  // console.log(realMeals);
   const realIngredients =
     foodCtx && foodCtx.mainMeals && foodCtx.mainMeals.ingredients;
   const otherMeals = foodCtx && foodCtx.otherMeals && foodCtx.otherMeals.list;
   const otherIngredients =
     foodCtx && foodCtx.otherMeals && foodCtx.otherMeals.ingredients;
 
-  const shoppingList = realIngredients &&
-    otherIngredients && [...realIngredients, ...otherIngredients];
+  let a_shoppingList =
+    realIngredients &&
+    otherIngredients &&
+    [...realIngredients, ...otherIngredients].sort((a, b) => {
+      var textA = a.ingredient;
+      var textB = b.ingredient;
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+
+  useEffect(() => {
+    const newList = a_shoppingList.map((item, index, a_shoppingList) => {
+      if (
+        a_shoppingList &&
+        typeof a_shoppingList[index] !== "undefined" &&
+        typeof a_shoppingList[index + 1] !== "undefined" &&
+        item &&
+        typeof item.ingredient !== "undefined"
+      ) {
+        if (
+          a_shoppingList[index + 1] &&
+          a_shoppingList[index + 1].ingredient &&
+          item.ingredient.trim() === a_shoppingList[index + 1].ingredient.trim()
+        ) {
+          const item1 = item;
+          const item2 = a_shoppingList[index + 1];
+
+          const totalNumber = item1.number + item2.number;
+          const price = item.price;
+
+          const newItem = {
+            ...item,
+            number: totalNumber,
+            total: price * totalNumber,
+          };
+          a_shoppingList.splice(index, 2, newItem);
+          return newItem;
+        } else {
+          return item;
+        }
+      }
+    });
+    // console.log("newList,", newList);
+    // console.log("a_shoppingList,", a_shoppingList);
+  }, [a_shoppingList]);
 
   return (
     <ShoppingList
-      shoppingList={shoppingList}
+      shoppingList={a_shoppingList}
       realMeals={realMeals}
       realIngredients={realIngredients}
       otherMeals={otherMeals}
       otherIngredients={otherIngredients}
-      menuId={menuId}
-      scheduleId={scheduleId}
+      menuId={foodCtx.menuId}
+      scheduleId={foodCtx.scheduleId}
       otherDays={otherDays}
       weeklyDays={weeklyDays}
       showMeals={showMeals}
       showMealType={showMealType}
       mealModuleClasses={mealModuleClasses}
-      getNew={getNew}
+      getNew={foodCtx.getNew}
       reload={foodCtx.reload}
       setReload={foodCtx.setReload}
       hasIngredients={foodCtx.hasScheduleIngredients}
@@ -68,65 +105,40 @@ const Home = (props) => {
 
 export default Home;
 
-// export const getServerSideProps = async () => {
-//   const client = await MongoClient.connect(
-//     process.env.MerK_MONGO_URI
-//   );
-//   const db = client.db("food-planner");
-//   const menuCollection = db.collection("full-menu");
-//   const meals = await menuCollection.find().toArray();
+// useEffect(() => {
+//   const newList = a_shoppingList.map((item, index, a_shoppingList) => {
+//     if (
+//       a_shoppingList &&
+//       typeof a_shoppingList[index] !== "undefined" &&
+//       typeof a_shoppingList[index + 1] !== "undefined" &&
+//       item &&
+//       typeof item.ingredient !== "undefined"
+//     ) {
+//       if (
+//         a_shoppingList[index + 1] &&
+//         a_shoppingList[index + 1].ingredient &&
+//         item.ingredient.trim() === a_shoppingList[index + 1].ingredient.trim()
+//       ) {
+//         const item1 = item;
+//         const item2 = a_shoppingList[index + 1];
 
-//   let final = meals[0];
-//   client.close();
+//         const totalNumber = item1.number + item2.number;
+//         const price = item.price;
 
-//   const keys = Object.keys(final);
-
-//   const full_menu = keys.forEach((key) => {
-//     let _id;
-//     if (key === "_id") {
-//       _id = ObjectId(final[key]._id).toString();
-//     } else {
-//       const Entrees = final[key].Entrees.map((entree) => {
-//         const Instructions = ObjectId(entree.Instructions._id).toString();
-//         const Ingredients = entree.Ingredients.map((ingredient) => {
-//           return { ...ingredient, _id: ObjectId(ingredient._id).toString() };
-//         });
-
-//         return {
-//           ...entree,
-//           Ingredients: Ingredients,
-//           Instructions: Instructions,
-//           _id: ObjectId(entree._id).toString(),
+//         const newItem = {
+//           ...item,
+//           number: totalNumber,
+//           total: price * totalNumber,
 //         };
-//       });
-
-//       const Sides = final[key].Sides.map((side) => {
-//         const Instructions = ObjectId(side.Instructions._id).toString();
-//         const Ingredients = side.Ingredients.map((ingredient) => {
-//           return { ...ingredient, _id: ObjectId(ingredient._id).toString() };
-//         });
-
-//         return {
-//           ...side,
-//           Ingredients: Ingredients,
-//           Instructions: Instructions,
-//           _id: ObjectId(side._id).toString(),
-//         };
-//       });
-//       final[key] = { Meal: final[key].Meal, Entrees: Entrees, Sides: Sides };
+//         finalTry.push(newItem);
+//         return newItem;
+//       }
 //     }
 //   });
-
-//   return {
-//     props: {
-//       menu: {
-//         Breakfast: final.Breakfast,
-//         Lunch: final.Lunch,
-//         Dinner: final.Dinner,
-//         Snack: final.Snack,
-//         Dessert: final.Dessert,
-//       },
-//     },
-//     // revalidate: 10,
-//   };
-// };
+//   console.log(newList);
+//   setShoppingList(a_shoppingList);
+// }, [
+//   a_shoppingList[a_shoppingList.length],
+//   a_shoppingList.length,
+//   // final_shoppingList,
+// ]);

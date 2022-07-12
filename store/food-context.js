@@ -406,19 +406,11 @@ export const FoodContextProvider = (props) => {
 
     mainMeals: {
       list: mainMealsList,
-      ingredients: mainMealsIngredients.sort((a, b) => {
-        var textA = a.ingredient;
-        var textB = b.ingredient;
-        return textA < textB ? -1 : textA > textB ? 1 : 0;
-      }),
+      ingredients: mainMealsIngredients,
     },
     otherMeals: {
       list: otherMealsList,
-      ingredients: otherMealsIngredients.sort((a, b) => {
-        var textA = a.ingredient;
-        var textB = b.ingredient;
-        return textA < textB ? -1 : textA > textB ? 1 : 0;
-      }),
+      ingredients: otherMealsIngredients,
     },
     weeklySchedule: weeklyScheduleData,
     scheduleId: scheduleId,
@@ -440,9 +432,6 @@ export const FoodContextProvider = (props) => {
     setSnack: setSnack,
     setDessert: setDessert,
   };
-  // console.log("breakfast, food-context");
-  // console.log(typeof breakfast);
-  // console.log(breakfast);
 
   return (
     <FoodContext.Provider value={contexValue}>
