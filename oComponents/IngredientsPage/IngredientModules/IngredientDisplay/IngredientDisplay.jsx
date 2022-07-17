@@ -47,7 +47,8 @@ const IngredientDisplay = (props) => {
     setShowUpdateModal(false);
     foodCtx.updateIngredient(data);
     setEdit("cancel");
-    // console.log("updating...");
+    setOrPrice(data.price);
+    setOrIngredient(newIngredient);
   };
 
   const handleChange = (e) => {
@@ -74,7 +75,7 @@ const IngredientDisplay = (props) => {
     };
     setShowDeleteModal(false);
     foodCtx.deleteIngredient(data);
-    props.deleteIngredientAfterDelete(props.index);
+    props.deleteIngredientAfterDelete(props.index, props.ingredient);
   };
 
   return (

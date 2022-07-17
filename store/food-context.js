@@ -1,5 +1,6 @@
 import { createContext, Fragment, useEffect, useState } from "react";
 import { GENERATE_SCHEDULE } from "../Helpers/FOODCONTEXT/FOODCONTEXT";
+import { SORT } from "../Helpers/GeneralPurpose/SORT";
 
 const FoodContext = createContext({
   menuId: "",
@@ -378,12 +379,15 @@ export const FoodContextProvider = (props) => {
     weeklyScheduleData &&
     weeklyScheduleData.ingredients &&
     weeklyScheduleData.ingredients.other
-      ? weeklyScheduleData.ingredients.other.sort((a, b) => {
-          var textA = a.ingredient;
-          var textB = b.ingredient;
-          return textA < textB ? -1 : textA > textB ? 1 : 0;
-        })
-      : [];
+      ? SORT(weeklyScheduleData.ingredients.other, "ingredient", "")
+      : // .sort((a, b) => {
+        //     var textA = a.ingredient;
+        //     var textB = b.ingredient;
+        //     return textA < textB ? -1 : textA > textB ? 1 : 0;
+        //   })
+        [];
+
+  // console.log(otherMealsIngredients);
 
   const hasScheduleIngredients =
     weeklyScheduleData &&
