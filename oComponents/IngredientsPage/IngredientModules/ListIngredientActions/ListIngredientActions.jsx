@@ -17,10 +17,10 @@ const ListIngredientActions = (props) => {
     });
   };
 
-  const setIgredientData = (set1, data1, set2, data2) => {
-    set1(data1);
-    set2(data2);
-  };
+  // const setIgredientData = (set1, data1, set2, data2) => {
+  //   set1(data1);
+  //   set2(data2);
+  // };
 
   // const updateIngredientList = (index, ingredient) => {
   //   const new_ingredients = ingredients;
