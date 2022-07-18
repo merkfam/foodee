@@ -7,7 +7,6 @@ import { AuthContextProvider } from "../store/auth-context";
 import { BusinessContextProvider } from "../store/business-context";
 import { WindowContextProvider } from "../store/window-context";
 import { FoodContextProvider } from "../store/food-context";
-// import { MongoClient, ObjectId } from "mongodb";
 
 function MyApp({ Component, pageProps }) {
   return (
