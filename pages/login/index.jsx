@@ -48,6 +48,7 @@ const Login = () => {
           authCtx.login(token, userName, expirationTime, profile, mealData);
         } catch (err) {
           console.log("ERROR GETTING LOGIN RESPONSE: ", err);
+          console.log("Trying...");
         }
       } else {
         console.log("Credentials Did Not Come");
