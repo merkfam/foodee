@@ -115,7 +115,6 @@ export const LOGIN_USER = async (
 ) => {
   const response = collection.findOne({ ...filter }).then(async (response) => {
     const send_back_data = { ...response, ...update };
-    console.log("SENDING BACK: ", send_back_data);
     return RETURN_OPTIONS(
       send_back_data,
       res,

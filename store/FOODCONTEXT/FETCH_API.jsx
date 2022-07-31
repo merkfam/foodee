@@ -10,13 +10,12 @@ export const FETCH_API = async (database_data, api_path) => {
         "Content-Type": "application/json",
       },
     });
-    console.log("RETREIVAL WAS SUCCESSFUL: ", retreival);
+    // console.log("RETREIVAL WAS SUCCESSFUL: ", retreival);
     try {
       const sendData = await retreival.json();
-      console.log("CONVERTING TO JSON FORMAT WAS SUCCESSFUL: ", sendData);
+      // console.log("CONVERTING TO JSON FORMAT WAS SUCCESSFUL: ", sendData);
       return sendData;
     } catch (err) {
-      console.log("CONVERTING TO JSON THERE WAS AN ERROR: ");
       console.log(err);
       console.log("RESPONSE BEFORE JSON TRY WAS: ", retreival);
       return err;
@@ -36,7 +35,6 @@ export const FETCH = async (send_data, api_path, callback = null) => {
     // console.log("RESPONSE: ", r);
     return r;
   } catch (err) {
-    console.log("FETCH IS WHERE THE ERROR STARTS");
     console.log(err);
     return err;
   }
@@ -52,7 +50,6 @@ export const SIGN_LOG_IN_FETCH = async (
     if (callback !== null) {
       callback();
     }
-    console.log("SIGN LOGIN FETCH RESPONSE: ", r);
     return r;
   } catch (err) {
     console.log("SIGN IN LOGIN FETCH API IS WHERE THE ERROR STARTS");

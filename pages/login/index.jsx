@@ -19,21 +19,16 @@ const Login = () => {
       password: password,
     };
 
-    console.log("CREDENTIALS: ", credentials);
-
     setIsLoading(true);
 
     const credURL = "/api/get_credentials";
     try {
       const credentialsResponse = await AXIOS_POST(credentials, credURL);
-      console.log("AXIOS CREDENTIALS RESPONSE: ", credentialsResponse);
       const loginURL = "/api/login";
 
       if (credentialsResponse.idToken) {
         try {
           const data = await AXIOS_POST(credentialsResponse, loginURL);
-          console.log("AXIOS LOGIN RESPONSE: ", data);
-
           const mealData = {
             fullMenu: data.fullMenu,
             ingredients: data.ingredients,
@@ -46,9 +41,9 @@ const Login = () => {
             new Date().getTime() + +data.expiresIn * 1000
           );
           authCtx.login(token, userName, expirationTime, profile, mealData);
+          console.log("LOGIN SUCCESSFUL FOR: ", data.email);
         } catch (err) {
-          console.log("ERROR GETTING LOGIN RESPONSE: ", err);
-          console.log("Trying...");
+          console.log("error logging in: ", err);
         }
       } else {
         console.log("Credentials Did Not Come");
@@ -117,7 +112,6 @@ const Login = () => {
           <div className={css.createSpace}></div>
         </div>
       ) : (
-        // This is just a loading sign.
         <h1>Logging In...</h1>
       )}
     </Fragment>

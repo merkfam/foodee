@@ -51,8 +51,8 @@ export const MONGO_SWITCH = async (
       // console.log("______________SAVING USER_______________");
       return SAVE_USER(collection, filter, update, res, response_type, client);
     case "login_user":
-      console.log("______________LOGGING IN USER_______________");
-      console.log("______________LOGGING IN USER_______________");
+      // console.log("______________LOGGING IN USER_______________");
+      // console.log("______________LOGGING IN USER_______________");
       return LOGIN_USER(collection, filter, update, res, response_type, client);
     case "find_and_replace":
       // console.log("______________REPLACING_______________");
@@ -123,18 +123,13 @@ export const MONGO_CLIENT_CONNECT = async (
         res,
         response_type
       );
-      // console.log("__________SWITCH_DATA__________", switchData);
       if (response_type === "return") {
-        // console.log("resolving response");
         resolve(switchData);
       }
     });
-    // console.log("____FINAL RESPONSE RETURN____", finalResponse);
+
     client.close();
-    // return finalResponse;
   });
-  // console.log("___MONGO_CLIENT_CONNECT RETURN___", response);
-  // return response;
 };
 
 //  ----------------------------------------------------------

@@ -1,12 +1,9 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-import { save_error, save_log } from "../../Helpers/save_err_logs_to_db";
+import { save_error } from "../../Helpers/save_err_logs_to_db";
+import MONGO_PROMISE_WRAP from "../../Helpers/MONGO_DB_API/MONGO_SETUP";
 
 const handleLogin = async (req, res) => {
   const api = "/api/login";
-  save_log(api, "Top", "Entering handleLogin");
   let data = req.body;
-
-  console.log("LOGIN DATA: ", data);
 
   if (req.method === "POST") {
     try {
@@ -24,55 +21,19 @@ const handleLogin = async (req, res) => {
       };
 
       const return_type = process.env.RETURN_TYPE;
-
-      const client = new MongoClient(uri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverApi: ServerApiVersion.v1,
-      });
-      return new Promise(async (resolve, reject) => {
-        client.connect(async (err) => {
-          if (err) {
-            save_error(api, "MONGO client.connect(err)", err);
-            console.log(`There was an error in ${REST_TYPE}.`);
-            console.log(err);
-            return err;
-          }
-          const collection = client.db(db).collection(cl);
-
-          await collection
-            .findOne({ ...filter })
-            .then(async (response) => {
-              const send_back_data = { ...response, ...update };
-              console.log("RESPONSE: ", send_back_data.profile);
-              res.send(send_back_data);
-              resolve();
-            })
-            .catch(async (error) => {
-              save_error("MONGO .findOne.then.catch", api, err);
-              res.json(error);
-              res.status(405).end();
-              resolve();
-            });
-        });
-        client.close();
-      });
+      await MONGO_PROMISE_WRAP(
+        uri,
+        db,
+        cl,
+        filter,
+        update,
+        "LOGIN_USER",
+        res,
+        return_type
+      );
     } catch (err) {
-      save_error("Bottom Catch", api, err);
-      console.log(message);
-      res.send(err);
+      save_error(api, "BOTTOM CATCH", err);
     }
   }
 };
 export default handleLogin;
-
-// await MONGO_PROMISE_WRAP(
-//   uri,
-//   db,
-//   cl,
-//   filter,
-//   update,
-//   "LOGIN_USER",
-//   res,
-//   return_type
-// );

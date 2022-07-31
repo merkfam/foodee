@@ -82,7 +82,7 @@ export const AuthContextProvider = (props) => {
     if (userIsLoggedIn) {
       const userId = userInfo.userId;
       const r = await FETCH(userId, "/api/get_all");
-      console.log("GET DB UPDATE RESPONSE: ", r);
+      // console.log("GET DB UPDATE RESPONSE: ", r);
       if (r.displayName) {
         if (option === "") {
           const mealData = {

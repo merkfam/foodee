@@ -2,9 +2,6 @@ import { ObjectId } from "mongodb";
 import MONGO_PROMISE_WRAP from "../../Helpers/MONGO_DB_API/MONGO_SETUP";
 
 const add_ingredient = async (req, res) => {
-  console.log(
-    "===============================ENTERING ADD_INGREDIENT================================"
-  );
   let data = req.body;
   // console.log("DATA: ", data);
   const ingredient = data.name;
