@@ -33,10 +33,10 @@ export const RETRIEVE_STORED_TOKEN = () => {
   let storedToken = localStorage.getItem("token");
   let storedUserName = localStorage.getItem("userName");
   let storedExpirationTime = localStorage.getItem("expirationTime");
-  console.log("RETREIVING TOKEN DATA");
+  // console.log("RETREIVING TOKEN DATA");
 
   try {
-    console.log("TRYING TO RETRIEVE");
+    // console.log("TRYING TO RETRIEVE");
     profile = localStorage.getItem("profile");
     mealData = localStorage.getItem("mealData");
     if (profile) {
@@ -88,7 +88,7 @@ export const UPDATE_ONE = (data, option, option_location) => {
     localStorage.setItem(option_location, fixed);
     try {
       const new_data = JSON.parse(localStorage.getItem(option_location));
-      console.log("NEW DATA: ", new_data);
+      // console.log("NEW DATA: ", new_data);
       return new_data;
     } catch (err) {
       console.log(err);
@@ -100,30 +100,33 @@ export const UPDATE_ONE = (data, option, option_location) => {
 export const UPDATE_STORED_DATA = (newProfile, mealData) => {
   const filter = newProfile;
   delete filter.funcs;
-  const data = JSON.stringify(filter);
+  const data = JSON.stringify(newProfile);
   const meals = JSON.stringify(mealData);
 
   let retreivedProfile = {};
   let retreivedMeals = {};
+
+  localStorage.removeItem("profile");
+  localStorage.removeItem("mealData");
 
   localStorage.setItem("profile", data);
   localStorage.setItem("mealData", meals);
 
   retreivedProfile = localStorage.getItem("profile");
   retreivedMeals = localStorage.getItem("mealData");
+
   try {
     retreivedProfile = JSON.parse(retreivedProfile);
-    console.log("RETRIEVED PROFILE: ", retreivedProfile);
-    retreivedMeals = localStorage.getItem("mealData");
+    retreivedMeals = JSON.parse(retreivedMeals);
+    const send = { profile: retreivedProfile, mealData: retreivedMeals };
+    // console.log("UPDATE STORED DATA: ", send);
+    return send;
   } catch (err) {
     console.log(err);
     retreivedProfile = {};
     retreivedMeals = {};
+    return retreivedProfile;
   }
-
-  return {
-    ...retreivedProfile,
-  };
 };
 
 export const UPDATE_ALL = (newProfile, mealData) => {
@@ -144,32 +147,28 @@ export const UPDATE_ALL = (newProfile, mealData) => {
 
   try {
     retreivedProfile = JSON.parse(retreivedProfile);
-    retreivedMeals = localStorage.getItem("mealData");
+    retreivedMeals = JSON.parse(retreivedMeals);
+    const send = { profile: retreivedProfile, mealData: retreivedMeals };
+    console.log("UPDATE ALL DATA: ", send);
+    return send;
   } catch (err) {
     console.log(err);
     retreivedProfile = {};
     retreivedMeals = {};
     return retreivedProfile;
   }
-
-  return {
-    ...retreivedProfile,
-  };
 };
 
 export const SAVE_LAST_MEAL = (mealData) => {
-  // console.log("SAVING LATEST MEAL");
   if (mealData) {
     const to_save = JSON.stringify(mealData);
     localStorage.setItem("lastMeal", to_save);
-    // console.log("SAVED: ", to_save);
   } else {
     console.log("THERE WAS NO LAST MEAL DATA TO SAVE>>>>");
   }
 };
 
 export const GET_LAST_MEAL = () => {
-  // console.log("GETTING LATEST MEAL");
   const lastMeal = localStorage.getItem("lastMeal");
   try {
     const saved = JSON.parse(lastMeal);
@@ -181,13 +180,11 @@ export const GET_LAST_MEAL = () => {
 };
 
 export const REMOVE_LAST_MEAL = () => {
-  console.log("REMOVING LATEST MEAL");
   localStorage.removeItem("lastMeal");
 };
 
 export const UPDATE_LAST_MEAL = (new_meal) => {
   if (new_meal) {
-    console.log(new_meal);
     try {
       const to_save = JSON.stringify(new_meal);
       REMOVE_LAST_MEAL();
@@ -202,3 +199,38 @@ export const UPDATE_LAST_MEAL = (new_meal) => {
 };
 
 export const a_fake = () => {};
+
+export const SAVE_LAST_PAGE = (page) => {
+  if (typeof window !== "undefined") {
+    try {
+      const to_save = JSON.stringify(page);
+      localStorage.setItem("page", to_save);
+    } catch (err) {
+      // console.log("THERE WAS NO LAST PAGE TO SAVE>>>>");
+      console.log(err);
+    }
+  }
+};
+
+export const GET_LAST_PAGE = () => {
+  try {
+    const lastPage = localStorage.getItem("lastPage");
+    const saved = JSON.parse(lastPage);
+    return saved;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+export const UPDATE_LAST_PAGE = (page) => {
+  try {
+    localStorage.removeItem("lastPage");
+    localStorage.setItem("lastPage", page);
+    const saved = JSON.parse(lastPage);
+    return saved;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};

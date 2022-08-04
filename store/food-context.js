@@ -63,14 +63,21 @@ export const FoodContextProvider = (props) => {
           setDessert(meals.dessert);
         }
       }
-
+      // console.log("m.ingredients: ", m.ingredients);
+      // console.log("ingredients: ", authCtx.ingredients);
       setScheduleId(authCtx.userInfo.userId);
       setWeeklyScheduleData(m.weeklyList);
-      setListOfIngredients(m.ingredients);
+      setListOfIngredients(
+        authCtx.ingredients
+          ? authCtx.ingredients
+          : m.ingredients
+          ? m.ingredients
+          : []
+      );
       lastMeal = authCtx.lastMeal.get().dish;
       setCurrentMeal(lastMeal);
     }
-  }, [authCtx.isLoggedIn, authCtx.mealData]);
+  }, [authCtx.isLoggedIn, authCtx.mealData, authCtx.mealData.ingredients]);
 
   const updateReload = (bool) => {
     setReload(bool);

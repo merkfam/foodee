@@ -10,10 +10,8 @@ export const FETCH_API = async (database_data, api_path) => {
         "Content-Type": "application/json",
       },
     });
-    // console.log("RETREIVAL WAS SUCCESSFUL: ", retreival);
     try {
       const sendData = await retreival.json();
-      // console.log("CONVERTING TO JSON FORMAT WAS SUCCESSFUL: ", sendData);
       return sendData;
     } catch (err) {
       console.log(err);

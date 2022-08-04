@@ -4,6 +4,7 @@ import MONGO_PROMISE_WRAP from "../../Helpers/MONGO_DB_API/MONGO_SETUP";
 const handleLogin = async (req, res) => {
   const api = "/api/login";
   let data = req.body;
+  console.log("login");
 
   if (req.method === "POST") {
     try {
@@ -21,6 +22,7 @@ const handleLogin = async (req, res) => {
       };
 
       const return_type = process.env.RETURN_TYPE;
+
       await MONGO_PROMISE_WRAP(
         uri,
         db,
@@ -32,6 +34,7 @@ const handleLogin = async (req, res) => {
         return_type
       );
     } catch (err) {
+      console.log(err);
       save_error(api, "BOTTOM CATCH", err);
     }
   }

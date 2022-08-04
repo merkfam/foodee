@@ -9,9 +9,15 @@ export const HANDLE_SIGNUP_RESPONSE = (response, res, filter, update) => {
   return res.send(send);
 };
 
-export const HANDLE_LOGIN_RESPONSE = (response, res, update) => {
+export const HANDLE_LOGIN_RESPONSE = (response, res, filter, update) => {
   // const send = JSON.stringify({ ...response, ...update });
-  res.send(response);
+  // console.log("FILTER: ", filter);
+  // console.log("UPDATE: ", update);
+  // console.log("LOGIN RESPONSE: ", response);
+  const send = { ...response, ...update };
+  // console.log("SEND DATA: ", send);
+
+  res.send(send);
   return;
 };
 

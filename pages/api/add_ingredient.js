@@ -3,13 +3,14 @@ import MONGO_PROMISE_WRAP from "../../Helpers/MONGO_DB_API/MONGO_SETUP";
 
 const add_ingredient = async (req, res) => {
   let data = req.body;
-  // console.log("DATA: ", data);
   const ingredient = data.name;
   const price = Number(data.price);
   const userId = data.userId;
+  const newId = new ObjectId(Math.random() + Math.random() / Math.random());
+  const _id = newId.toString();
 
   const update_data = {
-    _id: new ObjectId(Math.random() + Math.random() / Math.random()),
+    _id: _id,
     ingredient: {
       price: price,
       name: ingredient,

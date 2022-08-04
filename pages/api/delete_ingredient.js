@@ -6,9 +6,12 @@ const delete_ingredient_handler = async (req, res) => {
   const _id = data._id;
   const userId = data.userId;
 
+  console.log("_id: ", _id);
+  console.log("userId: ", userId);
+
   const filter_path = `ingredients._id`;
-  const filter = { _id: ObjectId(userId), [filter_path]: ObjectId(_id) };
-  const update = { $pull: { ingredients: { _id: ObjectId(_id) } } };
+  const filter = { _id: ObjectId(userId), [filter_path]: _id };
+  const update = { $pull: { ingredients: { _id: _id } } };
 
   const uri = process.env.FOODIE_URI;
   const db = process.env.FOODIE_MONGO_DB_NAME;

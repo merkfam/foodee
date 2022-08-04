@@ -24,6 +24,7 @@ const AuthContext = createContext({
   userName: "",
   isLoggedIn: false,
   mealData: {},
+  ingredients: [],
   lastMeal: {
     save: () => {},
     update: () => {},
@@ -46,7 +47,10 @@ export const AuthContextProvider = (props) => {
   const [userName, setUserName] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [mealData, setMealData] = useState({});
+  const [ingredients, setIngredients] = useState([]);
   const userIsLoggedIn = !!token;
+
+  // console.log("LOGGED IN? ", userIsLoggedIn);
 
   const saveLatest = (mealData) => {
     SAVE_LAST_MEAL(mealData);
@@ -67,7 +71,7 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  const lastSite = () => {
+  const getSite = () => {
     const path = router.pathname;
     const query = router.query;
     const send = { path: path, query: query };
@@ -79,10 +83,11 @@ export const AuthContextProvider = (props) => {
   };
 
   const GET_DB_UPDATE = async (option = "", option_location = "") => {
+    console.log("UPDATING DATA BASE...");
     if (userIsLoggedIn) {
       const userId = userInfo.userId;
       const r = await FETCH(userId, "/api/get_all");
-      // console.log("GET DB UPDATE RESPONSE: ", r);
+      console.log("GET DB UPDATE RESPONSE: ", r);
       if (r.displayName) {
         if (option === "") {
           const mealData = {
@@ -94,7 +99,8 @@ export const AuthContextProvider = (props) => {
           setUserName(r.profile["User Data"]["User Name"]);
           setUserInfo({ ...r.profile, userId: r._id });
           setMealData(mealData);
-          UPDATE_ALL(r.profile, mealData);
+          const update_data = UPDATE_ALL(r.profile, mealData);
+          // console.log("LOCAL STORAGE UPDATE DATA: ", update_data);
         } else if (option === "profile") {
           setUserInfo(r.profile);
         } else {
@@ -123,6 +129,8 @@ export const AuthContextProvider = (props) => {
       const initialUserName = tokenData.userName;
       const profile = tokenData.profile;
       const mealData = tokenData.mealData;
+
+      setIngredients(tokenData.mealData.ingredients);
       setToken(initialToken);
       setUserName(initialUserName);
       setUserInfo(profile);
@@ -132,38 +140,8 @@ export const AuthContextProvider = (props) => {
     }
   }, []);
 
-  const update_profile = () => {
-    const data = {
-      userId: userInfo.userId,
-      _id: userInfo._id,
-      "User Data": {
-        "User Name": userInfo.displayName,
-        "First Name": userInfo.fName,
-        "Last Name": userInfo.lName,
-        "Main Meals": "7",
-        "Optional Meals": "3",
-        Currency: "฿",
-        Email: userInfo.email,
-      },
-      "Personal Data": {
-        address: "",
-        sex: "",
-        gender: "",
-      },
-
-      "Regional Information": {
-        country: "",
-        currency: "฿",
-      },
-      "Theme Options": {
-        theme: "",
-      },
-    };
-    return { ...data };
-    // updateProfile({ ...data });
-  };
-
   const logoutHandler = async (function_that_called, time) => {
+    console.log("LOGGING OUT...");
     console.log(`Function: ${function_that_called} called logoutHandler`);
     setToken(null);
     setUserName(null);
@@ -190,6 +168,9 @@ export const AuthContextProvider = (props) => {
 
     if (mealData) {
       setMealData({ ...mealData });
+      if (mealData.ingredients) {
+        setIngredients(mealData.ingredients);
+      }
       // console.log("MEAL DATA: ", mealData);
     }
     saveLatest({ dish: {}, meal: "" });
@@ -207,6 +188,7 @@ export const AuthContextProvider = (props) => {
   };
 
   useEffect(() => {
+    // console.log(ingredients);
     const expirationTime = localStorage.getItem("expirationTime");
     remainingTime = CALCULATE_REMAINING_TIME(expirationTime);
 
@@ -230,7 +212,8 @@ export const AuthContextProvider = (props) => {
       remove: REMOVE_LAST_MEAL,
       get: GET_LAST_MEAL,
     },
-    saveLastSite: lastSite,
+    ingredients: ingredients,
+    saveLastSite: getSite,
     getDbUpdate: GET_DB_UPDATE,
     setMealData: setMealData,
     updateUserInfo: updateProfile,
