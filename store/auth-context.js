@@ -48,6 +48,7 @@ export const AuthContextProvider = (props) => {
   const [userInfo, setUserInfo] = useState({});
   const [mealData, setMealData] = useState({});
   const [ingredients, setIngredients] = useState([]);
+  const [loggingIn, setLoggingIn] = useState(false);
   const userIsLoggedIn = !!token;
 
   // console.log("LOGGED IN? ", userIsLoggedIn);
@@ -153,6 +154,7 @@ export const AuthContextProvider = (props) => {
   };
 
   const loginHandler = (token, userName, expirationTime, profile, mealData) => {
+    setLoggingIn(true);
     if (token) {
       setToken(token);
       // console.log("TOKEN: ", token);
@@ -184,7 +186,8 @@ export const AuthContextProvider = (props) => {
     );
 
     remainingTime = CALCULATE_REMAINING_TIME(expirationTime);
-    router.push("/login");
+    setLoggingIn(false);
+    router.push("/");
   };
 
   useEffect(() => {
@@ -213,6 +216,7 @@ export const AuthContextProvider = (props) => {
       get: GET_LAST_MEAL,
     },
     ingredients: ingredients,
+    loggingIn: loggingIn,
     saveLastSite: getSite,
     getDbUpdate: GET_DB_UPDATE,
     setMealData: setMealData,

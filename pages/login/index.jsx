@@ -1,7 +1,7 @@
 import LoginPage from "../../oComponents/LoginPage/LoginPage";
 
 const Login = () => {
-  <LoginPage />;
+  return <LoginPage />;
 };
 
 export default Login;
