@@ -168,6 +168,7 @@ export const FoodContextProvider = (props) => {
         console.log(response);
       }
       setReload(false);
+      authCtx.getDbUpdate();
       return response;
     } catch (err) {
       console.log("There was an error sending updated info");

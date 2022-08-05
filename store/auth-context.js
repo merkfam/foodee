@@ -89,7 +89,7 @@ export const AuthContextProvider = (props) => {
       const userId = userInfo.userId;
       // console.log("USER INFO: ", userInfo);
       const r = await FETCH(userId, "/api/get_all");
-      // console.log("GET DB UPDATE RESPONSE: ", r);
+      console.log("GET DB UPDATE RESPONSE: ", r);
       if (r.displayName) {
         if (option === "") {
           const mealData = {
@@ -102,6 +102,7 @@ export const AuthContextProvider = (props) => {
           setUserInfo({ ...r.profile, userId: r._id });
           setMealData(mealData);
           const update_data = UPDATE_ALL(r.profile, mealData);
+
           // console.log("LOCAL STORAGE UPDATE DATA: ", update_data);
         } else if (option === "profile") {
           setUserInfo(r.profile);
