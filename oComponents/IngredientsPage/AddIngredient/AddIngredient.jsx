@@ -6,9 +6,11 @@ import PostButton from "../../UI/Button/PostButton/PostButton";
 import { Col, Row } from "react-bootstrap";
 import PageSection from "../../BasicPageComponents/PageSection/PageSection";
 import { SuperTitleFy } from "../../../Helpers/GeneralPurpose/Strings";
+import AuthContext from "../../../store/auth-context";
 
 const AddIngredient = (props) => {
   const foodCtx = useContext(FoodContext);
+  const authCtx = useContext(AuthContext);
   const addIngredient = foodCtx.addNewIngredient;
   const [ingredient, setIngredient] = useState("");
   const [price, setPrice] = useState("");
@@ -21,7 +23,7 @@ const AddIngredient = (props) => {
     name === "price" && setPrice(value);
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault();
     if (
       ingredient === "" ||
@@ -37,11 +39,14 @@ const AddIngredient = (props) => {
     setErrorMessage(null);
     const finalIngredientName = SuperTitleFy(ingredient);
     const sendData = { ingredient: finalIngredientName, price: price };
-    addIngredient(sendData);
 
     props.addIngredientToList({
       ingredient: { name: sendData.ingredient, price: sendData.price },
     });
+
+    await addIngredient(sendData);
+
+    authCtx.getDbUpdate();
 
     setPrice(0);
     setIngredient("");

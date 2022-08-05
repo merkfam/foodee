@@ -7,7 +7,7 @@ export const DELETE_LIST_ITEM = (setState, id) => {
   });
 };
 
-export const ADD_LIST_ITEM = (setState, new_item, sortby = "") => {
+export const ADD_LIST_ITEM = async (setState, new_item, sortby = "") => {
   setState((prev) => {
     let newList = [...prev, new_item];
     newList = SINGLE_SORT(newList, sortby);

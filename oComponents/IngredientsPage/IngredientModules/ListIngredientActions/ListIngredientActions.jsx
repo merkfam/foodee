@@ -15,8 +15,8 @@ const ListIngredientActions = (props) => {
   const [ingredients, setIngredients] = useState(props.ingredients);
 
   const addIngredientLocally = async (ingredient) => {
-    ADD_LIST_ITEM(setIngredients, ingredient, "name");
-    authCtx.getDbUpdate();
+    const r = await ADD_LIST_ITEM(setIngredients, ingredient, "name");
+    return r;
   };
 
   const deleteIngredientLocally = (id) => {

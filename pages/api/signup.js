@@ -80,11 +80,15 @@ const handleSignup = async (req, res) => {
 
     const update = {
       localId: body.localId,
-      expiresIn: body.expiresIn,
       token: body.idToken,
       displayName: body.displayName,
       email: body.email,
-      profile: { ...profile, _id: _id },
+      profile: {
+        ...profile,
+        _id: ObjectId(Math.random() + Math.random() / Math.random()),
+        userId: _id,
+        localId: body.localId,
+      },
       fullMenu: EmptyMenu,
       ingredients: [],
       weeklyList: { ...WeeklySchedule },

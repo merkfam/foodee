@@ -87,6 +87,7 @@ export const AuthContextProvider = (props) => {
     console.log("UPDATING DATA BASE...");
     if (userIsLoggedIn) {
       const userId = userInfo.userId;
+      console.log("USER INFO: ", userInfo);
       const r = await FETCH(userId, "/api/get_all");
       console.log("GET DB UPDATE RESPONSE: ", r);
       if (r.displayName) {

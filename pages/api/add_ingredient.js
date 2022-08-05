@@ -6,7 +6,7 @@ const add_ingredient = async (req, res) => {
   const ingredient = data.name;
   const price = Number(data.price);
   const userId = data.userId;
-  const newId = new ObjectId(Math.random() + Math.random() / Math.random());
+  const newId = new ObjectId(Math.random() + Math.random());
   const _id = newId.toString();
 
   const update_data = {
@@ -16,6 +16,8 @@ const add_ingredient = async (req, res) => {
       name: ingredient,
     },
   };
+
+  console.log(update_data);
 
   const uri = process.env.FOODIE_URI;
   const db = process.env.FOODIE_MONGO_DB_NAME;

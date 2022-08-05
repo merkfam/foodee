@@ -94,7 +94,9 @@ export const FoodContextProvider = (props) => {
     };
     const r = await FETCH(d, "/api/add_ingredient");
     console.log("Add New Ingredient Response: ", r);
+    return r;
   };
+
   const updateIngredient = async (newIngredient) => {
     const d = {
       ...newIngredient,
