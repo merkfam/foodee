@@ -1,8 +1,6 @@
-// import { useState } from "react";
-
 const FilterIngredients = (all_Ingredients) => {
   const data = {};
-  let info = {};
+
   const final = Object.keys(
     all_Ingredients.reduce((obj, ingredient) => {
       if (!obj[ingredient.ingredient]) {
@@ -26,8 +24,6 @@ const FilterIngredients = (all_Ingredients) => {
       number: data[ingredient].number,
     };
   });
-  // console.log("final below");
-  // console.log(final);
 
   return final;
 };

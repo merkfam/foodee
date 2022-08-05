@@ -35,7 +35,6 @@ const UserContext = createContext({
 export const UserContextProvider = (props) => {
   const authCtx = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(authCtx.userInfo);
-  const isLoggedIn = authCtx.isLoggedIn;
 
   const updateProfile = async () => {
     delete userInfo.others;

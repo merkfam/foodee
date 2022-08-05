@@ -37,7 +37,7 @@ const Setting = (props) => {
     setShowUpdateModal(true);
   };
 
-  const UpdateHandler = (e) => {
+  const UpdateHandler = async (e) => {
     e.preventDefault();
     setShowUpdateModal(false);
     setEdit("cancel");
@@ -49,7 +49,7 @@ const Setting = (props) => {
         [props.objKey]: newSetting,
       },
     };
-    props.updateSetting(update);
+    await props.updateSetting(update);
   };
 
   return (

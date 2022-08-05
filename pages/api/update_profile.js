@@ -34,6 +34,7 @@ const update_profile_handler = async (req, res) => {
           console.log(err);
           return console.log("There was an error updating schedule.");
         }
+
         const menuCollection = client.db(db).collection(cl);
 
         menuCollection
@@ -43,6 +44,7 @@ const update_profile_handler = async (req, res) => {
             return res.send(response);
           });
       });
+
       client.close();
     });
 
