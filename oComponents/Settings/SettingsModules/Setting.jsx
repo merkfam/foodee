@@ -86,9 +86,9 @@ const Setting = (props) => {
               }}
             />
           ) : (
-            <h1 id="orSetting" className={css.input}>
+            <h3 id="orSetting" className={css.input}>
               {orSetting}
-            </h1>
+            </h3>
           )}
         </Col>
         <Col xs="5" md="6">

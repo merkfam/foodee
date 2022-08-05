@@ -15,7 +15,7 @@ const SettingsTier1 = (props) => {
         const nextTier = base[key];
         return (
           <Fragment key={`Fragment: ${key}: ${index} : ${Math.random()}`}>
-            <h1 key={`${key}:${Math.random()}`}>{key}</h1>
+            <h3 key={`${key}:${Math.random()}`}>{key}</h3>
             <Setting
               setting={nextTier}
               objKey={key}

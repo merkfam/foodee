@@ -4,7 +4,7 @@ import { Fragment, useState } from "react";
 import PostButton from "../UI/Button/PostButton/PostButton";
 
 const SettingsPage = (props) => {
-  const [isUpdated, setIsUpdated] = useState("Null");
+  const [isUpdated, setIsUpdated] = useState(null);
   const [saveText, setSaveText] = useState("Save Changes");
   const base = props.base;
   const keys = Object.keys(base);
@@ -14,7 +14,7 @@ const SettingsPage = (props) => {
     setSaveText("Saving...");
     await props.update();
     setTimeout(() => {
-      setIsUpdated("Null");
+      setIsUpdated(null);
       setSaveText("Save Changes");
     }, 3000);
     setSaveText("Saving...");
@@ -54,9 +54,9 @@ const SettingsPage = (props) => {
         }
         return (
           <Fragment key={`Fragment: ${key}: ${index} : ${Math.random()}`}>
-            <h1 key={`${key}:${Math.random()}`} className={css.settingCategory}>
+            <h4 key={`${key}:${Math.random()}`} className={css.settingCategory}>
               {key}
-            </h1>
+            </h4>
 
             <SettingsTier1
               nextTier={nextTier}
