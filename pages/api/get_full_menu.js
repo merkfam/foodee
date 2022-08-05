@@ -22,7 +22,7 @@ const add_ingredient = async (req, res) => {
       // "send"
     );
 
-    console.log("RESPONSE: ", response);
+    // console.log("RESPONSE: ", response);
   }
 };
 

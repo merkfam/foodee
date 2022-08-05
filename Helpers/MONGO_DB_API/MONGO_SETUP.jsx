@@ -52,7 +52,6 @@ export const MONGO_SWITCH = async (
       return SAVE_USER(collection, filter, update, res, response_type, client);
     case "login_user":
       // console.log("______________LOGGING IN USER_______________");
-      // console.log("______________LOGGING IN USER_______________");
       return LOGIN_USER(collection, filter, update, res, response_type, client);
     case "find_and_replace":
       // console.log("______________REPLACING_______________");

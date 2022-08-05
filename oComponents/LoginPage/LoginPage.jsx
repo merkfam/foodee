@@ -24,13 +24,12 @@ const LoginPage = () => {
     const credURL = "/api/get_credentials";
     try {
       const credentialsResponse = await AXIOS_POST(credentials, credURL);
-      console.log("CREDENTIALS RESPONSE: ", credentialsResponse);
+      // console.log("CREDENTIALS RESPONSE: ", credentialsResponse);
       const loginURL = "/api/login";
 
       if (credentialsResponse.idToken) {
         try {
           const data = await AXIOS_POST(credentialsResponse, loginURL);
-          console.log("LOGIN RESPONSE DATA: ", data);
           const mealData = {
             fullMenu: data.fullMenu,
             ingredients: data.ingredients,

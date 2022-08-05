@@ -33,12 +33,7 @@ export const ADD_1 = (itemName, value) => {
 };
 
 export const GET_1 = (itemName) => {
-  if (itemName === "lastMeal") {
-    console.log(`Trying to get ${itemName}`);
-  }
-
   const data = localStorage.getItem(itemName);
-  // console.log("data: ", data);
   try {
     const send = JSON.parse(data);
     return send;
@@ -93,7 +88,7 @@ export const RETRIEVE_STORED_TOKEN = () => {
   const remainingTime = CALCULATE_REMAINING_TIME(storedExpirationTime);
 
   if (remainingTime <= 60000) {
-    console.log("Token Timed Out");
+    // console.log("Token Timed Out");
     REMOVE_LIST(["token", "expirationTime", "userName", "profile", "mealData"]);
     return null;
   }
@@ -164,8 +159,8 @@ export const UPDATE_ALL = (newProfile, mealData) => {
 };
 
 export const SAVE_LAST_MEAL = (mealData, calledBy) => {
-  console.log("SAVE LAST MEAL CALLED BY: ", calledBy);
-  console.log("SAVING LAST MEAL: ", mealData);
+  // console.log("SAVE LAST MEAL CALLED BY: ", calledBy);
+  // console.log("SAVING LAST MEAL: ", mealData);
   if (mealData) {
     try {
       const to_save = JSON.stringify(mealData);
@@ -180,11 +175,11 @@ export const SAVE_LAST_MEAL = (mealData, calledBy) => {
 };
 
 export const GET_LAST_MEAL = (calledBy) => {
-  console.log("GET_LAST_MEAL called by: ", calledBy);
+  // console.log("GET_LAST_MEAL called by: ", calledBy);
   let lastMeal;
   try {
     lastMeal = GET_1("lastMeal");
-    console.log("VERIFICATION IN GET_LAST_MEAL: ", lastMeal);
+    // console.log("VERIFICATION IN GET_LAST_MEAL: ", lastMeal);
     return lastMeal;
   } catch (err) {
     console.log("No Last Meal Saved");
@@ -212,7 +207,7 @@ export const GET_LAST_PAGE = () => {
   const lastPage = GET_1("lastPage");
   try {
     if (typeof lastPage === "string") {
-      console.log("last page is a string");
+      // console.log("last page is a string");
       return lastPage;
     } else {
       return "/";

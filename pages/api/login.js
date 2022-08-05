@@ -4,7 +4,6 @@ import MONGO_PROMISE_WRAP from "../../Helpers/MONGO_DB_API/MONGO_SETUP";
 const handleLogin = async (req, res) => {
   const api = "/api/login";
   let data = req.body;
-  console.log("login");
 
   if (req.method === "POST") {
     try {

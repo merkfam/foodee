@@ -84,12 +84,12 @@ export const AuthContextProvider = (props) => {
   };
 
   const GET_DB_UPDATE = async (option = "", option_location = "") => {
-    console.log("UPDATING DATA BASE...");
+    // console.log("UPDATING DATA BASE...");
     if (userIsLoggedIn) {
       const userId = userInfo.userId;
-      console.log("USER INFO: ", userInfo);
+      // console.log("USER INFO: ", userInfo);
       const r = await FETCH(userId, "/api/get_all");
-      console.log("GET DB UPDATE RESPONSE: ", r);
+      // console.log("GET DB UPDATE RESPONSE: ", r);
       if (r.displayName) {
         if (option === "") {
           const mealData = {
@@ -138,13 +138,11 @@ export const AuthContextProvider = (props) => {
       setUserInfo(profile);
       setMealData(mealData);
     } else {
-      console.log("NO TOKEN DATA WAS THERE TO RETREIVE");
+      // console.log("NO TOKEN DATA WAS THERE TO RETREIVE");
     }
   }, []);
 
   const logoutHandler = async (function_that_called, time) => {
-    console.log("LOGGING OUT...");
-    console.log(`Function: ${function_that_called} called logoutHandler`);
     setToken(null);
     setUserName(null);
     REMOVE_TOKEN_DATA_FROM_STORAGE();
@@ -211,17 +209,13 @@ export const AuthContextProvider = (props) => {
   };
 
   const logoutDealer = async (what_called) => {
-    console.log("In Logout Dealer");
-    console.log(
-      `logoutDealer: Function ${what_called} was called with ${remainingTime} seconds left.`
-    );
     logoutHandler();
   };
 
   const personalSetTimeout = (who, time) => {
-    console.log(
-      `personalSetTimeout: Function ${who} was called with ${time} seconds left.`
-    );
+    // console.log(
+    //   `personalSetTimeout: Function ${who} was called with ${time} seconds left.`
+    // );
     logoutTimeout = setTimeout(logoutDealer, time);
   };
 

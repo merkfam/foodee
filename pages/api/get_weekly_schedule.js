@@ -21,7 +21,6 @@ const add_ingredient = async (req, res) => {
       return_type
     );
 
-    console.log("GET_WEEKLY_SCHEDULE RESPONSE: ", response);
     if (return_type === "return") {
       return res.send(response);
     }

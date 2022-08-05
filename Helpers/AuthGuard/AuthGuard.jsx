@@ -61,7 +61,7 @@ const AuthGuard = (props) => {
     // console.log("QUERY: ", query);
 
     const lastPage = GET_LAST_PAGE();
-    console.log("LAST PAGE: ", lastPage);
+    // console.log("LAST PAGE: ", lastPage);
 
     if (lastPage) {
       if (pageData.path.path !== "/login") {
@@ -75,9 +75,9 @@ const AuthGuard = (props) => {
 
     if (pageData.subPath) {
       if (!foodCtx.currentMeal.dish) {
-        console.log("NOT GETTING LAST MEAL");
+        // console.log("NOT GETTING LAST MEAL");
         const latest = GET_LAST_MEAL("AUTH GUARD 79");
-        console.log("LATEST MEAL WAS: ", latest);
+        // console.log("LATEST MEAL WAS: ", latest);
         foodCtx.setCurrentMeal(latest);
       }
     }
