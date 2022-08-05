@@ -20,6 +20,7 @@ const FoodContext = createContext({
   allIngredients: [],
   currency: "",
   hasScheduleIngredients: Boolean,
+  setCurrentMeal: () => {},
   addNewDish: () => {},
   setBreakfast: () => {},
   setLunch: () => {},

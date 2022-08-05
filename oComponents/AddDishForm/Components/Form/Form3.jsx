@@ -16,9 +16,7 @@ const Form3 = (props) => {
   const [ingredientError, setIngredientError] = useState(null);
   const [dishError, setDishError] = useState(null);
   const [dishName, setDishName] = useState(props.name);
-  const [instructions, setInstructions] = useState(
-    props.instructions.instructions
-  );
+  const [instructions, setInstructions] = useState(props.instructions);
   const ingredientData = props.ingredients;
 
   ingredientData.forEach((ingredient) => {

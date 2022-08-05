@@ -39,9 +39,6 @@ const Setting = (props) => {
 
   const UpdateHandler = (e) => {
     e.preventDefault();
-    console.log("OBJ KEY: ", props.objKey);
-    console.log("NEW SETTING: ", newSetting);
-    console.log("CATEGORY: ", userCtx[props.category]);
     setShowUpdateModal(false);
     setEdit("cancel");
     setOrSetting(newSetting);
@@ -52,7 +49,6 @@ const Setting = (props) => {
         [props.objKey]: newSetting,
       },
     };
-    console.log("ACTUAL UPDATE DATA: ", update);
     props.updateSetting(update);
   };
 

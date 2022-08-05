@@ -8,7 +8,8 @@ import Form3 from "../AddDishForm/Components/Form/Form3";
 import FoodContext from "../../store/food-context";
 
 const DishPage = (props) => {
-  // console.log("DISH PAGE: ", props);
+  console.log("DISH PAGE: ", props);
+  // console.log(props);
   if (!props.mealData.dish) {
     return null;
   }
@@ -51,17 +52,17 @@ const DishPage = (props) => {
         return prev;
       });
     } else if (meal === "snack") {
-      // foodCtx.setLunch((prev) => {
-      //   const newDishType = `${dishType}s`;
-      //   prev[newDishType].splice(index, 1);
-      //   return prev;
-      // });
+      foodCtx.setSnack((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
     } else if (meal === "dessert") {
-      // foodCtx.setLunch((prev) => {
-      //   const newDishType = `${dishType}s`;
-      //   prev[newDishType].splice(index, 1);
-      //   return prev;
-      // });
+      foodCtx.setDessert((prev) => {
+        const newDishType = `${dishType}s`;
+        prev[newDishType].splice(index, 1);
+        return prev;
+      });
     }
 
     router.push(redirect);
@@ -130,8 +131,8 @@ const DishPage = (props) => {
                 meal={data.meal}
                 ingredients={data.ingredients}
                 name={data.dish}
-                instructions={data.instructions}
-                instructions_id={data.instructions.instructions._id}
+                instructions={props.mealData.instructions}
+                instructions_id={data.instructions}
                 mealType={data.mealType}
                 dishType={data.dishType}
                 id={data.id}
@@ -149,7 +150,7 @@ const DishPage = (props) => {
               dishType={data.dishType}
               mealType={data.mealType}
               id={data._id}
-              instructions={data.instructions}
+              instructions={props.mealData.instructions}
               setCurrentMeal={props.setCurrentMeal}
             />
           )}

@@ -51,24 +51,24 @@ export const AuthContextProvider = (props) => {
   const [loggingIn, setLoggingIn] = useState(false);
   const userIsLoggedIn = !!token;
 
-  // console.log("LOGGED IN? ", userIsLoggedIn);
-
-  const saveLatest = (mealData) => {
-    SAVE_LAST_MEAL(mealData);
+  const saveLatest = (mealData, calledBy) => {
+    SAVE_LAST_MEAL(mealData, calledBy);
   };
 
   const updateLatest = (new_meal) => {
     UPDATE_LAST_MEAL(new_meal);
   };
 
+  const getLatest = (calledBy) => {
+    const latest = GET_LAST_MEAL(calledBy);
+    return latest;
+  };
+
   const updateProfile = (newProfileData) => {
     let updated;
     if (userIsLoggedIn) {
       updated = UPDATE_STORED_DATA(newProfileData);
-      setUserInfo(updated);
-    } else {
-      updated = UPDATE_STORED_DATA(newProfileData);
-      setUserInfo(updated);
+      setUserInfo({ ...updated.profile });
     }
   };
 
@@ -155,26 +155,11 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token, userName, expirationTime, profile, mealData) => {
     setLoggingIn(true);
-    if (token) {
-      setToken(token);
-      // console.log("TOKEN: ", token);
-    }
-    if (userName) {
-      setUserName(userName);
-      // console.log("USERNAME: ", userName);
-    }
-    if (profile) {
-      setUserInfo(profile);
-      // console.log("PROFILE DATA: ", profile);
-    }
-
-    if (mealData) {
-      setMealData({ ...mealData });
-      if (mealData.ingredients) {
-        setIngredients(mealData.ingredients);
-      }
-      // console.log("MEAL DATA: ", mealData);
-    }
+    token && setToken(token);
+    userName && setUserName(userName);
+    profile && setUserInfo(profile);
+    mealData && setMealData({ ...mealData });
+    mealData && mealData.ingredients && setIngredients(mealData.ingredients);
     saveLatest({ dish: {}, meal: "" });
 
     ADD_TOKEN_DATA_TO_STORAGE(
@@ -191,7 +176,6 @@ export const AuthContextProvider = (props) => {
   };
 
   useEffect(() => {
-    // console.log(ingredients);
     const expirationTime = localStorage.getItem("expirationTime");
     remainingTime = CALCULATE_REMAINING_TIME(expirationTime);
 
@@ -213,7 +197,7 @@ export const AuthContextProvider = (props) => {
       save: saveLatest,
       update: updateLatest,
       remove: REMOVE_LAST_MEAL,
-      get: GET_LAST_MEAL,
+      get: getLatest,
     },
     ingredients: ingredients,
     loggingIn: loggingIn,

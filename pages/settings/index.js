@@ -1,10 +1,12 @@
 import SettingsPage from "../../oComponents/Settings/SettingsPage";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import UserContext from "../../store/user-context";
+
 const Settings = () => {
   let update;
   let updateSetting;
   const userCtx = useContext(UserContext);
+
   if (userCtx["User Data"]) {
     if (userCtx.others) {
       update = userCtx.others.funcs.update;
@@ -13,7 +15,7 @@ const Settings = () => {
       update = () => {};
     }
   } else {
-    console.log("USERCTX :", userCtx);
+    // console.log("USERCTX :", userCtx);
     update = () => {};
   }
 

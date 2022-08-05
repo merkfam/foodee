@@ -21,14 +21,12 @@ export const FoodContextProvider = (props) => {
 
   let lastMeal;
   const [currentMeal, setCurrentMeal] = useState(lastMeal ? lastMeal : {});
+  // console.log("CURRENT MEAL: ", currentMeal);
   useEffect(() => {
     if (authCtx.isLoggedIn) {
-      if (lastMeal) {
-        setCurrentMeal(lastMeal);
-      } else {
-        setCurrentMeal({});
-      }
-      lastMeal = authCtx.lastMeal.get().dish;
+      lastMeal = authCtx.lastMeal.get("FoodCtx");
+      // console.log("LAST MEAL: ", lastMeal);
+      lastMeal ? setCurrentMeal(lastMeal) : setCurrentMeal({});
     }
   }, [authCtx.isLoggedIn]);
 
@@ -63,8 +61,7 @@ export const FoodContextProvider = (props) => {
           setDessert(meals.dessert);
         }
       }
-      // console.log("m.ingredients: ", m.ingredients);
-      // console.log("ingredients: ", authCtx.ingredients);
+
       setScheduleId(authCtx.userInfo.userId);
       setWeeklyScheduleData(m.weeklyList);
       setListOfIngredients(
@@ -74,7 +71,7 @@ export const FoodContextProvider = (props) => {
           ? m.ingredients
           : []
       );
-      lastMeal = authCtx.lastMeal.get().dish;
+      lastMeal = authCtx.lastMeal.get("FoodCtx 2");
       setCurrentMeal(lastMeal);
     }
   }, [authCtx.isLoggedIn, authCtx.mealData, authCtx.mealData.ingredients]);
@@ -232,7 +229,7 @@ export const FoodContextProvider = (props) => {
     scheduleId: scheduleId,
     hasScheduleIngredients: hasScheduleIngredients,
     reload: reload,
-    currentMeal: currentMeal === "undefined" ? [] : currentMeal,
+    currentMeal: typeof currentMeal === "undefined" ? {} : currentMeal,
     allIngredients: listOfIngredients,
     currency: cur,
     setCurrentMeal: setCurrentMeal,
@@ -261,10 +258,7 @@ export const FoodContextProvider = (props) => {
     snack: contextValue.snack,
     dessert: contextValue.dessert,
     hasScheduleIngredients: hasScheduleIngredients,
-    // hasWeeklySchedule: hasWeeklySchedule,
   };
-
-  // console.log(dataCheck);
 
   return (
     <FoodContext.Provider value={contextValue}>
@@ -274,60 +268,3 @@ export const FoodContextProvider = (props) => {
 };
 
 export default FoodContext;
-
-// let hasSchedule;
-
-// const getAllData = async () => {
-//   // useEffect is called to avoid endless re-renders
-//   await getMenu();
-//   hasSchedule = await GET_WEEKLY_SCHEDULE();
-//   await getListOfIngredients();
-//   setHasWeeklySchedule(hasSchedule);
-// };
-
-// useEffect(() => {
-//   const fake = false;
-//   // authCtx.isLoggedIn && getAllData();
-//   fake && getAllData();
-// }, [authCtx.isLoggedIn]);
-
-// const GET_WEEKLY_SCHEDULE = async (userId) => {
-//   const r = await FETCH("", "/api/get_weekly_schedule");
-//   if (r) {
-//     setWeeklyScheduleData(r);
-//     setScheduleId(r._id);
-//     setHasWeeklySchedule(true);
-//     // console.log("GET_WEEKLY_SCHEDULE: ", r);
-//     return true;
-//   } else {
-//     setHasWeeklySchedule(false);
-//     // console.log("GET_WEEKLY_SCHEDULE: ", r);
-//     return null;
-//   }
-// };
-// const getMenu = async (userId) => {
-//   const r = await FETCH(userId, "/api/get_full_menu");
-//   if (r.err) {
-//     console.log(r.err);
-//   } else {
-//     const { _id, breakfast, lunch, dinner, snack, dessert } = r;
-//     setMenuId(_id);
-//     setBreakfast(breakfast);
-//     setLunch(lunch);
-//     setDinner(dinner);
-//     setSnack(snack);
-//     setDessert(dessert);
-//   }
-//   return r;
-// };
-// const getListOfIngredients = async () => {
-//   const r = await FETCH("", "/api/get_ingredient_list");
-//   if (r.err) {
-//     console.log(r.err);
-//   } else {
-//     r && r.ingredients
-//       ? setListOfIngredients(r.ingredients)
-//       : setListOfIngredients([]);
-//     r && r._id ? setListOfIngredientsId(r._id) : setListOfIngredientsId("");
-//   }
-// };

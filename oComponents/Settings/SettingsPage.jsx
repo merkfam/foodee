@@ -1,39 +1,55 @@
 import SettingsTier1 from "./SettingsModules/SettingsTier1/SettingsTier1";
 import css from "./SettingsPage.module.css";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import PostButton from "../UI/Button/PostButton/PostButton";
 
 const SettingsPage = (props) => {
+  const [isUpdated, setIsUpdated] = useState("Null");
+  const [saveText, setSaveText] = useState("Save Changes");
   const base = props.base;
   const keys = Object.keys(base);
 
-  const updateProfile = (e) => {
+  const updateProfile = async (e) => {
     e.preventDefault();
-    props.update();
+    setSaveText("Saving...");
+    await props.update();
+    setTimeout(() => {
+      setIsUpdated("Null");
+      setSaveText("Save Changes");
+    }, 3000);
+    setSaveText("Saving...");
+    setIsUpdated("Updating Profile...");
   };
+
   if (!keys) {
     return;
   }
 
-  const handleTransfer = async () => {
-    // Create User Through Sign Up
-    // Get Sign Up Details From Backend
-    // Take all currently stored food data and save it along with profile info in user file
-    // Save Them Into Proper Place
-  };
   return (
     <>
-      <h1>Settings</h1>
+      <span className={css.heading}>
+        <h1 className={css.settingsText}>Settings</h1>
+        <h6 className={css.updateText}>{isUpdated}</h6>
+      </span>
+
       <div className={css.saveAllDiv}>
-        <PostButton
-          onClick={updateProfile}
-          text="Save Changes"
-          className={css.saveAll}
-        />
+        {keys.length > 1 && (
+          <PostButton
+            onClick={updateProfile}
+            text={saveText}
+            className={css.saveAll}
+          />
+        )}
       </div>
       {keys.map((key, index) => {
         const nextTier = base[key];
-        if (key === "others" || key === "_id" || key === "userId") {
+        if (
+          key === "others" ||
+          key === "_id" ||
+          key === "userId" ||
+          key === "type" ||
+          key === "localId"
+        ) {
           return null;
         }
         return (
@@ -52,13 +68,14 @@ const SettingsPage = (props) => {
           </Fragment>
         );
       })}
-      {/* <button onClick={updateProfile}>Save Changes</button> */}
       <div className={css.saveAllDiv}>
-        <PostButton
-          onClick={updateProfile}
-          text="Save Changes"
-          className={css.saveAll}
-        />
+        {keys.length > 1 && (
+          <PostButton
+            onClick={updateProfile}
+            text={saveText}
+            className={css.saveAll}
+          />
+        )}
       </div>
     </>
   );

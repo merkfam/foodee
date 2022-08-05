@@ -2,7 +2,7 @@ import Card from "../UI/Card/Card";
 import css from "./DishInstructions.module.css";
 
 const DishInstructions = (props) => {
-  const instructions = props.instructions.instructions;
+  const instructions = props.instructions;
   const _id = props.instructions._id;
 
   return (
