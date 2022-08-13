@@ -1,6 +1,7 @@
 import ShoppingList from "../../oComponents/ShoppingList/ShoppingList";
 import FoodContext from "../../store/food-context";
-import { useContext, useEffect, Fragment } from "react";
+import { useContext, Fragment } from "react";
+import AuthGuard from "../../Helpers/AuthGuard/AuthGuard";
 
 const Home = () => {
   const foodCtx = useContext(FoodContext);
@@ -44,7 +45,7 @@ const Home = () => {
     });
 
   return (
-    <Fragment>
+    <AuthGuard>
       <ShoppingList
         shoppingList={shoppingList}
         realMeals={realMeals}
@@ -63,7 +64,7 @@ const Home = () => {
         setReload={foodCtx.setReload}
         hasIngredients={foodCtx.hasScheduleIngredients}
       />
-    </Fragment>
+    </AuthGuard>
   );
 };
 
