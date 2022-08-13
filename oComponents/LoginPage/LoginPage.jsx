@@ -24,8 +24,8 @@ const LoginPage = () => {
     const credURL = "/api/get_credentials";
     try {
       const credentialsResponse = await AXIOS_POST(credentials, credURL);
-      // console.log("CREDENTIALS RESPONSE: ", credentialsResponse);
       const loginURL = "/api/login";
+      // console.log(credentialsResponse);
 
       if (credentialsResponse.idToken) {
         try {
