@@ -5,7 +5,6 @@ import css from "./ShoppingList.module.css";
 // import AuthContext from "../../store/auth-context";
 
 const ShoppingList = (props) => {
-  // const authCtx = useContext(AuthContext);
   const [ingredients, setIngredients] = useState(props.shoppingList);
 
   useEffect(() => {

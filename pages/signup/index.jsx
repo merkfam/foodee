@@ -8,7 +8,6 @@ import { SIGN_LOG_IN_FETCH } from "../../store/FOODCONTEXT/FETCH_API";
 
 const Signup = () => {
   const authCtx = useContext(AuthContext);
-  const router = useRouter();
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,100 +25,6 @@ const Signup = () => {
     setError,
   ];
 
-  const loginHandler = async (userData) => {
-    const toSend = JSON.stringify(userData);
-    console.log("in login handler ...");
-    let data;
-    try {
-      data = await fetch("/api/login", {
-        method: "POST",
-        body: toSend,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    } catch (error) {
-      console.log("There was an error posting data to the server...");
-      setError(error);
-      return null;
-    }
-    try {
-      const loginData = await data.json();
-      if (loginData.error) {
-        console.log("this data is the error");
-        console.log(loginData.error.message);
-        return loginData.error.message;
-      }
-
-      return loginData;
-    } catch (error) {
-      console.log("there was an error signing you in");
-      setError(error);
-      return null;
-    }
-  };
-  // const addUserHandler = SIGN_LOG_IN_FETCH;
-
-  // const addUserHandler = async (enteredData) => {
-  //   const sendToData = JSON.stringify(enteredData);
-  //   let data;
-  //   // Posting Data From Server Fetching Information
-  //   try {
-  //     data = await fetch("/api/signup", {
-  //       method: "POST",
-  //       body: sendToData,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     if (data.errors) {
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     console.log("There was an error posting data to the server...");
-  //     return null;
-  //   }
-
-  //   console.log("newData Has Arrived Below:");
-  //   // Deciding if fetched data is error prone...
-  //   try {
-  //     const signInData = await data.json();
-  //     if (!signInData.error) {
-  //       setError(null);
-  //       const mergedData = {
-  //         ...enteredData,
-  //         ...signInData,
-  //       };
-  //       const loginData = await loginHandler(mergedData);
-
-  //       for (let i = 0; i < setStates.length - 1; i++) {
-  //         setStates[i]("");
-  //       }
-  //       return loginData;
-  //     } else {
-  //       const err = signInData.error.message;
-  //       if (err === "EMAIL_EXISTS") {
-  //         setError(
-  //           "There is already an account associated with that email, please sign-up using a different email or try loggin in."
-  //         );
-  //       } else if (err.includes("WEAK_PASSWORD")) {
-  //         console.log("WEAK_PASSWORD");
-  //         setError(
-  //           "Please make sure your password is at least 6 characters long, preferrably longer, and add symbols."
-  //         );
-  //       } else {
-  //         console.log("SOME_OTHER_ATROCITY");
-  //         setError(err);
-  //         setIsLoading(false);
-  //       }
-  //       setIsLoading(false);
-  //       return null;
-  //     }
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // };
-
   const formSubmitHandler = async (event) => {
     event.preventDefault();
     const credentials = {
@@ -135,7 +40,6 @@ const Signup = () => {
     if (data.token) {
       console.log("THE TOKEN AND ALL INFO IS IN:");
     } else {
-      // console.log("FAULTY DATA, NOTHING CAME IN");
       console.log(data);
     }
 
@@ -148,7 +52,6 @@ const Signup = () => {
         new Date().getTime() + +data.expiresIn * 1000
       );
       authCtx.login(token, userName, expirationTime);
-      // router.push("/menu");
     }
     setIsLoading(false);
   };

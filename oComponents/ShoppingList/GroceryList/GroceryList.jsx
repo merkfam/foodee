@@ -28,7 +28,6 @@ const GroceryList = (props) => {
             : 1;
 
         const totalPrice = number * price;
-        const itemName = numberObj[item];
         if (ingredient.ingredient === "undefined") {
           return;
         }
@@ -51,8 +50,6 @@ const GroceryList = (props) => {
   const checkIngredient = (line, index, id) => {
     const fixedIngredients = ingredients;
     delete fixedIngredients[index];
-    // console.log(index);
-
     props.setIngredients((prev) => {
       return fixedIngredients;
     });
