@@ -147,10 +147,13 @@ const GroceryList = (props) => {
                   <p>Ingredient</p>
                 </th>
                 <th className={css.priceTh}>
-                  <p>Price</p>
+                  <p>#</p>
                 </th>
+                {/* <th className={css.amountTh}>
+                  <p>Price</p>
+                </th> */}
                 <th className={css.amountTh}>
-                  <p>Amount</p>
+                  <p>Total</p>
                 </th>
               </tr>
 

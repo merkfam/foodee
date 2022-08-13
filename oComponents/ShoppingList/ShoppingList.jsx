@@ -1,8 +1,7 @@
 import GroceryList from "./GroceryList/GroceryList";
-import { Fragment, useContext, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import WeeklyPlan from "./WeeklyPlan/WeeklyPlan";
 import css from "./ShoppingList.module.css";
-// import AuthContext from "../../store/auth-context";
 
 const ShoppingList = (props) => {
   const [ingredients, setIngredients] = useState(props.shoppingList);

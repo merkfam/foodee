@@ -25,14 +25,9 @@
   width: 35%;
 }
 
-.priceTh {
-  width: 15%;
-  overflow-x: hidden !important;
-  white-space: normal !important;
-}
-
+.priceTh,
 .amountTh {
-  width: 15%;
+  width: 8%;
   overflow-x: hidden !important;
   white-space: normal !important;
 }
