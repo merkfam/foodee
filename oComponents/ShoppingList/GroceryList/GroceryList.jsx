@@ -36,11 +36,11 @@ const GroceryList = (props) => {
     seeTotal === "Total" ? setSeeTotal("Price") : setSeeTotal("Total");
   };
 
-  const checkIngredient = (line, index, id) => {
-    const fixedIngredients = ingredients;
-    delete fixedIngredients[index];
-    props.setIngredients((prev) => {
-      return fixedIngredients;
+  const checkIngredient = (index, ingredient) => {
+    console.log(ingredient);
+    setIngredients((prev) => {
+      prev.splice(index, 1);
+      return [...prev];
     });
   };
 
@@ -93,7 +93,7 @@ const GroceryList = (props) => {
               {ingredients.map((ingredient, index) => {
                 return (
                   <Fragment key={`TableOfIngredients: ${index}`}>
-                    {ingredient.ingredient && (
+                    {ingredient && ingredient.ingredient && (
                       <ToBuy
                         onClick={checkIngredient}
                         index={index}
