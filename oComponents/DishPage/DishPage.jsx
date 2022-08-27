@@ -8,7 +8,7 @@ import Form3 from "../AddDishForm/Components/Form/Form3";
 import FoodContext from "../../store/food-context";
 
 const DishPage = (props) => {
-  console.log("DISH PAGE: ", props);
+  // console.log("DISH PAGE: ", props);
   // console.log(props);
   if (!props.mealData.dish) {
     return null;
@@ -29,7 +29,7 @@ const DishPage = (props) => {
     props.updateDish(update_data);
     const redirect = `/menu/${router.query.meal}`;
     const meal = update_data.meal;
-    console.log("update_data,", update_data);
+    // console.log("update_data,", update_data);
     const index = meal.index;
     const dishType = data.dishType;
 
@@ -149,8 +149,8 @@ const DishPage = (props) => {
               meal={data.meal}
               dishType={data.dishType}
               mealType={data.mealType}
-              id={data._id}
-              instructions={props.mealData.instructions}
+              id={data && data._id ? _id : null}
+              instructions={data.instructions}
               setCurrentMeal={props.setCurrentMeal}
             />
           )}

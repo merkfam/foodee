@@ -23,10 +23,7 @@ const add_dish = async (req, res) => {
     ),
     dish: dishName,
     ingredients: newIngredients,
-    instructions: {
-      instructions: instructions,
-      _id: ObjectId((Math.random() / Math.random()) * Math.random()),
-    },
+    instructions: instructions,
   };
 
   // console.log("SEND DATA: ", updateData);
